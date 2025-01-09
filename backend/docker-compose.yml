@@ -1,0 +1,47 @@
+version: '3'
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=ambition-db
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    networks:
+      - elk
+    deploy:
+      resources:
+        limits:
+          cpus: "0.7"
+          memory: "2g"
+
+  backend: 
+    hostname: ambition-back
+    container_name: ambition-back
+    build: 
+      context: ./
+    restart: unless-stopped
+    depends_on:
+      - postgres
+      - elasticsearch
+      - prometheus
+    environment:
+      - ES_HOST=elasticsearch
+      - POSTGRES_HOST=postgres
+    ports:
+      - 5000:5000
+    volumes: 
+      - ./uploads:/app/uploads
+    networks:
+      - elk
+
+networks:
+  elk: 
+    driver: bridge
+
+volumes: 
+  elasticsearch:
