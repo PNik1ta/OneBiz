@@ -1,6 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
+import { APP_GUARD } from '@nestjs/core';
+import { AtGuard } from './shared/guards/at.guard';
 
 @Module({
   imports: [
@@ -17,8 +21,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       synchronize: true,
       entities: [],
     }),
+    UserModule,
+    AuthModule,
   ],
-  controllers: [],
-  providers: [],
+  providers: [{ provide: APP_GUARD, useClass: AtGuard }],
 })
 export class AppModule {}
