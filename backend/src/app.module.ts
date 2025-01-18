@@ -5,6 +5,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AtGuard } from './shared/guards/at.guard';
+import { BusinessModule } from './business/business.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { AtGuard } from './shared/guards/at.guard';
     }),
     UserModule,
     AuthModule,
+    BusinessModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: AtGuard }],
 })
