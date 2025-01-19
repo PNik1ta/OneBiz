@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AtGuard } from './shared/guards/at.guard';
 import { BusinessModule } from './business/business.module';
+import { FilesModule } from './file/file.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { BusinessModule } from './business/business.module';
       synchronize: true,
       entities: [],
     }),
+    FilesModule,
     UserModule,
     AuthModule,
     BusinessModule,
