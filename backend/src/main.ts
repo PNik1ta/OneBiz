@@ -17,7 +17,7 @@ async function bootstrap() {
       'https://www.cut-price.ge/',
       'http://www.cut-price.ge/',
       'https://cut-price.ge/',
-      'http://cut-price.ge/'
+      'http://cut-price.ge/',
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,

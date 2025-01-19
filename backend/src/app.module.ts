@@ -7,6 +7,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { AtGuard } from './shared/guards/at.guard';
 import { BusinessModule } from './business/business.module';
 import { FilesModule } from './file/file.module';
+import { BookingModule } from './booking/booking.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { FilesModule } from './file/file.module';
     UserModule,
     AuthModule,
     BusinessModule,
+    BookingModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: AtGuard }],
 })
