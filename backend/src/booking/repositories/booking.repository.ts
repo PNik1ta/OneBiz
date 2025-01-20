@@ -4,6 +4,7 @@ import { Repository, UpdateResult } from 'typeorm';
 import { BookingEntity } from '../entities/booking.entity';
 import { User } from '../../user/models/user.model';
 import { Business } from '../../business/models/business.model';
+import { Service } from '../../service/models/service.model';
 
 export class BookingRepository {
   constructor(

@@ -3,7 +3,7 @@ import { BusinessRepository } from './repositories/business.repository';
 import { CreateBusinessDto } from './dto/create-business.dto';
 import { BaseResponse } from '../shared/classes/base-response';
 import { Business } from './models/business.model';
-import { BusinessEntity, BusinessEntity } from './entities/business.entity';
+import { BusinessEntity } from './entities/business.entity';
 import {
   BUSINESS_CREATE_ERROR,
   BUSINESS_FIND_ERROR,
@@ -77,14 +77,10 @@ export class BusinessService {
       throw new Error(BUSINESS_FIND_ERROR);
     }
 
-    const lastSlashIndex = business.background_url.lastIndexOf('/');
-    const secondLastSlashIndex = business.background_url.lastIndexOf(
-      '/',
-      lastSlashIndex - 1,
-    );
-
     // Extract the relative file path starting from the second last slash
     for (const bg of business.preview_images_url) {
+      const lastSlashIndex = bg.lastIndexOf('/');
+      const secondLastSlashIndex = bg.lastIndexOf('/', lastSlashIndex - 1);
       const fileRelativePath = bg.substring(secondLastSlashIndex + 1);
       const filePath = `${path.resolve(__dirname, '../../../')}/uploads/${fileRelativePath}`;
       try {

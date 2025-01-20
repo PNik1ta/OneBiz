@@ -29,7 +29,10 @@ export class BookingService {
     private readonly businessRepository: BusinessRepository,
   ) {}
 
-  async createBooking(dto: CreateBookingDto, userId: number) {
+  async createBooking(
+    dto: CreateBookingDto,
+    userId: number,
+  ): Promise<BaseResponse<Booking>> {
     const booking = new BookingEntity({
       datetime: new Date(dto.datetime),
       user_id: userId,
@@ -90,13 +93,14 @@ export class BookingService {
     userId: number,
   ): Promise<BaseResponse<void>> {
     const booking = await this.bookingRepository.findById(id);
-    const business = await this.businessRepository.findById(
-      booking.business_id,
-    );
 
     if (!booking) {
       throw new Error(BOOKING_FIND_ERROR);
     }
+
+    const business = await this.businessRepository.findById(
+      booking.business_id,
+    );
 
     if (!business) {
       throw new Error(BUSINESS_FIND_ERROR);

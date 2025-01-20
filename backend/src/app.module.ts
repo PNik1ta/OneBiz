@@ -8,6 +8,7 @@ import { AtGuard } from './shared/guards/at.guard';
 import { BusinessModule } from './business/business.module';
 import { FilesModule } from './file/file.module';
 import { BookingModule } from './booking/booking.module';
+import { ServiceModule } from './service/service.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { BookingModule } from './booking/booking.module';
     AuthModule,
     BusinessModule,
     BookingModule,
+    ServiceModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: AtGuard }],
 })

@@ -23,6 +23,10 @@ export class BusinessRepository {
     return this.businessRepository.findOneBy({ id: id });
   }
 
+  async findByUserId(userId: number): Promise<Business> {
+    return this.businessRepository.findOneBy({ user_id: userId });
+  }
+
   async delete(id: number): Promise<void> {
     await this.businessRepository.delete(id);
   }
