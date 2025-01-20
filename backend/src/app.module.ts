@@ -9,6 +9,10 @@ import { BusinessModule } from './business/business.module';
 import { FilesModule } from './file/file.module';
 import { BookingModule } from './booking/booking.module';
 import { ServiceModule } from './service/service.module';
+import { User } from './user/models/user.model';
+import { Business } from './business/models/business.model';
+import { Booking } from './booking/models/booking.model';
+import { Service } from './service/models/service.model';
 
 @Module({
   imports: [
@@ -23,7 +27,7 @@ import { ServiceModule } from './service/service.module';
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
       synchronize: true,
-      entities: [],
+      entities: [User, Business, Booking, Service],
     }),
     FilesModule,
     UserModule,
