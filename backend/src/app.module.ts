@@ -13,6 +13,8 @@ import { User } from './user/models/user.model';
 import { Business } from './business/models/business.model';
 import { Booking } from './booking/models/booking.model';
 import { Service } from './service/models/service.model';
+import { Review } from './review/models/review.model';
+import { ReviewModule } from './review/review.module';
 
 @Module({
   imports: [
@@ -27,7 +29,7 @@ import { Service } from './service/models/service.model';
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
       synchronize: true,
-      entities: [User, Business, Booking, Service],
+      entities: [User, Business, Booking, Service, Review],
     }),
     FilesModule,
     UserModule,
@@ -35,6 +37,7 @@ import { Service } from './service/models/service.model';
     BusinessModule,
     BookingModule,
     ServiceModule,
+    ReviewModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: AtGuard }],
 })
