@@ -15,6 +15,8 @@ import { Booking } from './booking/models/booking.model';
 import { Service } from './service/models/service.model';
 import { Review } from './review/models/review.model';
 import { ReviewModule } from './review/review.module';
+import { Tag } from './tag/models/tag.model';
+import { TagModule } from './tag/tag.module';
 
 @Module({
   imports: [
@@ -29,7 +31,7 @@ import { ReviewModule } from './review/review.module';
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
       synchronize: true,
-      entities: [User, Business, Booking, Service, Review],
+      entities: [User, Business, Booking, Service, Review, Tag],
     }),
     FilesModule,
     UserModule,
@@ -38,6 +40,7 @@ import { ReviewModule } from './review/review.module';
     BookingModule,
     ServiceModule,
     ReviewModule,
+    TagModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: AtGuard }],
 })
