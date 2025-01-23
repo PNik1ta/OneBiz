@@ -5,7 +5,9 @@ import { BookingEntity } from '../entities/booking.entity';
 import { User } from '../../user/models/user.model';
 import { Business } from '../../business/models/business.model';
 import { Service } from '../../service/models/service.model';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class BookingRepository {
   constructor(
     @InjectRepository(Booking)
