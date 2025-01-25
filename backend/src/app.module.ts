@@ -19,6 +19,8 @@ import { Tag } from './tag/models/tag.model';
 import { TagModule } from './tag/tag.module';
 import { PostModule } from './post/post.module';
 import { Post } from './post/models/post.model';
+import { Like } from './like/models/like.model';
+import { LikeModule } from './like/like.module';
 
 @Module({
   imports: [
@@ -33,7 +35,7 @@ import { Post } from './post/models/post.model';
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
       synchronize: true,
-      entities: [User, Business, Booking, Service, Review, Tag, Post],
+      entities: [User, Business, Booking, Service, Review, Tag, Post, Like],
     }),
     FilesModule,
     UserModule,
@@ -44,6 +46,7 @@ import { Post } from './post/models/post.model';
     ReviewModule,
     TagModule,
     PostModule,
+    LikeModule,
   ],
   providers: [{ provide: APP_GUARD, useClass: AtGuard }],
 })

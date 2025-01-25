@@ -3,7 +3,9 @@ import { Post } from '../models/post.model';
 import { Repository, UpdateResult } from 'typeorm';
 import { PostEntity } from '../entities/post.entity';
 import { Tag } from '../../tag/models/tag.model';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class PostRepository {
   constructor(
     @InjectRepository(Post)
