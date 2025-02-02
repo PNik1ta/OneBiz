@@ -137,6 +137,46 @@ export class BookingRepository {
       .getRawMany();
   }
 
+  async findByUserId(userId: number): Promise<Booking[]> {
+    return this.bookingRepository
+      .createQueryBuilder('booking')
+      .leftJoinAndMapOne(
+        'booking.user',
+        User,
+        'user',
+        'user.id = booking.user_id',
+      )
+      .leftJoinAndMapOne(
+        'booking.business',
+        Business,
+        'business',
+        'business.id = booking.business_id',
+      )
+      .leftJoinAndMapOne(
+        'booking.service',
+        Service,
+        'service',
+        'service.id = booking.service_id',
+      )
+      .select([
+        'booking.id AS id',
+        'booking.datetime AS datetime',
+        'booking.description AS description',
+        'booking.status AS status',
+        'booking.amount AS amount',
+      ])
+      .addSelect('user.username AS username')
+      .addSelect('user.avatar_url AS user_avatar_url')
+      .addSelect('user.id AS user_id')
+      .addSelect('business.company_name AS company_name')
+      .addSelect('business.id AS business_id')
+      .addSelect('service.title AS service')
+      .addSelect('service.amount AS service_amount')
+      .addSelect('service.discount AS service_discount')
+      .where('booking.user_id = :user_id', { user_id: userId })
+      .getRawMany();
+  }
+
   async delete(id: number): Promise<void> {
     await this.bookingRepository.delete(id);
   }

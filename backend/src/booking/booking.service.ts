@@ -6,6 +6,7 @@ import { EBookingStatuses } from '../shared/enums/booking-statuses.enum';
 import {
   BOOKING_CREATE_ERROR,
   BOOKING_FIND_ERROR,
+  BOOKING_PERMISSIONS_DELETE_ERROR,
   BOOKING_PERMISSIONS_UPDATE_ERROR,
   BOOKING_UPDATE_ERROR,
 } from '../shared/errors/booking.errors';
@@ -82,7 +83,38 @@ export class BookingService {
     return new BaseResponse<Booking[]>(BOOKING_FIND_ALL, bookings);
   }
 
+  async findByUserId(userId: number): Promise<BaseResponse<Booking[]>> {
+    const bookings = await this.bookingRepository.findByUserId(userId);
+
+    if (!bookings) {
+      throw new Error(BOOKING_FIND_ERROR);
+    }
+
+    return new BaseResponse<Booking[]>(BOOKING_FIND_ALL, bookings);
+  }
+
   async delete(id: number): Promise<BaseResponse<void>> {
+    const booking = await this.bookingRepository.findById(id);
+    const business = await this.businessRepository.findByUserId(id);
+
+    if (!booking) {
+      throw new Error(BOOKING_FIND_ERROR);
+    }
+
+    if (!business) {
+      throw new Error(BUSINESS_FIND_ERROR);
+    }
+
+    if (
+      booking.business_id !== business.id &&
+      ![
+        EBookingStatuses.CANCELED,
+        EBookingStatuses.FINISHED,
+        EBookingStatuses.NO_SHOW,
+      ].includes(booking.status)
+    ) {
+      throw new Error(BOOKING_PERMISSIONS_DELETE_ERROR);
+    }
     await this.bookingRepository.delete(id);
     return new BaseResponse<void>(BOOKING_DELETED);
   }

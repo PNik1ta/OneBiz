@@ -19,6 +19,7 @@ import { ERoles } from '../shared/enums/roles.enum';
 import { LikeService } from './like.service';
 import { Like } from './models/like.model';
 import { CreateLikeDto } from './dto/create-like.dto';
+import { Public } from '../shared/decorators/public.decorator';
 
 @Controller('like')
 @ApiTags('like')
@@ -52,7 +53,7 @@ export class LikeController {
   })
   @Get()
   @HttpCode(200)
-  @Roles(ERoles.ADMIN, ERoles.BUSINESS, ERoles.USER)
+  @Public()
   async findAll(): Promise<BaseResponse<Like[]>> {
     try {
       return await this.likeService.findAll();
@@ -67,7 +68,7 @@ export class LikeController {
   })
   @Get('find-by-user-id')
   @HttpCode(200)
-  @Roles(ERoles.ADMIN, ERoles.BUSINESS, ERoles.USER)
+  @Public()
   async findByBusinessId(
     @GetCurrentUserId() userId: number,
   ): Promise<BaseResponse<Like[]>> {
@@ -84,7 +85,7 @@ export class LikeController {
   })
   @Get('find-by-post-id/:post_id')
   @HttpCode(200)
-  @Roles(ERoles.ADMIN, ERoles.BUSINESS, ERoles.USER)
+  @Public()
   async findById(
     @Param('post_id') postId: number,
   ): Promise<BaseResponse<Like[]>> {

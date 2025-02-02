@@ -20,7 +20,6 @@ import { Roles } from '../shared/decorators/roles.decorator';
 import { ERoles } from '../shared/enums/roles.enum';
 import { CreateBookingDto } from './dto/create-booking.dto';
 import { GetCurrentUserId } from '../shared/decorators/get-current-user-id.decorator';
-import { Public } from '../shared/decorators/public.decorator';
 import { UpdateBookingDto } from './dto/update-booking.dto';
 
 @Controller('booking')
@@ -37,7 +36,7 @@ export class BookingController {
   @Post()
   @HttpCode(201)
   @ApiBearerAuth('JWT-auth')
-  @Public()
+  @Roles(ERoles.ADMIN, ERoles.USER, ERoles.BUSINESS)
   async create(
     @Body() dto: CreateBookingDto,
     @GetCurrentUserId() userId: number,
@@ -68,9 +67,9 @@ export class BookingController {
     description: 'Booking by id',
     type: BaseResponse<Booking>,
   })
-  @Get()
+  @Get(':id')
   @HttpCode(200)
-  @Public()
+  @Roles(ERoles.USER, ERoles.BUSINESS, ERoles.ADMIN)
   async findById(@Param('id') id: number): Promise<BaseResponse<Booking>> {
     try {
       return await this.bookingService.findById(id);
@@ -83,7 +82,7 @@ export class BookingController {
     description: 'Booking by business id',
     type: BaseResponse<Booking[]>,
   })
-  @Get()
+  @Get('find-by-business/:business_id')
   @HttpCode(200)
   @Roles(ERoles.BUSINESS)
   async findByBusinessId(
@@ -97,13 +96,30 @@ export class BookingController {
   }
 
   @ApiOkResponse({
+    description: 'Booking by user id',
+    type: BaseResponse<Booking[]>,
+  })
+  @Get('find-by-user-id')
+  @HttpCode(200)
+  @Roles(ERoles.USER, ERoles.BUSINESS, ERoles.ADMIN)
+  async findByUserId(
+    @GetCurrentUserId() userId: number,
+  ): Promise<BaseResponse<Booking[]>> {
+    try {
+      return await this.bookingService.findByUserId(userId);
+    } catch (err) {
+      throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  @ApiOkResponse({
     description: 'Deleted message',
     type: BaseResponse<void>,
   })
   @Delete(':id')
   @HttpCode(200)
   @ApiBearerAuth('JWT-auth')
-  @Roles(ERoles.ADMIN)
+  @Roles(ERoles.BUSINESS)
   async delete(@Param('id') id: number): Promise<BaseResponse<void>> {
     try {
       return await this.bookingService.delete(id);
@@ -119,7 +135,7 @@ export class BookingController {
   @Put(':id')
   @HttpCode(201)
   @ApiBearerAuth('JWT-auth')
-  @Public()
+  @Roles(ERoles.ADMIN, ERoles.BUSINESS, ERoles.USER)
   async update(
     @Param('id') id: number,
     @Body() dto: UpdateBookingDto,

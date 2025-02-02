@@ -122,7 +122,7 @@ export class CommentController {
   @Put(':id')
   @HttpCode(201)
   @ApiBearerAuth('JWT-auth')
-  @Public()
+  @Roles(ERoles.ADMIN, ERoles.BUSINESS, ERoles.USER)
   async update(
     @Param('id') id: number,
     @Body() dto: UpdateCommentDto,

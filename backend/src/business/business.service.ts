@@ -108,7 +108,7 @@ export class BusinessService {
       throw new Error(BUSINESS_FIND_ERROR);
     }
 
-    if (userId !== business.user_id && user?.role !== ERoles.ADMIN) {
+    if (userId !== business.user_id || user?.role !== ERoles.ADMIN) {
       throw new Error(BUSINESS_PERMISSIONS_UPDATE_ERROR);
     }
 
