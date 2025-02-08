@@ -1,0 +1,3 @@
+elasticsearch.username: "inponlinelogs"
+elasticsearch.password: "JuwO34V&0zy"
+xpack.security.encryptionKey: "606d564b92836842fbc8b527f1f95303a4004c5ec7a5e469bc89ff5eb644c8f1"

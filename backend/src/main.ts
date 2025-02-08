@@ -2,23 +2,16 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as express from 'express';
-import { ElasticsearchLoggerService } from './logger.service';
 import { Request, Response } from 'express';
+import { ElasticsearchLoggerService } from './logger.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
-  //const loggerService = app.get(ElasticsearchLoggerService);
+  const loggerService = app.get(ElasticsearchLoggerService);
 
   app.enableCors({
-    origin: [
-      'http://localhost:3000',
-      'http://www.localhost:3000',
-      'https://www.cut-price.ge/',
-      'http://www.cut-price.ge/',
-      'https://cut-price.ge/',
-      'http://cut-price.ge/',
-    ],
+    origin: ['http://localhost:3000', 'http://www.localhost:3000'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   });
@@ -44,14 +37,19 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  // app.use((req: Request, res: Response, next) => {
-  //   express.json()(req, res, () => {
-  //     if (req.url !== '/metrics') {
-  //       loggerService.logHTTPRequest(req.method, req.url, JSON.stringify(req.body), res.statusCode);
-  //     }
-  //     next();
-  //   })
-  // });
+  app.use((req: Request, res: Response, next) => {
+    express.json()(req, res, () => {
+      if (req.url !== '/metrics') {
+        loggerService.logHTTPRequest(
+          req.method,
+          req.url,
+          JSON.stringify(req.body),
+          res.statusCode,
+        );
+      }
+      next();
+    });
+  });
 
   await app.listen(5000);
 }
