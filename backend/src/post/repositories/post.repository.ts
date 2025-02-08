@@ -4,6 +4,7 @@ import { Repository, UpdateResult } from 'typeorm';
 import { PostEntity } from '../entities/post.entity';
 import { Tag } from '../../tag/models/tag.model';
 import { Injectable } from '@nestjs/common';
+import { Business } from '../../business/models/business.model';
 
 @Injectable()
 export class PostRepository {
@@ -20,6 +21,12 @@ export class PostRepository {
     return this.postRepository
       .createQueryBuilder('post')
       .leftJoinAndMapMany('post.tags', Tag, 'tag', 'tag.id = ANY (post.tagsId)')
+      .leftJoinAndMapOne(
+        'booking.business',
+        Business,
+        'business',
+        'business.id = post.business_id',
+      )
       .select([
         'post.id AS id',
         'post.business_id AS business_id',
@@ -29,6 +36,8 @@ export class PostRepository {
         'post.created_at AS created_at',
         'post.likes AS likes',
       ])
+      .addSelect('business.company_name AS company_name')
+      .addSelect('business.preview_images_url AS business_preview_images_url')
       .addSelect('tag.name AS tag_name')
       .getRawMany();
   }
