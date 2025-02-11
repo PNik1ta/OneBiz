@@ -1,6 +1,7 @@
-import { Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { IComment } from '../../shared/interfaces/comment.interface';
 
+@Entity()
 export class Comment implements IComment {
   @PrimaryGeneratedColumn()
   id: number;

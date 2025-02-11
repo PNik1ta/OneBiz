@@ -1,7 +1,8 @@
-import { Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { EReviewType } from '../../shared/enums/review-types.enum';
 import { IReview } from '../../shared/interfaces/review.interface';
 
+@Entity()
 export class Review implements IReview {
   @PrimaryGeneratedColumn()
   id: number;

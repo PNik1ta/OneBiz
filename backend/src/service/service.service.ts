@@ -21,7 +21,9 @@ import { ServiceEntity } from './enities/service.entity';
 import { Service } from './models/service.model';
 import { ServiceRepository } from './repositories/service.repository';
 import * as path from 'path';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class ServiceService {
   constructor(
     private readonly serviceRepository: ServiceRepository,
@@ -107,7 +109,6 @@ export class ServiceService {
       } catch (error) {
         // Handle errors, possibly logging them
         console.error('Error deleting file:', error);
-        return new BaseResponse<void>(JSON.stringify(error));
       }
     }
 

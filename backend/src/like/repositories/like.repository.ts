@@ -2,10 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Like } from '../models/like.model';
 import { LikeEntity } from '../entities/like.entity';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class LikeRepository {
-  constructor(private likeRepository: Repository<Like>) {}
+  constructor(
+    @InjectRepository(Like) private likeRepository: Repository<Like>,
+  ) {}
 
   async create(like: LikeEntity): Promise<Like> {
     return await this.likeRepository.save(like);

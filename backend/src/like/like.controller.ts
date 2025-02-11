@@ -68,7 +68,7 @@ export class LikeController {
   })
   @Get('find-by-user-id')
   @HttpCode(200)
-  @Public()
+  @Roles(ERoles.ADMIN, ERoles.BUSINESS, ERoles.USER)
   async findByBusinessId(
     @GetCurrentUserId() userId: number,
   ): Promise<BaseResponse<Like[]>> {
@@ -109,7 +109,7 @@ export class LikeController {
     @GetCurrentUserId() userId: number,
   ): Promise<BaseResponse<void>> {
     try {
-      return await this.likeService.delete(userId, id);
+      return await this.likeService.delete(id, userId);
     } catch (err) {
       throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }

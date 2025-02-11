@@ -88,7 +88,6 @@ export class BusinessService {
       } catch (error) {
         // Handle errors, possibly logging them
         console.error('Error deleting file:', error);
-        return new BaseResponse<void>(JSON.stringify(error));
       }
     }
 

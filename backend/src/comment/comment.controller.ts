@@ -68,7 +68,7 @@ export class CommentController {
     description: 'Comment by id',
     type: BaseResponse<Comment>,
   })
-  @Get()
+  @Get('/:id')
   @HttpCode(200)
   @Public()
   async findById(@Param('id') id: number): Promise<BaseResponse<Comment>> {
@@ -83,7 +83,7 @@ export class CommentController {
     description: 'Comment by post id',
     type: BaseResponse<Comment[]>,
   })
-  @Get()
+  @Get('find-by-business-id/:business_id')
   @HttpCode(200)
   @Public()
   async findByPostId(

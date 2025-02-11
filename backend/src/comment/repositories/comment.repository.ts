@@ -18,7 +18,7 @@ export class CommentRepository {
 
   async findAll(): Promise<Comment[]> {
     return this.commentRepository
-      .createQueryBuilder()
+      .createQueryBuilder('comment')
       .leftJoinAndMapOne(
         'comment.user',
         User,
@@ -41,7 +41,7 @@ export class CommentRepository {
 
   async findByPostId(postId: number): Promise<Comment[]> {
     return this.commentRepository
-      .createQueryBuilder()
+      .createQueryBuilder('comment')
       .leftJoinAndMapOne(
         'comment.user',
         User,
@@ -65,7 +65,7 @@ export class CommentRepository {
 
   async findById(id: number): Promise<Comment> {
     return this.commentRepository
-      .createQueryBuilder()
+      .createQueryBuilder('comment')
       .leftJoinAndMapOne(
         'comment.user',
         User,
@@ -80,9 +80,6 @@ export class CommentRepository {
         'comment.created_at AS created_at',
         'comment.is_edited AS is_edited',
       ])
-      .addSelect('user.username AS username')
-      .addSelect('user.avatar_url AS user_avatar_url')
-      .addSelect('user.id AS user_id')
       .where('comment.id = :id', { id })
       .getRawOne();
   }

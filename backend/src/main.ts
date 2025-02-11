@@ -17,10 +17,10 @@ async function bootstrap() {
   });
 
   const config = new DocumentBuilder()
-    .setTitle('Ambition marketing')
-    .setDescription('Ambition marketing API description')
+    .setTitle('OneBiz')
+    .setDescription('OneBiz API description')
     .setVersion('1.0')
-    .addTag('ambition')
+    .addTag('onebiz')
     .addBearerAuth(
       {
         type: 'http',
@@ -37,19 +37,19 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  app.use((req: Request, res: Response, next) => {
-    express.json()(req, res, () => {
-      if (req.url !== '/metrics') {
-        loggerService.logHTTPRequest(
-          req.method,
-          req.url,
-          JSON.stringify(req.body),
-          res.statusCode,
-        );
-      }
-      next();
-    });
-  });
+  // app.use((req: Request, res: Response, next) => {
+  //   express.json()(req, res, () => {
+  //     if (req.url !== '/metrics') {
+  //       loggerService.logHTTPRequest(
+  //         req.method,
+  //         req.url,
+  //         JSON.stringify(req.body),
+  //         res.statusCode,
+  //       );
+  //     }
+  //     next();
+  //   });
+  // });
 
   await app.listen(5000);
 }

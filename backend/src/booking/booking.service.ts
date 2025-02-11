@@ -93,9 +93,9 @@ export class BookingService {
     return new BaseResponse<Booking[]>(BOOKING_FIND_ALL, bookings);
   }
 
-  async delete(id: number): Promise<BaseResponse<void>> {
+  async delete(id: number, userId: number): Promise<BaseResponse<void>> {
     const booking = await this.bookingRepository.findById(id);
-    const business = await this.businessRepository.findByUserId(id);
+    const business = await this.businessRepository.findByUserId(userId);
 
     if (!booking) {
       throw new Error(BOOKING_FIND_ERROR);
@@ -106,7 +106,7 @@ export class BookingService {
     }
 
     if (
-      booking.business_id !== business.id &&
+      booking.business_id !== business.id ||
       ![
         EBookingStatuses.CANCELED,
         EBookingStatuses.FINISHED,

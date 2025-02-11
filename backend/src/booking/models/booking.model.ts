@@ -1,7 +1,8 @@
-import { Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { IBooking } from '../../shared/interfaces/booking.interface';
 import { EBookingStatuses } from '../../shared/enums/booking-statuses.enum';
 
+@Entity()
 export class Booking implements IBooking {
   @PrimaryGeneratedColumn()
   id: number;

@@ -94,7 +94,7 @@ export class PostService {
       throw new Error(POST_FIND_ERROR);
     }
 
-    if (business.id !== post.id) {
+    if (business.id !== post.business_id) {
       throw new Error(POST_PERMISSIONS_DELETE_ERROR);
     }
 
@@ -112,7 +112,6 @@ export class PostService {
     } catch (error) {
       // Handle errors, possibly logging them
       console.error('Error deleting file:', error);
-      return new BaseResponse<void>(JSON.stringify(error));
     }
 
     await this.postRepository.delete(id);

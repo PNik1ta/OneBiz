@@ -14,6 +14,7 @@ import { Business } from './business/models/business.model';
 import { Booking } from './booking/models/booking.model';
 import { Service } from './service/models/service.model';
 import { Review } from './review/models/review.model';
+import { Comment } from './comment/models/comment.model';
 import { ReviewModule } from './review/review.module';
 import { Tag } from './tag/models/tag.model';
 import { TagModule } from './tag/tag.module';
@@ -22,6 +23,7 @@ import { Post } from './post/models/post.model';
 import { Like } from './like/models/like.model';
 import { LikeModule } from './like/like.module';
 import { CommentModule } from './comment/comment.module';
+import { ElasticsearchLoggerService } from './logger.service';
 
 @Module({
   imports: [
@@ -60,6 +62,9 @@ import { CommentModule } from './comment/comment.module';
     LikeModule,
     CommentModule,
   ],
-  providers: [{ provide: APP_GUARD, useClass: AtGuard }],
+  providers: [
+    { provide: APP_GUARD, useClass: AtGuard },
+    ElasticsearchLoggerService,
+  ],
 })
 export class AppModule {}

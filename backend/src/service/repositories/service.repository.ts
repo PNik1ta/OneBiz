@@ -2,7 +2,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Service } from '../models/service.model';
 import { Repository, UpdateResult } from 'typeorm';
 import { ServiceEntity } from '../enities/service.entity';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class ServiceRepository {
   constructor(
     @InjectRepository(Service)

@@ -1,6 +1,7 @@
-import { Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { IPost } from '../../shared/interfaces/post.interface';
 
+@Entity()
 export class Post implements IPost {
   @PrimaryGeneratedColumn()
   id: number;
@@ -23,6 +24,6 @@ export class Post implements IPost {
   @Column()
   likes: number;
 
-  @Column({ type: 'array' })
+  @Column('int', { array: true, default: [] })
   tagsId: number[];
 }

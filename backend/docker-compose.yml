@@ -59,7 +59,7 @@ services:
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
-      - POSTGRES_DB=ambition-db
+      - POSTGRES_DB=onebiz
     ports:
       - 5432:5432
     volumes:
@@ -73,8 +73,8 @@ services:
           memory: "2g"
 
   backend: 
-    hostname: ambition-back
-    container_name: ambition-back
+    hostname: onebiz-back
+    container_name: onebiz-back
     build: 
       context: ./
     restart: unless-stopped

@@ -1,6 +1,7 @@
-import { Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { IBusiness } from '../../shared/interfaces/business.interface';
 
+@Entity()
 export class Business implements IBusiness {
   @PrimaryGeneratedColumn()
   id: number;

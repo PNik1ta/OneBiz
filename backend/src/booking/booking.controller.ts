@@ -64,6 +64,23 @@ export class BookingController {
   }
 
   @ApiOkResponse({
+    description: 'Booking by user id',
+    type: BaseResponse<Booking[]>,
+  })
+  @Get('find-by-user-id')
+  @HttpCode(200)
+  @Roles(ERoles.USER, ERoles.BUSINESS, ERoles.ADMIN)
+  async findByUserId(
+    @GetCurrentUserId() userId: number,
+  ): Promise<BaseResponse<Booking[]>> {
+    try {
+      return await this.bookingService.findByUserId(userId);
+    } catch (err) {
+      throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  @ApiOkResponse({
     description: 'Booking by id',
     type: BaseResponse<Booking>,
   })
@@ -84,29 +101,12 @@ export class BookingController {
   })
   @Get('find-by-business/:business_id')
   @HttpCode(200)
-  @Roles(ERoles.BUSINESS)
+  @Roles(ERoles.BUSINESS, ERoles.ADMIN)
   async findByBusinessId(
     @Param('business_id') businessId: number,
   ): Promise<BaseResponse<Booking[]>> {
     try {
       return await this.bookingService.findByBusinessId(businessId);
-    } catch (err) {
-      throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-  }
-
-  @ApiOkResponse({
-    description: 'Booking by user id',
-    type: BaseResponse<Booking[]>,
-  })
-  @Get('find-by-user-id')
-  @HttpCode(200)
-  @Roles(ERoles.USER, ERoles.BUSINESS, ERoles.ADMIN)
-  async findByUserId(
-    @GetCurrentUserId() userId: number,
-  ): Promise<BaseResponse<Booking[]>> {
-    try {
-      return await this.bookingService.findByUserId(userId);
     } catch (err) {
       throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -119,10 +119,13 @@ export class BookingController {
   @Delete(':id')
   @HttpCode(200)
   @ApiBearerAuth('JWT-auth')
-  @Roles(ERoles.BUSINESS)
-  async delete(@Param('id') id: number): Promise<BaseResponse<void>> {
+  @Roles(ERoles.BUSINESS, ERoles.ADMIN)
+  async delete(
+    @Param('id') id: number,
+    @GetCurrentUserId() userId: number,
+  ): Promise<BaseResponse<void>> {
     try {
-      return await this.bookingService.delete(id);
+      return await this.bookingService.delete(id, userId);
     } catch (err) {
       throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
