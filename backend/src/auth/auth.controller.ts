@@ -1,10 +1,12 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   HttpCode,
   HttpException,
   HttpStatus,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { Public } from '../shared/decorators/public.decorator';
 import { AuthService } from './auth.service';
@@ -14,17 +16,25 @@ import { GetCurrentUserId } from '../shared/decorators/get-current-user-id.decor
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
+import { VerificationService } from '../mail/verification.service';
+import { VerificationGuard } from '../shared/guards/verification.guard';
+import { SendVerificationCodeDto } from './dto/send-verification-code.dto';
+import { VerifyVerificationCodeDto } from './dto/verify-verification-code.dto';
 
 @Controller('auth')
 @ApiTags('auth')
 @ApiBearerAuth('JWT-auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly verificationService: VerificationService,
+  ) {}
 
   @ApiOkResponse({
     description: 'Register user tokens',
   })
   @Public()
+  @UseGuards(VerificationGuard)
   @HttpCode(201)
   @Post('register')
   async register(@Body() dto: RegisterUserDto): Promise<Tokens> {
@@ -90,5 +100,28 @@ export class AuthController {
 
       throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+  }
+
+  @Post('send-code')
+  @Public()
+  async sendVerificationCode(@Body() dto: SendVerificationCodeDto) {
+    if (!dto?.email) {
+      throw new BadRequestException('Email is required');
+    }
+    await this.verificationService.sendVerificationCode(dto?.email);
+    return { message: 'Verification code sent to your email.' };
+  }
+
+  @Post('verify-code')
+  @Public()
+  async verifyCode(@Body() dto: VerifyVerificationCodeDto) {
+    const isValid = this.verificationService.validateCode(
+      dto?.email,
+      dto?.code,
+    );
+    if (!isValid) {
+      throw new BadRequestException('Invalid verification code');
+    }
+    return { message: 'Verification successful. You can now register.' };
   }
 }

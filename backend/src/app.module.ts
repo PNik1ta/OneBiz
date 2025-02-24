@@ -24,6 +24,7 @@ import { Like } from './like/models/like.model';
 import { LikeModule } from './like/like.module';
 import { CommentModule } from './comment/comment.module';
 import { ElasticsearchLoggerService } from './logger.service';
+import { VerificationModule } from './mail/verification.module';
 
 @Module({
   imports: [
@@ -61,6 +62,7 @@ import { ElasticsearchLoggerService } from './logger.service';
     PostModule,
     LikeModule,
     CommentModule,
+    VerificationModule,
   ],
   providers: [
     { provide: APP_GUARD, useClass: AtGuard },
