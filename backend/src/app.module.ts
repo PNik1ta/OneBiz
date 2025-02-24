@@ -25,6 +25,7 @@ import { LikeModule } from './like/like.module';
 import { CommentModule } from './comment/comment.module';
 import { ElasticsearchLoggerService } from './logger.service';
 import { VerificationModule } from './mail/verification.module';
+import { MailerModule } from '@nestjs-modules/mailer';
 
 @Module({
   imports: [
@@ -50,6 +51,20 @@ import { VerificationModule } from './mail/verification.module';
         Like,
         Comment,
       ],
+    }),
+    MailerModule.forRoot({
+      transport: {
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+          user: 'npozdeyev@gmail.com',
+          pass: 'jlyy hwfo nelr ozdx',
+        },
+      },
+      defaults: {
+        from: '"No Reply" <noreply@gmail.com>',
+      },
     }),
     FilesModule,
     UserModule,
