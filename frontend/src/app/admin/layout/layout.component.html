@@ -1,0 +1,61 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="sidenav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Админ-панель</span>
+</mat-toolbar>
+
+<mat-sidenav-container class="container">
+  <mat-sidenav #sidenav mode="side" opened>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/admin">
+        <mat-icon>dashboard</mat-icon>
+        Главная
+      </a>
+      <a mat-list-item routerLink="/admin/users">
+        <mat-icon>people</mat-icon>
+        Пользователи
+      </a>
+      <a mat-list-item routerLink="/admin/businesses">
+        <mat-icon>business</mat-icon>
+        Бизнесы
+      </a>
+      <a mat-list-item routerLink="/admin/bookings">
+        <mat-icon>event</mat-icon>
+        Бронирования
+      </a>
+      <a mat-list-item routerLink="/admin/services">
+        <mat-icon>build</mat-icon>
+        Услуги
+      </a>
+      <a mat-list-item routerLink="/admin/reviews">
+        <mat-icon>rate_review</mat-icon>
+        Отзывы
+      </a>
+      <a mat-list-item routerLink="/admin/posts">
+        <mat-icon>article</mat-icon>
+        Посты
+      </a>
+      <a mat-list-item routerLink="/admin/comments">
+        <mat-icon>comment</mat-icon>
+        Комментарии
+      </a>
+      <a mat-list-item routerLink="/admin/likes">
+        <mat-icon>thumb_up</mat-icon>
+        Лайки
+      </a>
+      <a mat-list-item routerLink="/admin/tags">
+        <mat-icon>label</mat-icon>
+        Теги
+      </a>
+      <a mat-list-item routerLink="/">
+        <mat-icon>exit_to_app</mat-icon>
+        На сайт
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

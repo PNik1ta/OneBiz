@@ -1,0 +1,15 @@
+.container {
+  height: 100vh;
+}
+
+mat-list-item {
+  display: flex;
+  align-items: center; // ✅ Выравнивание по центру
+}
+
+mat-icon {
+  margin-right: 8px; // ✅ Отступ справа
+  vertical-align: middle; // ✅ Выровнять по центру
+  font-size: 22px; // ✅ Немного увеличим, если нужно
+}
+
