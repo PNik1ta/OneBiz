@@ -83,11 +83,11 @@ export class CommentController {
     description: 'Comment by post id',
     type: BaseResponse<Comment[]>,
   })
-  @Get('find-by-business-id/:business_id')
+  @Get('find-by-post-id/:business_id')
   @HttpCode(200)
   @Public()
   async findByPostId(
-    @Param('business_id') postId: number,
+    @Param('post_id') postId: number,
   ): Promise<BaseResponse<Comment[]>> {
     try {
       return await this.commentService.findByPostId(postId);

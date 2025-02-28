@@ -69,7 +69,7 @@ export class LikeController {
   @Get('find-by-user-id')
   @HttpCode(200)
   @Roles(ERoles.ADMIN, ERoles.BUSINESS, ERoles.USER)
-  async findByBusinessId(
+  async findByUserId(
     @GetCurrentUserId() userId: number,
   ): Promise<BaseResponse<Like[]>> {
     try {
