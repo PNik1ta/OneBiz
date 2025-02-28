@@ -3,35 +3,42 @@ import { API_URL } from '../constants/api-url';
 import { HttpClient } from '@angular/common/http';
 import { IUser } from '../interfaces/user.interface';
 import { Observable } from 'rxjs';
+import { ICreateUserDto } from '../dto/user/create-user.dto';
+import { IUpdateUserDto } from '../dto/user/update-user.dto';
+import { BaseResponse } from '../classes/base-response';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
-  private apiUrl = `${API_URL}/users`
+  private apiUrl = `${API_URL}/user`;
   constructor(private http: HttpClient) { }
 
-  getUsers(): Observable<IUser[]> {
-    return this.http.get<IUser[]>(this.apiUrl);
+  getUsers(): Observable<BaseResponse<IUser[]>> {
+    return this.http.get<BaseResponse<IUser[]>>(this.apiUrl);
   }
 
-  // ✅ Получение одного пользователя
-  getUser(id: number): Observable<IUser> {
-    return this.http.get<IUser>(`${this.apiUrl}/${id}`);
+  getUser(id: number): Observable<BaseResponse<IUser>> {
+    return this.http.get<BaseResponse<IUser>>(`${this.apiUrl}/${id}`);
   }
 
-  // ✅ Создание пользователя
-  createUser(user: IUser): Observable<IUser> {
-    return this.http.post<IUser>(this.apiUrl, user);
+  getProfile(): Observable<BaseResponse<IUser>> {
+    return this.http.get<BaseResponse<IUser>>(`${this.apiUrl}/get-profile`)
   }
 
-  // ✅ Обновление пользователя
-  updateUser(user: IUser): Observable<IUser> {
-    return this.http.put<IUser>(`${this.apiUrl}/${user.id}`, user);
+  getByEmail(email: string): Observable<BaseResponse<IUser>> {
+    return this.http.get<BaseResponse<IUser>>(`${this.apiUrl}/find-by-email/${email}`)
   }
 
-  // ✅ Удаление пользователя
-  deleteUser(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  createUser(dto: ICreateUserDto): Observable<BaseResponse<IUser>> {
+    return this.http.post<BaseResponse<IUser>>(this.apiUrl, dto);
+  }
+
+  updateUser(dto: IUpdateUserDto): Observable<BaseResponse<void>> {
+    return this.http.put<BaseResponse<void>>(`${this.apiUrl}/update-info`, dto);
+  }
+
+  deleteUser(id: number): Observable<BaseResponse<void>> {
+    return this.http.delete<BaseResponse<void>>(`${this.apiUrl}/${id}`);
   }
 }

@@ -1,0 +1,4 @@
+export interface IUpdateUserDto {
+  username?: string
+  avatar_url?: string
+}
