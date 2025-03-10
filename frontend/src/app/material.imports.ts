@@ -7,15 +7,24 @@ import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 export const MATERIAL_IMPORTS = [
-  CommonModule, // ✅ Добавляем, чтобы работали *ngIf, *ngFor
-  RouterModule, // ✅ Для маршрутизации
+  CommonModule,
+  RouterModule,
   MatSidenavModule,
   MatToolbarModule,
   MatIconModule,
   MatListModule,
   MatButtonModule,
   MatTableModule,
-  MatCardModule
+  MatCardModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatProgressSpinnerModule,
+  FormsModule,
+  ReactiveFormsModule,
 ];
