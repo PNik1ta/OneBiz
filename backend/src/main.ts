@@ -11,7 +11,7 @@ async function bootstrap() {
   const loggerService = app.get(ElasticsearchLoggerService);
 
   app.enableCors({
-    origin: ['http://localhost:3000', 'http://www.localhost:3000'],
+    origin: ['http://localhost:4200', 'http://www.localhost:4200'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   });
