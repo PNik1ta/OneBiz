@@ -1,0 +1,40 @@
+<div class="business-container">
+  <button mat-raised-button color="primary" (click)="addBusiness()">Добавить бизнес</button>
+
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+      <mat-cell *matCellDef="let business"> {{ business.id }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="company_name">
+      <mat-header-cell *matHeaderCellDef> Название компании </mat-header-cell>
+      <mat-cell *matCellDef="let business"> {{ business.company_name }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="company_description">
+      <mat-header-cell *matHeaderCellDef> Описание компании </mat-header-cell>
+      <mat-cell *matCellDef="let business"> {{ business.company_description }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="user_id">
+      <mat-header-cell *matHeaderCellDef> Айди юзера </mat-header-cell>
+      <mat-cell *matCellDef="let business"> {{ business.user_id }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> Действия </mat-header-cell>
+      <mat-cell *matCellDef="let business">
+        <button mat-icon-button (click)="editBusiness(business)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteBusiness(business.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>

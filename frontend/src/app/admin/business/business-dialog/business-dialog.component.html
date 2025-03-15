@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>{{ data.business ? 'Редактировать бизнес' : 'Добавить бизнес' }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="businessForm">
+    <mat-form-field>
+      <mat-label>Название компании</mat-label>
+      <input matInput formControlName="company_name">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Описание компании</mat-label>
+      <input matInput formControlName="company_description">
+    </mat-form-field>
+
+    <div *ngIf="preview_images_url && preview_images_url.length > 0" class="preview-images">
+      <div class="preview-image" *ngFor="let item of preview_images_url">
+        <img [src]="item" alt="Preview image">
+      </div>
+    </div>
+
+    <input type="file" multiple (change)="onFileSelected($event)">
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="dialogRef.close()">Отмена</button>
+  <button mat-button color="primary" (click)="saveBusiness()" [disabled]="businessForm.invalid">Сохранить</button>
+</mat-dialog-actions>

@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from '../core/guards/auth.guard';
 import { UsersComponent } from './users/users.component';
 import { BookingsComponent } from './bookings/bookings.component';
+import { BusinessesComponent } from './business/business.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -15,7 +16,8 @@ export const routes: Routes = [
     children: [
       { path: '', component: DashboardComponent },
       { path: 'users', component: UsersComponent },
-      { path: 'bookings', component: BookingsComponent }
+      { path: 'bookings', component: BookingsComponent },
+      { path: 'businesses', component: BusinessesComponent }
     ]
   },
   { path: '**', redirectTo: '/login' }

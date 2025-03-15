@@ -6,6 +6,7 @@ import { BaseResponse } from "../classes/base-response";
 import { IBusiness } from "../interfaces/business.interface";
 import { ICreateBookingDto } from "../dto/booking/create-booking.dto";
 import { IUpdateBusinessDto } from "../dto/business/update-business.dto";
+import { ICreateBusinessDto } from "../dto/business/create-business.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class BusinessService {
     return this.http.get<BaseResponse<IBusiness>>(`${this.apiUrl}/${id}`)
   }
 
-  createBusiness(dto: ICreateBookingDto): Observable<BaseResponse<IBusiness>> {
+  createBusiness(dto: ICreateBusinessDto): Observable<BaseResponse<IBusiness>> {
     return this.http.post<BaseResponse<IBusiness>>(this.apiUrl, dto)
   }
 

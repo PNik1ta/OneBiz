@@ -16,4 +16,12 @@ export class FileService {
 
     return this.http.post<IFileResponse[]>(`${this.apiUrl}/upload`, formData)
   }
+
+  uploadMultiple(files: File[]): Observable<IFileResponse[]> {
+    const formData = new FormData()
+    for (const file of files) {
+      formData.append('files', file)
+    }
+    return this.http.post<IFileResponse[]>(`${this.apiUrl}/upload-multiple`, formData)
+  }
 }
