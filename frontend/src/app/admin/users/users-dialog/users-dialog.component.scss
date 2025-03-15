@@ -1,0 +1,24 @@
+.mat-dialog-container {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.avatar-preview {
+  width: 250px;
+  height: 250px;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+}

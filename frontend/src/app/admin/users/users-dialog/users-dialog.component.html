@@ -1,0 +1,39 @@
+<h2 mat-dialog-title>{{ data.user ? 'Редактировать пользователя' : 'Добавить пользователя' }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="userForm">
+    <mat-form-field>
+      <mat-label>Имя</mat-label>
+      <input matInput formControlName="username">
+    </mat-form-field>
+
+    <mat-form-field *ngIf="!data.user">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+    </mat-form-field>
+
+    <mat-form-field *ngIf="!data.user">
+      <mat-label>Пароль</mat-label>
+      <input type="password" matInput formControlName="password">
+    </mat-form-field>
+
+    <mat-form-field *ngIf="!data.user">
+      <mat-label>Роль</mat-label>
+      <mat-select formControlName="role">
+        <mat-option value="ADMIN">Admin</mat-option>
+        <mat-option value="BUSINESS">Business</mat-option>
+        <mat-option value="USER">User</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div *ngIf="avatarPreview" class="avatar-preview">
+      <img [src]="avatarPreview" alt="Avatar Preview">
+    </div>
+
+    <input type="file" (change)="onFileSelected($event)">
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="dialogRef.close()">Отмена</button>
+  <button mat-button color="primary" (click)="saveUser()" [disabled]="userForm.invalid">Сохранить</button>
+</mat-dialog-actions>

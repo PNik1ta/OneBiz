@@ -11,6 +11,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, MatDialogTitle } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 
 export const MATERIAL_IMPORTS = [
   CommonModule,
@@ -27,4 +29,11 @@ export const MATERIAL_IMPORTS = [
   MatProgressSpinnerModule,
   FormsModule,
   ReactiveFormsModule,
+  MatDialogModule,
+  MatSelectModule,
+  MatButtonModule,
+  MatDialogTitle,
+  MatDialogContent,
+  MatDialogActions,
+  MatDialogClose,
 ];
