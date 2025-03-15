@@ -7,7 +7,7 @@ import { IFileResponse } from '../../../core/interfaces/file-response';
 import { ICreateUserDto } from '../../../core/dto/user/create-user.dto';
 import { IUpdateUserDto } from '../../../core/dto/user/update-user.dto';
 import { MATERIAL_IMPORTS } from '../../../material.imports';
-import { API_IMG_URL, API_URL } from '../../../core/constants/api-url';
+import { API_IMG_URL } from '../../../core/constants/api-url';
 
 @Component({
   standalone: true,
