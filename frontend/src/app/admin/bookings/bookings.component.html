@@ -1,0 +1,60 @@
+<div class="bookings-container">
+  <button mat-raised-button color="primary" (click)="addBooking()">Добавить запись</button>
+
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+      <mat-cell *matCellDef="let booking"> {{ booking.id }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="datetime">
+      <mat-header-cell *matHeaderCellDef> Дата и время </mat-header-cell>
+      <mat-cell *matCellDef="let booking"> {{ booking.datetime | date }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="user_id">
+      <mat-header-cell *matHeaderCellDef> Айди юзера </mat-header-cell>
+      <mat-cell *matCellDef="let booking"> {{ booking.user_id }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="business_id">
+      <mat-header-cell *matHeaderCellDef> Айди бизнеса </mat-header-cell>
+      <mat-cell *matCellDef="let booking"> {{ booking.business_id }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="service_id">
+      <mat-header-cell *matHeaderCellDef> Айди сервиса </mat-header-cell>
+      <mat-cell *matCellDef="let booking"> {{ booking.service_id  }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef> Описание </mat-header-cell>
+      <mat-cell *matCellDef="let booking"> {{ booking.description  }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef> Статус </mat-header-cell>
+      <mat-cell *matCellDef="let booking"> {{ booking.status }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="amount">
+      <mat-header-cell *matHeaderCellDef> Сумма </mat-header-cell>
+      <mat-cell *matCellDef="let booking"> {{ booking.amount }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> Действия </mat-header-cell>
+      <mat-cell *matCellDef="let booking">
+        <button mat-icon-button (click)="editBooking(booking)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteBooking(booking.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>

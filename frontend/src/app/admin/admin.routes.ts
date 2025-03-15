@@ -4,6 +4,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from '../core/guards/auth.guard';
 import { UsersComponent } from './users/users.component';
+import { BookingsComponent } from './bookings/bookings.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -13,7 +14,8 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: '', component: DashboardComponent },
-      { path: 'users', component: UsersComponent }
+      { path: 'users', component: UsersComponent },
+      { path: 'bookings', component: BookingsComponent }
     ]
   },
   { path: '**', redirectTo: '/login' }

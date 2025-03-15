@@ -1,0 +1,39 @@
+<h2 mat-dialog-title>{{ data.booking ? 'Редактировать запись' : 'Добавить запись' }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="bookingForm">
+    <mat-form-field>
+      <mat-label>Дата и время</mat-label>
+      <input type="datetime" matInput formControlName="datetime">
+    </mat-form-field>
+
+    <mat-form-field *ngIf="!data.business">
+      <mat-label>Айди бизнеса</mat-label>
+      <input type="number" matInput formControlName="business_id">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Айди сервиса</mat-label>
+      <input type="number" matInput formControlName="service_id">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Описание</mat-label>
+      <input matInput formControlName="description">
+    </mat-form-field>
+
+    <mat-form-field *ngIf="data.booking">
+      <mat-label>Статус</mat-label>
+      <input matInput formControlName="status">
+    </mat-form-field>
+
+    <mat-form-field *ngIf="data.amount">
+      <mat-label>Сумма</mat-label>
+      <input matInput formControlName="amount">
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="dialogRef.close()">Отмена</button>
+  <button mat-button color="primary" (click)="saveBooking()" [disabled]="bookingForm.invalid">Сохранить</button>
+</mat-dialog-actions>

@@ -1,4 +1,4 @@
-import { EBookingStatuses } from '../enums/booking-statuses.enum';
+import { EBookingStatuses } from "../enums/booking-statuses.enum";
 
 export interface IBooking {
   id?: number;
