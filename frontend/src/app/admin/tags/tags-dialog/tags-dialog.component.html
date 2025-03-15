@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>{{ data.tag ? 'Редактировать тег' : 'Добавить тег' }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="tagsForm">
+    <mat-form-field>
+      <mat-label>Название</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="dialogRef.close()">Отмена</button>
+  <button mat-button color="primary" (click)="saveTag()" [disabled]="tagsForm.invalid">Сохранить</button>
+</mat-dialog-actions>
