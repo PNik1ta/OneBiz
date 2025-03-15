@@ -56,10 +56,8 @@ services:
   postgres:
     image: postgres
     restart: always
-    environment:
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=admin
-      - POSTGRES_DB=onebiz
+    env_file: 
+      - .env
     ports:
       - 5432:5432
     volumes:
@@ -82,9 +80,11 @@ services:
       - postgres
       - elasticsearch
       - prometheus
+    env_file: 
+      - .env
     environment:
-      - ES_HOST=elasticsearch
       - POSTGRES_HOST=postgres
+      - ES_HOST=elasticsearch
     ports:
       - 5000:5000
     volumes: 
