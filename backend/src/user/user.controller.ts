@@ -21,6 +21,7 @@ import { RolesGuard } from '../shared/guards/roles.guard';
 import { ERoles } from '../shared/enums/roles.enum';
 import { Roles } from '../shared/decorators/roles.decorator';
 import { GetCurrentUserId } from '../shared/decorators/get-current-user-id.decorator';
+import { Public } from '../shared/decorators/public.decorator';
 
 @Controller('user')
 @ApiBearerAuth('JWT-auth')
@@ -36,7 +37,7 @@ export class UserController {
   @Post()
   @ApiBearerAuth('JWT-auth')
   @HttpCode(201)
-  @Roles(ERoles.ADMIN)
+  @Public()
   async create(@Body() dto: CreateUserDto): Promise<BaseResponse<User>> {
     try {
       return await this.userService.createUser(dto);
