@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>{{ data.comment ? 'Редактировать комментарий' : 'Добавить комментарий' }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="commentForm">
+    <mat-form-field *ngIf="!data.post">
+      <mat-label>Айди поста</mat-label>
+      <input matInput formControlName="post_id">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Заголовок комментария</mat-label>
+      <input matInput formControlName="title">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Текст комментария</mat-label>
+      <input matInput formControlName="text">
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="dialogRef.close()">Отмена</button>
+  <button mat-button color="primary" (click)="saveComment()" [disabled]="commentForm.invalid">Сохранить</button>
+</mat-dialog-actions>

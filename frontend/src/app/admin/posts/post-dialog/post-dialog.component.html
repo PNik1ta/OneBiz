@@ -1,0 +1,35 @@
+<h2 mat-dialog-title>{{ data.post ? 'Редактировать пост' : 'Добавить пост' }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="postForm">
+    <mat-form-field>
+      <mat-label>Айди бизнеса</mat-label>
+      <input matInput formControlName="business_id">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Заголовок поста</mat-label>
+      <input matInput formControlName="title">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Текст поста</mat-label>
+      <input matInput formControlName="text">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Айди тегов</mat-label>
+      <input matInput formControlName="tagsId">
+    </mat-form-field>
+
+    <div *ngIf="backgroundPreview" class="background-preview">
+      <img [src]="backgroundPreview" alt="Background Preview">
+    </div>
+
+    <input type="file" (change)="onFileSelected($event)">
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="dialogRef.close()">Отмена</button>
+  <button mat-button color="primary" (click)="saveUser()" [disabled]="postForm.invalid">Сохранить</button>
+</mat-dialog-actions>

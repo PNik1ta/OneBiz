@@ -1,0 +1,60 @@
+<div class="posts-container">
+  <button mat-raised-button color="primary" (click)="addPost()">Добавить пост</button>
+
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+      <mat-cell *matCellDef="let post"> {{ post.id }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="business_id">
+      <mat-header-cell *matHeaderCellDef> Айди бизнеса </mat-header-cell>
+      <mat-cell *matCellDef="let post"> {{ post.business_id }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{ user.email }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef> Заголовок </mat-header-cell>
+      <mat-cell *matCellDef="let post"> {{ post.title }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="text">
+      <mat-header-cell *matHeaderCellDef> Текст </mat-header-cell>
+      <mat-cell *matCellDef="let post"> {{ post.text  }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="created_at">
+      <mat-header-cell *matHeaderCellDef> Дата создания </mat-header-cell>
+      <mat-cell *matCellDef="let post"> {{ post.created_at  }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="likes">
+      <mat-header-cell *matHeaderCellDef> Лайки </mat-header-cell>
+      <mat-cell *matCellDef="let post"> {{ post.likes  }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="tagId">
+      <mat-header-cell *matHeaderCellDef> Айди тегов </mat-header-cell>
+      <mat-cell *matCellDef="let post"> {{ post.tagsId  }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> Действия </mat-header-cell>
+      <mat-cell *matCellDef="let post">
+        <button mat-icon-button (click)="editPost(post)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deletePost(post.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>

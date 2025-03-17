@@ -7,6 +7,8 @@ import { UsersComponent } from './users/users.component';
 import { BookingsComponent } from './bookings/bookings.component';
 import { BusinessesComponent } from './business/business.component';
 import { TagsComponent } from './tags/tags.component';
+import { CommentComponent } from './comment/comment.component';
+import { PostComponent } from './posts/posts.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -19,7 +21,9 @@ export const routes: Routes = [
       { path: 'users', component: UsersComponent },
       { path: 'bookings', component: BookingsComponent },
       { path: 'businesses', component: BusinessesComponent },
-      { path: 'tags', component: TagsComponent }
+      { path: 'tags', component: TagsComponent },
+      { path: 'comments', component: CommentComponent },
+      { path: 'posts', component: PostComponent }
     ]
   },
   { path: '**', redirectTo: '/login' }

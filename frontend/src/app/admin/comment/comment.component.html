@@ -1,0 +1,55 @@
+<div class="comment-container">
+  <button mat-raised-button color="primary" (click)="addComment()">Добавить комментарий</button>
+
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+      <mat-cell *matCellDef="let comment"> {{ comment.id }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="user_id">
+      <mat-header-cell *matHeaderCellDef> Айди юзера </mat-header-cell>
+      <mat-cell *matCellDef="let comment"> {{ comment.user_id }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="post_id">
+      <mat-header-cell *matHeaderCellDef> Айди поста </mat-header-cell>
+      <mat-cell *matCellDef="let comment"> {{ comment.post_id }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef> Заголовок </mat-header-cell>
+      <mat-cell *matCellDef="let comment"> {{ comment.title }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="text">
+      <mat-header-cell *matHeaderCellDef> Текст </mat-header-cell>
+      <mat-cell *matCellDef="let comment"> {{ comment.text }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="created_at">
+      <mat-header-cell *matHeaderCellDef> Дата создания </mat-header-cell>
+      <mat-cell *matCellDef="let comment"> {{ comment.created_at }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="is_edited">
+      <mat-header-cell *matHeaderCellDef> Изменен ли пост </mat-header-cell>
+      <mat-cell *matCellDef="let comment"> {{ comment.is_edited }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> Действия </mat-header-cell>
+      <mat-cell *matCellDef="let comment">
+        <button mat-icon-button (click)="editComment(comment)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteComment(comment.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
