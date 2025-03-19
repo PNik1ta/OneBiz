@@ -1,0 +1,33 @@
+<h2 mat-dialog-title>{{ data.review ? 'Редактировать отзыв' : 'Добавить отзыв' }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="reviewForm">
+    <mat-form-field *ngIf="!data.review">
+      <mat-label>Айди бизнеса / записи</mat-label>
+      <input matInput formControlName="booking_business_id">
+    </mat-form-field>
+
+    <mat-form-field *ngIf="!data.review">
+      <mat-label>Тип</mat-label>
+      <input matInput formControlName="type">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Заголовок</mat-label>
+      <input matInput formControlName="title">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Рейтинг</mat-label>
+      <input type="number" matInput formControlName="rating">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Описание</mat-label>
+      <input matInput formControlName="description">
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="dialogRef.close()">Отмена</button>
+  <button mat-button color="primary" (click)="saveReview()" [disabled]="reviewForm.invalid">Сохранить</button>
+</mat-dialog-actions>

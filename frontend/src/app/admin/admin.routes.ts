@@ -9,6 +9,7 @@ import { BusinessesComponent } from './business/business.component';
 import { TagsComponent } from './tags/tags.component';
 import { CommentComponent } from './comment/comment.component';
 import { PostComponent } from './posts/posts.component';
+import { ReviewComponent } from './reviews/reviews.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -23,7 +24,8 @@ export const routes: Routes = [
       { path: 'businesses', component: BusinessesComponent },
       { path: 'tags', component: TagsComponent },
       { path: 'comments', component: CommentComponent },
-      { path: 'posts', component: PostComponent }
+      { path: 'posts', component: PostComponent },
+      { path: 'reviews', component: ReviewComponent }
     ]
   },
   { path: '**', redirectTo: '/login' }

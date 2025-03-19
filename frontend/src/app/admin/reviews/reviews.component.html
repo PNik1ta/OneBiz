@@ -1,0 +1,65 @@
+<div class="reviews-container">
+  <button mat-raised-button color="primary" (click)="addReview()">Добавить отзыв</button>
+
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+      <mat-cell *matCellDef="let review"> {{ review.id }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="booking_business_id">
+      <mat-header-cell *matHeaderCellDef> Айди бизнеса / записи </mat-header-cell>
+      <mat-cell *matCellDef="let review"> {{ review.booking_business_id }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <mat-header-cell *matHeaderCellDef> Тип </mat-header-cell>
+      <mat-cell *matCellDef="let review"> {{ review.type }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="user_id">
+      <mat-header-cell *matHeaderCellDef> Айди юзера </mat-header-cell>
+      <mat-cell *matCellDef="let review"> {{ review.user_id }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef> Заголовок </mat-header-cell>
+      <mat-cell *matCellDef="let review"> {{ review.title }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="rating">
+      <mat-header-cell *matHeaderCellDef> Рейтинг </mat-header-cell>
+      <mat-cell *matCellDef="let review"> {{ review.rating }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef> Описание </mat-header-cell>
+      <mat-cell *matCellDef="let review"> {{ review.description }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef> Заголовок </mat-header-cell>
+      <mat-cell *matCellDef="let review"> {{ review.title }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="created_at">
+      <mat-header-cell *matHeaderCellDef> Дата создания </mat-header-cell>
+      <mat-cell *matCellDef="let review"> {{ review.created_at | date }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> Действия </mat-header-cell>
+      <mat-cell *matCellDef="let review">
+        <button mat-icon-button (click)="editReview(review)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteReview(review.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
