@@ -1,0 +1,50 @@
+<div class="services-container">
+  <button mat-raised-button color="primary" (click)="addService()">Добавить сервис</button>
+
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+      <mat-cell *matCellDef="let service"> {{ service.id }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef> Заголовок </mat-header-cell>
+      <mat-cell *matCellDef="let service"> {{ service.title }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef> Описание </mat-header-cell>
+      <mat-cell *matCellDef="let service"> {{ service.description }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="amount">
+      <mat-header-cell *matHeaderCellDef> Сумма </mat-header-cell>
+      <mat-cell *matCellDef="let service"> {{ service.amount }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="business_id">
+      <mat-header-cell *matHeaderCellDef> Айди бизнеса </mat-header-cell>
+      <mat-cell *matCellDef="let service"> {{ service.business_id }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="discount">
+      <mat-header-cell *matHeaderCellDef> Скидка </mat-header-cell>
+      <mat-cell *matCellDef="let service"> {{ service.discount }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> Действия </mat-header-cell>
+      <mat-cell *matCellDef="let service">
+        <button mat-icon-button (click)="editService(service)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteService(service.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
