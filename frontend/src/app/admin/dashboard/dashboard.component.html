@@ -1,1 +1,13 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+  <h2>Админ-панель</h2>
+  <div class="card-grid">
+    <mat-card *ngFor="let item of adminLinks" class="admin-card" (click)="navigate(item.link)">
+      <mat-card-header>
+        <mat-icon>{{ item.icon }}</mat-icon>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ item.title }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

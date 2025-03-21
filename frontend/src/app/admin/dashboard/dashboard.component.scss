@@ -1,0 +1,33 @@
+.dashboard-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.admin-card {
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  text-align: center;
+  padding: 15px;
+
+  mat-card-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  mat-icon {
+    font-size: 40px;
+    color: #3f51b5;
+  }
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
