@@ -34,7 +34,7 @@ export class ServiceDialogComponent {
     this.serviceForm = this.fb.group({
       title: [data.service?.title || '', Validators.required],
       description: [data.service?.description || '', [Validators.required]],
-      background_url: [data.service?.background_url || '', Validators.required],
+      background_url: [data.service?.background_url || ''],
       amount: [data.service?.amount || 0, Validators.required],
       discount: [data.service?.discount || '']
     });
@@ -49,6 +49,8 @@ export class ServiceDialogComponent {
   onFileSelected(event: Event): void {
     const fileInput = event.target as HTMLInputElement;
     if (fileInput.files && fileInput.files.length > 0) {
+      console.log('here');
+
       this.selectedFile = fileInput.files[0];
 
       // Генерируем превью
@@ -62,6 +64,8 @@ export class ServiceDialogComponent {
 
   // Метод сохранения пользователя
   saveService(): void {
+    console.log(this.serviceForm.value);
+
     if (this.serviceForm.invalid) return;
 
     const serviceData = this.serviceForm.value;

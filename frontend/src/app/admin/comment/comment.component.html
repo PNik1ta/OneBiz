@@ -29,7 +29,7 @@
 
     <ng-container matColumnDef="created_at">
       <mat-header-cell *matHeaderCellDef> Дата создания </mat-header-cell>
-      <mat-cell *matCellDef="let comment"> {{ comment.created_at }} </mat-cell>
+      <mat-cell *matCellDef="let comment"> {{ comment.created_at | date }} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="is_edited">

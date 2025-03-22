@@ -27,7 +27,7 @@ export class BookingDialogComponent {
       business_id: [data.booking?.business_id || '', Validators.required],
       service_id: [data.booking?.service_id || '', Validators.required],
       description: [data.booking?.description || '', Validators.required],
-      status: [data.booking?.status || '', Validators.required],
+      status: [data.booking?.status || ''],
       amount: [data.booking?.amount || '']
     });
   }
@@ -56,8 +56,10 @@ export class BookingDialogComponent {
         datetime: bookingData.datetime,
         service_id: bookingData.service_id,
         business_id: bookingData.business_id,
-        descripion: bookingData.descripion,
+        description: bookingData.description,
       }
+      console.log(dto);
+
       this.bookingService.createBooking(dto).subscribe(() => this.dialogRef.close(true));
     }
   }

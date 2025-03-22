@@ -3,7 +3,7 @@
   <form [formGroup]="bookingForm">
     <mat-form-field>
       <mat-label>Дата и время</mat-label>
-      <input type="datetime" matInput formControlName="datetime">
+      <input type="datetime-local" matInput formControlName="datetime">
     </mat-form-field>
 
     <mat-form-field *ngIf="!data.business">
@@ -26,7 +26,7 @@
       <input matInput formControlName="status">
     </mat-form-field>
 
-    <mat-form-field *ngIf="data.amount">
+    <mat-form-field *ngIf="data.booking">
       <mat-label>Сумма</mat-label>
       <input matInput formControlName="amount">
     </mat-form-field>

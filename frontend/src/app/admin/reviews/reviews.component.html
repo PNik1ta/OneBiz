@@ -37,11 +37,6 @@
       <mat-cell *matCellDef="let review"> {{ review.description }} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="title">
-      <mat-header-cell *matHeaderCellDef> Заголовок </mat-header-cell>
-      <mat-cell *matCellDef="let review"> {{ review.title }} </mat-cell>
-    </ng-container>
-
     <ng-container matColumnDef="created_at">
       <mat-header-cell *matHeaderCellDef> Дата создания </mat-header-cell>
       <mat-cell *matCellDef="let review"> {{ review.created_at | date }} </mat-cell>

@@ -41,22 +41,15 @@ export class BusinessDialogComponent {
         this.preview_images_url?.push(url)
       }
     }
-
-    console.log(data.business?.preview_images_url);
-
   }
 
   // Метод для обработки выбора файла
   onFileSelected(event: Event): void {
     const fileInput = event.target as HTMLInputElement;
     if (fileInput.files && fileInput.files.length > 0) {
-      console.log('here');
-
       for (const el of fileInput.files) {
         this.selectedFile?.push(el)
       }
-
-      console.log('SELECTED FILES: ', this.selectedFile);
 
       if (this.selectedFile) {
         const readers = [];

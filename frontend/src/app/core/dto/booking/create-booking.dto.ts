@@ -2,5 +2,5 @@ export interface ICreateBookingDto {
   datetime: string
   business_id: number
   service_id: number
-  descripion: string
+  description: string
 }
