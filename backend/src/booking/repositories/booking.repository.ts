@@ -54,6 +54,7 @@ export class BookingRepository {
       .addSelect('service.title AS service')
       .addSelect('service.amount AS service_amount')
       .addSelect('service.discount AS service_discount')
+      .addSelect('service.id AS service_id')
       .getRawMany();
   }
 
@@ -93,6 +94,7 @@ export class BookingRepository {
       .addSelect('service.title AS service')
       .addSelect('service.amount AS service_amount')
       .addSelect('service.discount AS service_discount')
+      .addSelect('service.id AS service_id')
       .where('booking.id = :booking_id', { booking_id: id })
       .getRawOne();
   }
@@ -133,6 +135,7 @@ export class BookingRepository {
       .addSelect('service.title AS service')
       .addSelect('service.amount AS service_amount')
       .addSelect('service.discount AS service_discount')
+      .addSelect('service.id AS service_id')
       .where('booking.business_id = :business_id', { business_id: businessId })
       .getRawMany();
   }
@@ -173,6 +176,7 @@ export class BookingRepository {
       .addSelect('service.title AS service')
       .addSelect('service.amount AS service_amount')
       .addSelect('service.discount AS service_discount')
+      .addSelect('service.id AS service_id')
       .where('booking.user_id = :user_id', { user_id: userId })
       .getRawMany();
   }

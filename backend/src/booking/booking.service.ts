@@ -147,7 +147,7 @@ export class BookingService {
         service_id: dto.service_id,
         description: dto.description,
         status: dto.status,
-        amount: dto.amount ?? booking.amount,
+        amount: dto.amount ?? booking.amount ?? 0,
       });
 
       const updatedBooking = await this.bookingRepository.update(
