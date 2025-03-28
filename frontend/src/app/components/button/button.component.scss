@@ -1,0 +1,44 @@
+@import 'variables';
+@import 'mixins';
+
+button {
+  min-width: 300px;
+  min-height: 40px;
+  padding: 12px 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: all .3s ease 0s;
+  border-radius: 12px;
+
+  font-size: 22px;
+  line-height: 1.13;
+  font-weight: 400;
+  border: none;
+  cursor: pointer;
+
+  &.primary {
+    background: $secondary-color;
+    color: #fff;
+
+    &:hover {
+      background: darken($secondary-color, 10%);
+    }
+  }
+
+  &.accent {
+    background: #fff;
+    color: $secondary-color;
+
+    &:hover {
+      background: darken(#fff, 10%);
+    }
+  }
+
+  @include for-mobile {
+    width: 100%;
+    margin: 0 auto;
+  }
+}

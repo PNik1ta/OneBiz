@@ -1,0 +1,109 @@
+@import 'variables';
+@import 'mixins';
+
+$textGradient: linear-gradient(287.09deg, $primary-color 49.71%, $secondary-color 99.24%);
+$textColor: #6c6c6c;
+$bg: #f9f9f9;
+
+.community {
+  background: $bg;
+
+  .content {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 80px 0 160px 0;
+
+    @include for-mobile {
+      padding: 60px 0 120px 0;
+    }
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 60px;
+
+    @include for-mobile {
+      display: block;
+      margin-bottom: 32px;
+      padding: 0 16px;
+    }
+
+    h2 {
+      font-size: 52px;
+      line-height: 1.1;
+      font-weight: 300;
+      font-style: italic;
+      color: $text-color;
+      width: 90%;
+
+      @include for-mobile {
+        font-size: 36px;
+        margin-bottom: 16px;
+      }
+
+      span {
+        font-weight: 500;
+        font-style: normal;
+
+        @include gradient-text($textGradient);
+      }
+    }
+
+    p {
+      font-size: 20px;
+      line-height: 1.5;
+      font-weight: 300;
+      color: $textColor;
+
+      @include for-mobile {
+        font-size: 16px;
+      }
+    }
+  }
+
+  .slides {
+    @include for-mobile {
+      .slide:first-child {
+        margin-left: 16px;
+      }
+    }
+  }
+
+  .row1 {
+    display: grid;
+    column-gap: 24px;
+    grid-template-columns: 1fr 1fr 180px;
+    margin-bottom: 26px;
+
+    .quote {
+      width: 190px;
+      height: 190px;
+      object-fit: cover;
+    }
+  }
+
+  .row2 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 32px;
+    margin-bottom: 26px;
+  }
+
+  .row3 {
+    display: grid;
+    grid-template-columns: calc(30% + 25px) calc(70% - 25px);
+    column-gap: 32px;
+
+    .quote {
+      width: 190px;
+      height: 190px;
+      object-fit: cover;
+      display: block;
+      margin-left: auto;
+      margin-right: 0;
+    }
+  }
+}
+

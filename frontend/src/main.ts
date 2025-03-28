@@ -4,6 +4,9 @@ import { AppComponent } from './app/app.component';
 import { routes } from './app/app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AuthInterceptor } from './app/core/interceptors/auth.interceptor';
+import { register } from 'swiper/element/bundle';
+register();
+
 
 bootstrapApplication(AppComponent, {
   providers: [

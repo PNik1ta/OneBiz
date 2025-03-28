@@ -1,0 +1,42 @@
+<section class="community">
+  <div class="content">
+    <div class="header">
+      <h2>
+        <span>Малый бизнес</span> <br />
+        Доверяет OneBiz
+      </h2>
+      <p>
+        С 2025 года мы помогаем предпринимателям развивать своё дело: автоматизировать записи, привлекать клиентов и следить за результатами.
+      </p>
+    </div>
+
+
+    <div *ngIf="isDesktop" class="desktopView">
+      <div class="row1">
+        <app-community-item [item]="data[0]"></app-community-item>
+        <app-community-item [item]="data[1]"></app-community-item>
+
+        <img class="quote" src="/community/quote-big.svg" alt="quote icon" />
+      </div>
+
+      <div class="row2">
+        <app-community-item [item]="data[2]"></app-community-item>
+        <app-community-item [item]="data[3]"></app-community-item>
+        <app-community-item [item]="data[4]"></app-community-item>
+      </div>
+
+      <div class="row3">
+        <img class="quote" src="/community/quote-big.svg" alt="quote icon" />
+        <app-community-item [item]="data[5]"></app-community-item>
+      </div>
+    </div>
+
+    <swiper-container *ngIf="!isDesktop" class="slides" slides-per-view="auto" centered-slides="true" space-between="4"
+      grab-cursor="true" loop="true" speed="11000">
+      <swiper-slide *ngFor="let item of data" class="slide">
+        <app-community-item [item]="item"></app-community-item>
+      </swiper-slide>
+    </swiper-container>
+
+  </div>
+</section>

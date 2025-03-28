@@ -1,0 +1,9 @@
+<article class="question">
+  <div class="question__title" (click)="onClick()">
+    <h5>{{question.title}}</h5>
+    <img [src]="currentId === questionId ? '/faq/iconOpen.svg' : '/faq/iconClose.svg'" alt="eye icon" />
+  </div>
+  <p class="text" [class.opened]="currentId === questionId">
+    {{question.answer}}
+  </p>
+</article>

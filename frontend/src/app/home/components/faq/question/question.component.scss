@@ -1,0 +1,51 @@
+@import 'variables';
+@import 'mixins';
+
+.question {
+  &__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+
+    &_opened {
+      margin-bottom: 24px;
+
+      @include for-mobile {
+        margin-bottom: 16px;
+      }
+    }
+
+    h5 {
+      font-size: 24px;
+      line-height: 1.5;
+      font-weight: 400;
+      color: $text-color;
+
+      @include for-mobile {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .text {
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 300;
+    color: $text-color;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease 0s;
+
+    &.opened {
+      max-height: 300px;
+      margin-top: 24px;
+
+      @include for-mobile {
+        margin-top: 16px;
+      }
+    }
+  }
+}
+

@@ -1,0 +1,27 @@
+<section class="container animatedBackground">
+  <main class="description">
+    <h1 class="descriptionTitle">
+      OneBiz — платформа для
+      <br />
+      <span class="animate animate_1"></span>
+    </h1>
+    <p class="descriptionSubtitle">
+      <span *ngIf="isDesktop">Персональный подход к росту вашего дела.<br /></span>
+      Управляйте бронированиями, следите за прибылью и привлекайте новых клиентов легко и эффективно.    </p>
+    <app-button className="btn" color="accent">Начать бесплатно</app-button>
+  </main>
+  <footer class="footer">
+    <div class="footerContent">
+      <div class="features">
+        <div *ngFor="let item of items" class="featuresItem">
+          <p class="featuresTitle">{{item.title}}</p>
+          <p class="featuresDescription">
+            <span>{{item.description}}</span>
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+  <img class="bg" src="hero/wave.png" alt="background" />
+</section>

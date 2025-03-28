@@ -1,0 +1,199 @@
+@import 'variables';
+@import 'mixins';
+
+.header {
+  background: $secondary-color;
+  padding: 12px 24px;
+
+  @include for-mobile {
+    height: 52px;
+  }
+
+  .container {
+    max-width: 1280px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo a {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .links {
+    display: flex;
+    column-gap: 48px;
+    color: #fff;
+    font-size: 22px;
+    width: 100%;
+    margin-left: 72px;
+
+    @include for-mobile {
+      display: none;
+    }
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+
+    a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 400;
+      font-size: 22px;
+      cursor: pointer;
+
+      &:hover {
+        color: #dedede
+      }
+    }
+
+    .btn {
+      background-color: transparent;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: all .3s ease 0s;
+      cursor: pointer;
+
+      &:hover {
+        color: #dedede;
+      }
+    }
+
+    .btn.outlined {
+      background-color: #0580b5;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: all .3s ease 0s;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #fff;
+        color: #0580b5;
+        cursor: pointer;
+      }
+    }
+
+    .avatar img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+    }
+  }
+
+  .burger {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+
+    span {
+      width: 24px;
+      height: 3px;
+      background: #fff;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    @include for-mobile {
+      display: flex;
+    }
+  }
+
+  @include for-mobile {
+    .nav-links {
+      display: none;
+    }
+  }
+
+  .menu {
+    display: none;
+
+    @include for-mobile {
+      display: block;
+      position: absolute;
+      right: 100%;
+      top: 52px;
+      width: 100vw;
+      height: 100vh;
+
+      transition: all .3s ease 0s;
+
+      background-color: $secondary-color;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      row-gap: 48px;
+      z-index: 999;
+
+      .link {
+        color: #fff;
+        font-size: 22px;
+        cursor: pointer;
+      }
+
+      .btns {
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .btn {
+        background-color: #fff;
+        color: #0580b5;
+        padding: 6px 12px;
+        border-radius: 6px;
+        transition: all .3s ease 0s;
+        cursor: pointer;
+        font-size: 22px;
+
+
+        &:hover {
+          color: #dedede;
+        }
+      }
+
+      .btn.outlined {
+        background-color: #0580b5;
+        color: #fff;
+        padding: 6px 12px;
+        border-radius: 6px;
+        transition: all .3s ease 0s;
+        cursor: pointer;
+        font-size: 22px;
+
+        &:hover {
+          background-color: #fff;
+          color: #0580b5;
+          cursor: pointer;
+        }
+      }
+
+      &.open {
+        right: 0;
+      }
+    }
+  }
+}
+
+.burger span.open:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.burger span.open:nth-child(2) {
+  opacity: 0;
+}
+.burger span.open:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}

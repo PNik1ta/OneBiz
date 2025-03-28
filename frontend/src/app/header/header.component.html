@@ -1,0 +1,43 @@
+<header class="header">
+  <div class="container">
+    <div class="logo">
+      <a routerLink="/">OneBiz</a>
+    </div>
+
+    <div class="links">
+      <a routerLink="/">Главная</a>
+      <a routerLink="/services">Услуги</a>
+      <a routerLink="/blog">Блог</a>
+    </div>
+
+    <nav class="nav-links">
+      <ng-container *ngIf="!isLoggedIn">
+        <a routerLink="/login" class="btn">Войти</a>
+        <a routerLink="/register" class="btn outlined">Регистрация</a>
+      </ng-container>
+
+      <ng-container *ngIf="isLoggedIn">
+        <a routerLink="/profile" class="avatar">
+          <img src="/assets/user-avatar.png" alt="User Avatar" />
+        </a>
+      </ng-container>
+    </nav>
+
+    <div class="burger" (click)="toggleMenu()">
+      <span [class.open]="isMenuOpen"></span>
+      <span [class.open]="isMenuOpen"></span>
+      <span [class.open]="isMenuOpen"></span>
+    </div>
+  </div>
+
+  <div class="menu" [class.open]="isMenuOpen">
+    <a class="link" routerLink="/" (сlick)="toggleMenu()">Главная</a>
+    <a class="link" routerLink="/services" (сlick)="toggleMenu()">Услуги</a>
+    <a class="link" routerLink="/blog" (сlick)="toggleMenu()">Блог</a>
+
+    <div class="btns" *ngIf="!isLoggedIn">
+      <a routerLink="/login" class="btn" (сlick)="toggleMenu()">Войти</a>
+      <a routerLink="/register" class="btn outlined" (сlick)="toggleMenu()">Регистрация</a>
+    </div>
+  </div>
+</header>

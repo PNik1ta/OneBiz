@@ -1,0 +1,15 @@
+<section class="faq">
+  <ng-container *ngIf="initialized">
+    <h2>
+      Frequently <br />
+      Asked <br />
+      Questions
+    </h2>
+
+    <div class="questions">
+      <app-question *ngFor="let question of defaultQuestions; let i = index" class="question-wrapper"
+        [question]="question" [currentId]="currentId" [questionId]="i" (handleOpen)="handleOpen(i)"></app-question>
+    </div>
+  </ng-container>
+
+</section>
