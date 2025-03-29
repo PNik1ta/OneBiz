@@ -1,0 +1,49 @@
+<h2 mat-dialog-title>Регистрация</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form">
+    <mat-form-field appearance="fill">
+      <mat-label>Имя</mat-label>
+      <input matInput formControlName="username" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Пароль</mat-label>
+      <input matInput type="password" formControlName="password" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Роль</mat-label>
+      <mat-select formControlName="role">
+        <mat-option [value]="ERoles.BUSINESS">Бизнес</mat-option>
+        <mat-option [value]="ERoles.USER">Пользователь</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+      <button mat-stroked-button type="button" (click)="sendCode()" [disabled]="form.get('email')?.invalid || isLoading">
+        <ng-container *ngIf="!isLoading">Получить код</ng-container>
+        <mat-progress-spinner *ngIf="isLoading" diameter="20" mode="indeterminate"></mat-progress-spinner>
+      </button>
+      <span *ngIf="codeSent" class="success-text">Код отправлен!</span>
+    </div>
+
+    <mat-form-field appearance="fill" *ngIf="codeSent">
+      <mat-label>Код подтверждения</mat-label>
+      <input matInput formControlName="code" />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="dialogRef.close()" [disabled]="isLoading">Отмена</button>
+  <button mat-flat-button color="primary" (click)="register()" [disabled]="form.invalid || !codeSent || isLoading">
+    <ng-container *ngIf="!isLoading">Зарегистрироваться</ng-container>
+    <mat-progress-spinner *ngIf="isLoading && codeSent" diameter="20" mode="indeterminate"></mat-progress-spinner>
+  </button>
+</mat-dialog-actions>

@@ -12,8 +12,8 @@
 
     <nav class="nav-links">
       <ng-container *ngIf="!isLoggedIn">
-        <a routerLink="/login" class="btn">Войти</a>
-        <a routerLink="/register" class="btn outlined">Регистрация</a>
+        <a (click)="openLogin()" class="btn">Войти</a>
+        <a (click)="openRegister()" class="btn outlined">Регистрация</a>
       </ng-container>
 
       <ng-container *ngIf="isLoggedIn">

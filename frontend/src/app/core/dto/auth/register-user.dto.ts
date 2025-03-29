@@ -5,4 +5,5 @@ export interface IRegisterUserDto {
   username: string
   password: string
   role?: ERoles
+  code: string
 }
