@@ -5,7 +5,7 @@
     </div>
 
     <div class="links">
-      <a routerLink="/">Главная</a>
+      <a routerLink="/businesses">Бизнесы</a>
       <a routerLink="/services">Услуги</a>
       <a routerLink="/blog">Блог</a>
     </div>
@@ -31,9 +31,9 @@
   </div>
 
   <div class="menu" [class.open]="isMenuOpen">
-    <a class="link" routerLink="/" (сlick)="toggleMenu()">Главная</a>
-    <a class="link" routerLink="/services" (сlick)="toggleMenu()">Услуги</a>
-    <a class="link" routerLink="/blog" (сlick)="toggleMenu()">Блог</a>
+    <a class="link" routerLink="/businesses" (click)="toggleMenu()">Бизнесы</a>
+    <a class="link" routerLink="/services" (click)="toggleMenu()">Услуги</a>
+    <a class="link" routerLink="/blog" (click)="toggleMenu()">Блог</a>
 
     <div class="btns" *ngIf="!isLoggedIn">
       <a routerLink="/login" class="btn" (сlick)="toggleMenu()">Войти</a>

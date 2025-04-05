@@ -1,0 +1,13 @@
+<div class="business-detail" *ngIf="business">
+  <h1>{{ business.company_name }}</h1>
+  <p>{{ business.company_description }}</p>
+
+  <div class="gallery" *ngIf="business.preview_images_url?.length">
+    <img *ngFor="let img of business.preview_images_url" [src]="API_IMG_URL + '/' + img" alt="preview" />
+  </div>
+
+  <h2>Услуги</h2>
+  <div class="services">
+    <app-service-card *ngFor="let service of services" [service]="service"></app-service-card>
+  </div>
+</div>

@@ -1,0 +1,184 @@
+@import 'variables';
+@import 'mixins';
+
+.business-page {
+  background-color: $bg-color;
+  padding: 80px;
+  border-top-left-radius: 60px;
+  border-top-right-radius: 60px;
+  background: #f9f9f9;
+  position: relative;
+  top: -50px;
+  width: 100%;
+
+  @include for-mobile {
+    padding: 40px 16px;
+  }
+
+  .title {
+    font-size: 52px;
+    font-weight: 600;
+    color: $text-color;
+    margin-bottom: 40px;
+    text-align: center;
+
+    @include for-mobile {
+      font-size: 36px;
+    }
+  }
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 40px;
+    justify-content: center;
+  }
+
+  .business-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 32px;
+  }
+
+  .business-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-4px);
+    }
+
+    .card-title {
+      font-size: 24px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      color: $text-color;
+    }
+
+    .card-description {
+      font-size: 16px;
+      color: #6c6c6c;
+      line-height: 1.5;
+    }
+
+    .images-preview {
+      margin-top: 16px;
+      display: flex;
+      gap: 8px;
+
+      img {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+    }
+  }
+}
+
+.filter-btn {
+  background-color: $primary-color;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 24px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+
+  &.clear {
+    background-color: transparent;
+    border: 1px solid $primary-color;
+    color: $primary-color;
+
+    &:hover {
+      background-color: $primary-color;
+      color: white;
+    }
+  }
+}
+
+// Селект — белый фон, закруглённый, без темной темы
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: #fff !important;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+// Текст внутри селекта
+::ng-deep .mat-select-value {
+  color: $text-color;
+  font-size: 16px;
+}
+
+// Панель выпадающего списка
+::ng-deep .mat-select-panel {
+  background-color: #fff;
+  color: $text-color;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+// Элементы внутри выпадающего списка
+::ng-deep .mat-option {
+  font-size: 16px;
+  padding: 12px 16px;
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
+
+  &.mat-selected {
+    background-color: #e3f2fd;
+    color: $primary-color;
+  }
+}
+
+.service-filter {
+  width: 300px;
+  margin-bottom: 32px;
+}
+
+.search-wrapper {
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 16px;
+
+  button {
+    border: none;
+    background: transparent;
+    outline: none;
+    margin-right: 12px;
+    cursor: pointer;
+  }
+}
+
+.filters-wrapper {
+  display: flex;
+  column-gap: 12px;
+  justify-content: start;
+
+  @include for-mobile {
+    flex-direction: column;
+    row-gap: 12px;
+  }
+}
+
+.search-field {
+  width: 100%;
+}
+
+.service-filter {
+  width: 300px;
+  margin-bottom: 32px;
+}
