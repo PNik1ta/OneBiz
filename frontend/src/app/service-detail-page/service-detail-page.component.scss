@@ -1,0 +1,39 @@
+@import 'variables';
+@import 'mixins';
+
+.service-detail {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+
+    h1 {
+      font-size: 32px;
+      font-weight: 600;
+      color: $text-color;
+    }
+
+    button {
+      font-size: 16px;
+    }
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    margin-bottom: 24px;
+  }
+
+  p {
+    font-size: 18px;
+    color: $text-color;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+}

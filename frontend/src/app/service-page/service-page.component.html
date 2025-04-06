@@ -1,0 +1,30 @@
+<app-service-hero></app-service-hero>
+
+<section class="service-page container">
+
+  <div class="filters">
+    <mat-form-field appearance="fill" class="service-search">
+      <mat-label>Поиск по названию</mat-label>
+      <input matInput [(ngModel)]="searchQuery" (keyup.enter)="filterServices()" />
+      <button mat-icon-button matSuffix (click)="filterServices()">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="business-filter">
+      <mat-label>Фильтр по бизнесу</mat-label>
+      <mat-select [(ngModel)]="selectedBusinessId" (selectionChange)="filterServices()">
+        <mat-option [value]="null">Все бизнесы</mat-option>
+        <mat-option *ngFor="let biz of allBusinesses" [value]="biz.id">
+          {{ biz.company_name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="services-list">
+    <app-service-card *ngFor="let service of filteredServices" [service]="service" [isWithBusinessInfo]="true"
+      (click)="goToService(service.id!)">
+    </app-service-card>
+  </div>
+</section>

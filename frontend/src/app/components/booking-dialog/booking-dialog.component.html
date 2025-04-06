@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>Запись на услугу</h2>
+
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Дата</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="date" [matDatepickerFilter]="isDateDisabled"/>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Время</mat-label>
+    <mat-select formControlName="time">
+      <mat-option *ngFor="let time of filteredTimeSlots" [value]="time">{{ time }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Комментарий</mat-label>
+    <textarea matInput formControlName="description"></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="dialogRef.close()">Отмена</button>
+  <button mat-flat-button color="primary" (click)="book()" [disabled]="form.invalid">Записаться</button>
+</mat-dialog-actions>

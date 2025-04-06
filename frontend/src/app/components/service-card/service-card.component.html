@@ -1,11 +1,12 @@
 <div class="card">
-  <img
-    *ngIf="service.background_url"
-    [src]="API_IMG_URL + '/' + service.background_url"
-    alt="Service Image"
-  />
+  <img *ngIf="service.background_url" [src]="API_IMG_URL + '/' + service.background_url" alt="Service Image" />
   <h3>{{ service.title }}</h3>
   <p>{{ service.description }}</p>
   <p><strong>Цена:</strong> {{ service.amount }}₽</p>
   <p *ngIf="service.discount"><strong>Скидка:</strong> {{ service.discount }}%</p>
+
+  <p *ngIf="isWithBusinessInfo && business">
+    <strong>Бизнес: </strong>
+    <a [routerLink]="['/business', business.id]">{{ business.company_name }}</a>
+  </p>
 </div>

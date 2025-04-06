@@ -1,0 +1,40 @@
+@import 'mixins';
+@import 'variables';
+
+.container {
+  padding: 80px;
+}
+
+.filters {
+  display: flex;
+  gap: 20px;
+
+  @include for-mobile {
+    flex-direction: column;
+
+  }
+}
+
+.service-search,
+.business-filter {
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 24px;
+
+  button {
+    background: transparent;
+    outline: none;
+    border: none;
+  }
+
+  @include for-mobile {
+    width: 100%;
+  }
+}
+
+.services-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: flex-start;
+}
