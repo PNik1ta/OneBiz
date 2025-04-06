@@ -1,0 +1,17 @@
+<div class="post-card" [routerLink]="['/blog', post.id]">
+  <img [src]="API_IMG_URL + '/' + post.background_url" alt="post image" />
+  <div class="content">
+    <h3>{{ post.title }}</h3>
+    <p>{{ post.text | slice:0:150 }}...</p>
+    <span class="date">{{ post.created_at | date: 'dd.MM.yyyy' }}</span>
+
+    <div class="meta">
+      <span class="likes">❤️ {{ post.likes }}</span>
+      <span *ngIf="postBusiness" class="business"> • {{ postBusiness.company_name }}</span>
+    </div>
+
+    <div class="tags">
+      <span *ngFor="let tag of postTags" class="tag">{{ tag.name }}</span>
+    </div>
+  </div>
+</div>

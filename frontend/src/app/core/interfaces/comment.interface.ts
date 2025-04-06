@@ -6,4 +6,6 @@ export interface IComment {
   text: string;
   created_at: Date;
   is_edited: boolean;
+  username?: string;
+  user_avatar_url?: string;
 }
