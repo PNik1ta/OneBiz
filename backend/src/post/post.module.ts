@@ -5,11 +5,16 @@ import { PostRepository } from './repositories/post.repository';
 import { PostService } from './post.service';
 import { Post } from './models/post.model';
 import { BusinessModule } from '../business/business.module';
+import { UserModule } from '../user/user.module';
 
 @Module({
   controllers: [PostController],
   providers: [PostRepository, PostService],
   exports: [PostRepository, PostService],
-  imports: [TypeOrmModule.forFeature([Post]), forwardRef(() => BusinessModule)],
+  imports: [
+    TypeOrmModule.forFeature([Post]),
+    forwardRef(() => BusinessModule),
+    UserModule,
+  ],
 })
 export class PostModule {}

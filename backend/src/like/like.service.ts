@@ -14,10 +14,16 @@ import {
   LIKE_DELETED,
   LIKE_FIND_ALL,
 } from '../shared/messages/like.messages';
+import { PostRepository } from '../post/repositories/post.repository';
+import { POST_FIND_ERROR } from '../shared/errors/post.errors';
+import { PostEntity } from '../post/entities/post.entity';
 
 @Injectable()
 export class LikeService {
-  constructor(private readonly likeRepository: LikeRepository) {}
+  constructor(
+    private readonly likeRepository: LikeRepository,
+    private readonly postRepository: PostRepository,
+  ) {}
 
   async create(
     userId: number,
@@ -33,6 +39,24 @@ export class LikeService {
     if (!createdLike) {
       throw new Error(LIKE_CREATE_ERROR);
     }
+
+    const post = await this.postRepository.findById(createdLike.post_id);
+    if (!post) {
+      throw new Error(POST_FIND_ERROR);
+    }
+
+    const entity = new PostEntity({
+      id: post.id,
+      business_id: post.business_id,
+      title: post.title,
+      text: post.text,
+      background_url: post.background_url,
+      created_at: post.created_at,
+      likes: ++post.likes,
+      tagsId: post.tagsId,
+    });
+
+    await this.postRepository.update(post.id, entity);
 
     return new BaseResponse<Like>(LIKE_CREATE, createdLike);
   }
@@ -79,6 +103,24 @@ export class LikeService {
     }
 
     await this.likeRepository.delete(id);
+
+    const post = await this.postRepository.findById(like.post_id);
+    if (!post) {
+      throw new Error(POST_FIND_ERROR);
+    }
+
+    const entity = new PostEntity({
+      id: post.id,
+      business_id: post.business_id,
+      title: post.title,
+      text: post.text,
+      background_url: post.background_url,
+      created_at: post.created_at,
+      likes: --post.likes,
+      tagsId: post.tagsId,
+    });
+
+    await this.postRepository.update(post.id, entity);
 
     return new BaseResponse<void>(LIKE_DELETED);
   }

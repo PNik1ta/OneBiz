@@ -32,6 +32,7 @@ export class CommentRepository {
         'comment.text AS text',
         'comment.created_at AS created_at',
         'comment.is_edited AS is_edited',
+        'comment.user_id AS user_id',
       ])
       .addSelect('user.username AS username')
       .addSelect('user.avatar_url AS user_avatar_url')
@@ -55,6 +56,7 @@ export class CommentRepository {
         'comment.text AS text',
         'comment.created_at AS created_at',
         'comment.is_edited AS is_edited',
+        'comment.user_id AS user_id',
       ])
       .addSelect('user.username AS username')
       .addSelect('user.avatar_url AS user_avatar_url')
@@ -79,6 +81,7 @@ export class CommentRepository {
         'comment.text AS text',
         'comment.created_at AS created_at',
         'comment.is_edited AS is_edited',
+        'comment.user_id AS user_id',
       ])
       .where('comment.id = :id', { id })
       .getRawOne();

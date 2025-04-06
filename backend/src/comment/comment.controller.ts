@@ -83,7 +83,7 @@ export class CommentController {
     description: 'Comment by post id',
     type: BaseResponse<Comment[]>,
   })
-  @Get('find-by-post-id/:business_id')
+  @Get('find-by-post-id/:post_id')
   @HttpCode(200)
   @Public()
   async findByPostId(

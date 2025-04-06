@@ -55,7 +55,7 @@ export class ServiceController {
   })
   @Get()
   @HttpCode(200)
-  @Roles(ERoles.ADMIN)
+  @Public()
   async findAll(): Promise<BaseResponse<Service[]>> {
     try {
       return await this.serviceService.findAll();

@@ -23,12 +23,15 @@ import { BUSINESS_FIND_ERROR } from '../shared/errors/business.errors';
 import { unlink } from 'fs/promises';
 import * as path from 'path';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { UserRepository } from '../user/repositories/user.repository';
+import { ERoles } from '../shared/enums/roles.enum';
 
 @Injectable()
 export class PostService {
   constructor(
     private readonly postRepository: PostRepository,
     private readonly businessRepository: BusinessRepository,
+    private readonly userRepository: UserRepository,
   ) {}
 
   async createPost(dto: CreatePostDto): Promise<BaseResponse<Post>> {
@@ -83,6 +86,7 @@ export class PostService {
 
   async delete(userId: number, id: number): Promise<BaseResponse<void>> {
     const business = await this.businessRepository.findByUserId(userId);
+    const user = await this.userRepository.findById(userId);
 
     if (!business) {
       throw new Error(BUSINESS_FIND_ERROR);
@@ -94,7 +98,7 @@ export class PostService {
       throw new Error(POST_FIND_ERROR);
     }
 
-    if (business.id !== post.business_id) {
+    if (business.id !== post.business_id && user.role !== ERoles.ADMIN) {
       throw new Error(POST_PERMISSIONS_DELETE_ERROR);
     }
 
