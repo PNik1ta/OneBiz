@@ -1,0 +1,10 @@
+<div class="user-info" *ngIf="user">
+  <img class="avatar" [src]="API_IMG_URL + '/' + user.avatar_url" alt="Аватар пользователя" />
+
+  <div class="details">
+    <h2>{{ user.username || 'Пользователь' }}</h2>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Username:</strong> {{ user.username || '—' }}</p>
+    <p><strong>Роль:</strong> {{ user.role }}</p>
+  </div>
+</div>

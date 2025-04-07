@@ -1,9 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { RegisterDialogComponent } from '../components/register-dialog/register-dialog.component';
 import { LoginDialogComponent } from '../components/login-dialog/login-dialog.component';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../core/services/auth.service';
+import { API_IMG_URL } from '../core/constants/api-url';
+import { IUser } from '../core/interfaces/user.interface';
+import { UsersService } from '../core/services/users.service';
 
 @Component({
   selector: 'app-header',
@@ -11,11 +15,33 @@ import { RouterModule } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   isLoggedIn = false;
   isMenuOpen = false;
+  API_IMG_URL = API_IMG_URL;
+  user: IUser | null = null;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(
+    private dialog: MatDialog,
+    private authService: AuthService,
+    private userService: UsersService
+  ) {}
+
+  ngOnInit(): void {
+      this.isLoggedIn = this.authService.isAuthenticated();
+
+      if (this.isLoggedIn) {
+        this.userService.getProfile().subscribe((res) => {
+          this.user = res.data ?? null;
+        })
+      }
+  }
+
+  logout() {
+    this.authService.logout().subscribe(() => {
+      this.user = null;
+    })
+  }
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;

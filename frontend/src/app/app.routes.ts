@@ -6,6 +6,7 @@ import { ServicePageComponent } from './service-page/service-page.component';
 import { ServiceDetailPageComponent } from './service-detail-page/service-detail-page.component';
 import { NewsPageComponent } from './news-page/news-page.component';
 import { PostDetailPageComponent } from './post-detail-page/post-detail-page.component';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,5 +16,6 @@ export const routes: Routes = [
   { path: 'service/:id', component: ServiceDetailPageComponent },
   { path: 'blog', component: NewsPageComponent },
   { path: 'blog/:id', component: PostDetailPageComponent },
+  { path: 'profile', component: ProfilePageComponent },
   { path: 'admin', loadChildren: () => import('./admin/admin.routes').then(m => m.routes) },
 ];

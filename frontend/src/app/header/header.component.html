@@ -16,10 +16,13 @@
         <a (click)="openRegister()" class="btn outlined">Регистрация</a>
       </ng-container>
 
-      <ng-container *ngIf="isLoggedIn">
-        <a routerLink="/profile" class="avatar">
-          <img src="/assets/user-avatar.png" alt="User Avatar" />
-        </a>
+      <ng-container *ngIf="isLoggedIn && user">
+        <div class="logged">
+          <a routerLink="/profile" class="avatar">
+            <img [src]="API_IMG_URL + '/' + user.avatar_url" alt="User Avatar" />
+          </a>
+          <a (click)="logout()" class="btn outlined">Выйти</a>
+        </div>
       </ng-container>
     </nav>
 

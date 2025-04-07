@@ -11,6 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { UsersService } from '../../core/services/users.service';
 
 @Component({
   selector: 'app-login-dialog',
@@ -38,7 +39,7 @@ export class LoginDialogComponent {
     private authService: AuthService,
     public dialogRef: MatDialogRef<LoginDialogComponent>,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
   ) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
