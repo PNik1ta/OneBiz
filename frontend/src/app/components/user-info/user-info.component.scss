@@ -21,6 +21,7 @@
     margin-right: 24px;
     background-color: #e0e0e0;
     margin: 0 auto;
+    cursor: pointer;
 
     @include for-mobile {
       width: 96px;
@@ -47,6 +48,15 @@
       font-size: 24px;
       font-weight: 600;
       margin-bottom: 8px;
+
+      button {
+        border: none;
+        outline: none;
+        background: transparent;
+        position: relative;
+        top: 3px;
+        cursor: pointer;
+      }
     }
 
     p {
