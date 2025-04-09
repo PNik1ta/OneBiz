@@ -1,1 +1,46 @@
-<p>user-bookings works!</p>
+<div class="filters">
+  <!-- Статус -->
+  <mat-form-field appearance="fill">
+    <mat-label>Статус</mat-label>
+    <mat-select [(ngModel)]="statusFilter" (selectionChange)="applyFilters()">
+      <mat-option value="ALL">Все статусы</mat-option>
+      <mat-option *ngFor="let status of ['confirmed', 'canceled', 'created', 'finished']" [value]="status">
+        {{ status }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Дата от -->
+  <mat-form-field appearance="fill">
+    <mat-label>Дата от</mat-label>
+    <input matInput [matDatepicker]="fromPicker" [(ngModel)]="dateFrom" (dateChange)="applyFilters()" />
+    <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+    <mat-datepicker #fromPicker></mat-datepicker>
+  </mat-form-field>
+
+  <!-- Дата до -->
+  <mat-form-field appearance="fill">
+    <mat-label>Дата до</mat-label>
+    <input matInput [matDatepicker]="toPicker" [(ngModel)]="dateTo" (dateChange)="applyFilters()" />
+    <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+    <mat-datepicker #toPicker></mat-datepicker>
+  </mat-form-field>
+
+  <button mat-button (click)="resetFilters()">Сбросить фильтры</button>
+</div>
+
+
+<div class="bookings">
+  <div class="booking" *ngFor="let booking of filteredBookings">
+    <h2>{{booking.datetime | date: 'dd.MM.yyyy HH:mm'}}</h2>
+    <h5>{{booking.company_name}}</h5>
+    <h5>{{booking.service}}</h5>
+    <p>{{booking.description}}</p>
+    <small>{{booking.amount}} руб</small>
+    <button (click)="cancelBooking(booking)">Cancel</button>
+    <div class="status" [ngClass]="booking.status">
+      {{booking.status}}
+    </div>
+    <div class="discount" *ngIf="booking.service_discount">{{booking.service_discount}}%</div>
+  </div>
+</div>
