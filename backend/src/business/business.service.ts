@@ -70,6 +70,12 @@ export class BusinessService {
     return new BaseResponse<Business>(BUSINESS_FIND, business);
   }
 
+  async findByUserId(userId: number): Promise<BaseResponse<Business>> {
+    const business = await this.businessRepository.findByUserId(userId);
+
+    return new BaseResponse<Business>(BUSINESS_FIND, business);
+  }
+
   async delete(id: number): Promise<BaseResponse<void>> {
     const business = await this.businessRepository.findById(id);
 

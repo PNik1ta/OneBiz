@@ -65,6 +65,23 @@ export class BusinessController {
   }
 
   @ApiOkResponse({
+    description: 'User business',
+    type: BaseResponse<Business>,
+  })
+  @Get('get-user-business')
+  @HttpCode(200)
+  @Roles(ERoles.BUSINESS, ERoles.ADMIN)
+  async findByUserId(
+    @GetCurrentUserId() userId: number,
+  ): Promise<BaseResponse<Business>> {
+    try {
+      return await this.businessService.findByUserId(userId);
+    } catch (err) {
+      throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  @ApiOkResponse({
     description: 'Business by id',
     type: BaseResponse<Business>,
   })
