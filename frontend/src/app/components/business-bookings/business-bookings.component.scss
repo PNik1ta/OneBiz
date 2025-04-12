@@ -11,7 +11,7 @@
 .booking {
   position: relative;
   display: grid;
-  grid-template-columns: 20% 10% 10% 1fr 15% 10% 10%;
+  grid-template-columns: 20% 10% 10% 1fr 15% 15% 10%;
   align-items: center;
   column-gap: 12px;
 
@@ -52,6 +52,7 @@
     border-radius: 20px;
     padding: 6px 16px;
     cursor: pointer;
+    min-width: 200px;
 
     @include for-mobile {
       align-self: flex-start;

@@ -1,0 +1,14 @@
+.file-upload {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 16px;
+
+  input[type="file"] {
+    font-size: 14px;
+  }
+}
+
+mat-form-field {
+  width: 100%;
+}

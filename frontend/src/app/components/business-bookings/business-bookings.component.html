@@ -37,7 +37,7 @@
     <h5>{{booking.service}}</h5>
     <p>{{booking.description}}</p>
     <small>{{booking.amount}} руб</small>
-    <button (click)="cancelBooking(booking)">Отменить</button>
+    <button (click)="openStatusDialog(booking)">Изменить статус</button>
     <div class="status" [ngClass]="booking.status">
       {{booking.status}}
     </div>

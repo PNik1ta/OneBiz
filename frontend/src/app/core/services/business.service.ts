@@ -4,7 +4,6 @@ import { API_URL } from "../constants/api-url";
 import { Observable } from "rxjs";
 import { BaseResponse } from "../classes/base-response";
 import { IBusiness } from "../interfaces/business.interface";
-import { ICreateBookingDto } from "../dto/booking/create-booking.dto";
 import { IUpdateBusinessDto } from "../dto/business/update-business.dto";
 import { ICreateBusinessDto } from "../dto/business/create-business.dto";
 
@@ -21,6 +20,10 @@ export class BusinessService {
 
   getBusinessById(id: number): Observable<BaseResponse<IBusiness>> {
     return this.http.get<BaseResponse<IBusiness>>(`${this.apiUrl}/${id}`)
+  }
+
+  getUserBusiness(): Observable<BaseResponse<IBusiness>> {
+    return this.http.get<BaseResponse<IBusiness>>(`${this.apiUrl}/get-user-business`)
   }
 
   createBusiness(dto: ICreateBusinessDto): Observable<BaseResponse<IBusiness>> {

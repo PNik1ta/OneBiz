@@ -1,0 +1,32 @@
+<div class="user-info" *ngIf="user">
+  <img class="avatar" [src]="API_IMG_URL + '/' + user.avatar_url" alt="Аватар пользователя" (click)="onAvatarClick()"
+    title="Нажми, чтобы обновить аватар" />
+
+
+  <div class="details">
+    <app-button *ngIf="!business" (clicked)="onCreateBusiness()">Cоздать бизнес</app-button>
+    <div class="username">
+      <h2 *ngIf="!isEditingUsername">
+        {{ user.username || 'Пользователь' }}
+        <button mat-icon-button (click)="startEditingUsername()" title="Редактировать имя">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </h2>
+
+      <div *ngIf="isEditingUsername" class="edit-username">
+        <mat-form-field appearance="fill" class="username-field">
+          <mat-label>Имя пользователя</mat-label>
+          <input matInput [(ngModel)]="updatedUsername" />
+        </mat-form-field>
+        <button mat-button color="primary" (click)="saveUsername()">Сохранить</button>
+      </div>
+    </div>
+
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Username:</strong> {{ user.username || '—' }}</p>
+    <p><strong>Роль:</strong> {{ user.role }}</p>
+    <p *ngIf="business"><strong>Название компании:</strong> {{ business.company_name }}</p>
+    <p *ngIf="business"><strong>Описание компании:</strong> {{ business.company_description }}</p>
+
+  </div>
+</div>

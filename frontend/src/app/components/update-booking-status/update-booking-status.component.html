@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Изменить статус</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Статус</mat-label>
+    <mat-select [(ngModel)]="selectedStatus">
+      <mat-option *ngFor="let status of statuses" [value]="status">{{ status }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="dialogRef.close()">Отмена</button>
+  <button mat-flat-button color="primary" (click)="confirm()">Сохранить</button>
+</mat-dialog-actions>

@@ -7,6 +7,9 @@ import { UserInfoComponent } from '../components/user-info/user-info.component';
 import { IUser } from '../core/interfaces/user.interface';
 import { AuthService } from '../core/services/auth.service';
 import { UsersService } from '../core/services/users.service';
+import { BusinessInfoComponent } from '../components/business-info/business-info.component';
+import { BusinessBookingsComponent } from '../components/business-bookings/business-bookings.component';
+import { BusinessPostsComponent } from '../components/business-posts/business-posts.component';
 
 @Component({
   selector: 'app-profile-page',
@@ -16,7 +19,10 @@ import { UsersService } from '../core/services/users.service';
     MatTabsModule,
     UserInfoComponent,
     UserBookingsComponent,
-    UserFavoritesComponent
+    UserFavoritesComponent,
+    BusinessInfoComponent,
+    BusinessBookingsComponent,
+    BusinessPostsComponent
   ],
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.scss',

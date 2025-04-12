@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>Создать бизнес</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form">
+    <mat-form-field appearance="fill">
+      <mat-label>Название компании</mat-label>
+      <input matInput formControlName="company_name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Описание компании</mat-label>
+      <input matInput formControlName="company_description" />
+    </mat-form-field>
+  </form>
+
+  <div class="file-upload">
+    <label>Превью изображения</label>
+    <input type="file" multiple (change)="onFileChange($event)" />
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="dialogRef.close()" [disabled]="isLoading">Отмена</button>
+  <button mat-flat-button color="primary" (click)="createBusiness()" [disabled]="form.invalid || isLoading">
+    <ng-container *ngIf="!isLoading">Создать бизнес</ng-container>
+    <mat-progress-spinner *ngIf="isLoading" diameter="20" mode="indeterminate"></mat-progress-spinner>
+  </button>
+</mat-dialog-actions>
