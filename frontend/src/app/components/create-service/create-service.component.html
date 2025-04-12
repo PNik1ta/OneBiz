@@ -1,0 +1,36 @@
+<h2 mat-dialog-title>Создать сервис</h2>
+
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Заголовок</mat-label>
+    <input matInput formControlName="title" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Описание</mat-label>
+    <textarea matInput formControlName="description" rows="4"></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Стоимость</mat-label>
+    <input type="number" matInput formControlName="amount" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Скадка (опционально)</mat-label>
+    <input type="number" matInput formControlName="discount" />
+  </mat-form-field>
+</mat-dialog-content>
+
+<div class="file-upload">
+  <label for="fileInput" class="file-label">Фоновое изображение</label>
+  <input id="fileInput" type="file" (change)="onFileChange($event)" />
+</div>
+
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="dialogRef.close()" [disabled]="isLoading">Отмена</button>
+  <button mat-flat-button color="primary" (click)="createService()" [disabled]="form.invalid || isLoading || !selectedFile">
+    Создать пост
+  </button>
+</mat-dialog-actions>

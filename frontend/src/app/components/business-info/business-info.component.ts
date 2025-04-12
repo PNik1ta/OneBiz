@@ -15,6 +15,10 @@ import { BusinessesComponent } from "../../admin/business/business.component";
 import { ButtonComponent } from '../button/button.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CreateBusinessComponent } from '../create-business/create-business.component';
+import { ServiceService } from '../../core/services/service.service';
+import { IService } from '../../core/interfaces/service.interface';
+import { ServiceCardComponent } from '../service-card/service-card.component';
+import { CreateServiceComponent } from '../create-service/create-service.component';
 
 @Component({
   selector: 'app-business-info',
@@ -26,7 +30,8 @@ import { CreateBusinessComponent } from '../create-business/create-business.comp
     MatButtonModule,
     BusinessesComponent,
     ButtonComponent,
-    MatDialogModule
+    MatDialogModule,
+    ServiceCardComponent
   ],
   templateUrl: './business-info.component.html',
   styleUrl: './business-info.component.scss'
@@ -34,6 +39,7 @@ import { CreateBusinessComponent } from '../create-business/create-business.comp
 export class BusinessInfoComponent implements OnInit {
   @Input() user: IUser | null = null
   business: IBusiness | null = null
+  services: IService[] = []
 
   API_IMG_URL = API_IMG_URL;
 
@@ -44,14 +50,20 @@ export class BusinessInfoComponent implements OnInit {
     private userService: UsersService,
     private fileService: FileService,
     private businessService: BusinessService,
+    private serviceService: ServiceService,
     private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
     this.businessService.getUserBusiness().subscribe((res) => {
-      console.log(res);
-
       this.business = res.data ?? null;
+
+      if (this.business) {
+        this.serviceService.getServiceByBusinessId(this.business.id!).subscribe((res) => {
+          this.services = res.data ?? []
+        })
+
+      }
     })
   }
 
@@ -109,6 +121,20 @@ export class BusinessInfoComponent implements OnInit {
       this.businessService.getUserBusiness().subscribe((res) => {
         this.business = res.data ?? null;
       })
+    });
+  }
+
+  onCreateService() {
+    const dialogRef = this.dialog.open(CreateServiceComponent, {
+      width: '400px'
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      if (this.business) {
+        this.serviceService.getServiceByBusinessId(this.business.id!).subscribe((res) => {
+          this.services = res.data ?? [];
+        })
+      }
     });
   }
 }
