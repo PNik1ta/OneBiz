@@ -1,0 +1,33 @@
+<h2 mat-dialog-title>Создать пост</h2>
+
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Заголовок</mat-label>
+    <input matInput formControlName="title" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Текст</mat-label>
+    <textarea matInput formControlName="text" rows="4"></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Теги</mat-label>
+    <mat-select formControlName="tagsId" multiple>
+      <mat-option *ngFor="let tag of tags" [value]="tag.id">{{ tag.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+
+<div class="file-upload">
+  <label for="fileInput" class="file-label">Фоновое изображение</label>
+  <input id="fileInput" type="file" (change)="onFileChange($event)" />
+</div>
+
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="dialogRef.close()" [disabled]="isLoading">Отмена</button>
+  <button mat-flat-button color="primary" (click)="createPost()" [disabled]="form.invalid || isLoading || !selectedFile">
+    Создать пост
+  </button>
+</mat-dialog-actions>

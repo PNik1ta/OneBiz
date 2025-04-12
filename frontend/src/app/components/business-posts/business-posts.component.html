@@ -1,3 +1,7 @@
+<section class="top">
+  <app-button class="create-btn" (click)="openCreatePostDialog()">Создать пост</app-button>
+</section>
+
 <section class="news-filters">
   <mat-form-field appearance="fill">
     <mat-label>Тег</mat-label>
@@ -17,11 +21,7 @@
 
   <mat-form-field appearance="fill" class="search-input">
     <mat-label>Поиск по названию</mat-label>
-    <input
-      matInput
-      placeholder="Введите заголовок"
-      [(ngModel)]="searchTerm"
-      (keydown.enter)="filterPosts()" />
+    <input matInput placeholder="Введите заголовок" [(ngModel)]="searchTerm" (keydown.enter)="filterPosts()" />
     <button mat-icon-button matSuffix (click)="filterPosts()">
       <mat-icon>search</mat-icon>
     </button>
@@ -29,9 +29,5 @@
 </section>
 
 <section class="news-list">
-  <app-post-card
-    *ngFor="let post of filteredPosts"
-    [post]="post"
-    [tags]="allTags"
-    [businesses]="allBusinesses" />
+  <app-post-card *ngFor="let post of filteredPosts" [post]="post" [tags]="allTags" [businesses]="allBusinesses" />
 </section>

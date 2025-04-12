@@ -5,30 +5,33 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { IBusiness } from '../../core/interfaces/business.interface';
-import { switchMap } from 'rxjs';
 import { ILike } from '../../core/interfaces/like.interface';
 import { IPost } from '../../core/interfaces/post.interface';
 import { ITag } from '../../core/interfaces/tag.interface';
 import { BusinessService } from '../../core/services/business.service';
-import { LikeService } from '../../core/services/like.service';
 import { PostService } from '../../core/services/post.service';
 import { TagService } from '../../core/services/tag.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { PostCardComponent } from '../post-card/post-card.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { ButtonComponent } from '../button/button.component';
+import { CreatePostDialogComponent } from '../create-post-dialog/create-post-dialog.component';
 
 @Component({
   selector: 'app-business-posts',
   imports: [
-      CommonModule,
-      PostCardComponent,
-      MatFormFieldModule,
-      FormsModule,
-      ReactiveFormsModule,
-      MatSelectModule,
-      MatInputModule,
-      MatIconModule,
-    ],
+    CommonModule,
+    PostCardComponent,
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatInputModule,
+    MatIconModule,
+    MatDialogModule,
+    ButtonComponent
+  ],
   templateUrl: './business-posts.component.html',
   styleUrl: './business-posts.component.scss'
 })
@@ -47,10 +50,10 @@ export class BusinessPostsComponent {
   searchTerm: string = '';
 
   constructor(
-    private likeService: LikeService,
     private postService: PostService,
     private tagService: TagService,
-    private businessService: BusinessService
+    private businessService: BusinessService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -72,6 +75,27 @@ export class BusinessPostsComponent {
 
     this.businessService.getBusinesses().subscribe(res => {
       this.allBusinesses = res.data ?? [];
+    });
+  }
+
+  openCreatePostDialog(): void {
+    if (!this.business) return;
+
+    const dialogRef = this.dialog.open(CreatePostDialogComponent, {
+      width: '600px',
+      data: {
+        businessId: this.business.id,
+        allTags: this.allTags
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((created) => {
+      if (created) {
+        this.postService.getPostByBusinessId(this.business!.id!).subscribe((res) => {
+          this.allPosts = res.data ?? [];
+          this.filterPosts();
+        });
+      }
     });
   }
 

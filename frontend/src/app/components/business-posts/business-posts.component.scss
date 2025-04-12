@@ -1,6 +1,12 @@
 @import 'variables';
 @import 'mixins';
 
+.top {
+  padding: 40px;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .news-filters {
   display: flex;
   flex-wrap: wrap;
