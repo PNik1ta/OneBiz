@@ -1,1 +1,37 @@
-<p>user-favorites works!</p>
+<section class="news-filters">
+  <mat-form-field appearance="fill">
+    <mat-label>Тег</mat-label>
+    <mat-select [(ngModel)]="selectedTagId" (selectionChange)="filterPosts()">
+      <mat-option [value]="null">Все теги</mat-option>
+      <mat-option *ngFor="let tag of allTags" [value]="tag.id">{{ tag.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Бизнес</mat-label>
+    <mat-select [(ngModel)]="selectedBusinessId" (selectionChange)="filterPosts()">
+      <mat-option [value]="null">Все бизнесы</mat-option>
+      <mat-option *ngFor="let business of allBusinesses" [value]="business.id">{{ business.company_name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="search-input">
+    <mat-label>Поиск по названию</mat-label>
+    <input
+      matInput
+      placeholder="Введите заголовок"
+      [(ngModel)]="searchTerm"
+      (keydown.enter)="filterPosts()" />
+    <button mat-icon-button matSuffix (click)="filterPosts()">
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
+</section>
+
+<section class="news-list">
+  <app-post-card
+    *ngFor="let post of filteredPosts"
+    [post]="post"
+    [tags]="allTags"
+    [businesses]="allBusinesses" />
+</section>
