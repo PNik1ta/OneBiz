@@ -1,23 +1,25 @@
-<mat-tab-group *ngIf="isLoggedIn && (user?.role === 'USER') ">
-  <mat-tab label="Профиль">
-    <app-user-info [user]="user"></app-user-info>
-  </mat-tab>
-  <mat-tab label="Записи">
-    <app-user-bookings [user]="user"></app-user-bookings>
-  </mat-tab>
-  <mat-tab label="Любимые посты">
-    <app-user-favorites [user]="user"></app-user-favorites>
-  </mat-tab>
-</mat-tab-group>
+<section class="profile">
+  <mat-tab-group *ngIf="isLoggedIn && (user?.role === 'USER') ">
+    <mat-tab label="Профиль">
+      <app-user-info [user]="user"></app-user-info>
+    </mat-tab>
+    <mat-tab label="Записи">
+      <app-user-bookings [user]="user"></app-user-bookings>
+    </mat-tab>
+    <mat-tab label="Любимые посты">
+      <app-user-favorites [user]="user"></app-user-favorites>
+    </mat-tab>
+  </mat-tab-group>
 
-<mat-tab-group *ngIf="isLoggedIn && (user?.role === 'BUSINESS' || user?.role === 'ADMIN') ">
-  <mat-tab label="Профиль">
-    <app-business-info [user]="user"></app-business-info>
-  </mat-tab>
-  <mat-tab label="Записи">
-    <app-business-bookings [user]="user"></app-business-bookings>
-  </mat-tab>
-  <mat-tab label="Созданные посты">
-    <app-business-posts [user]="user"></app-business-posts>
-  </mat-tab>
-</mat-tab-group>
+  <mat-tab-group *ngIf="isLoggedIn && (user?.role === 'BUSINESS' || user?.role === 'ADMIN') ">
+    <mat-tab label="Профиль">
+      <app-business-info [user]="user"></app-business-info>
+    </mat-tab>
+    <mat-tab label="Записи">
+      <app-business-bookings [user]="user"></app-business-bookings>
+    </mat-tab>
+    <mat-tab label="Созданные посты">
+      <app-business-posts [user]="user"></app-business-posts>
+    </mat-tab>
+  </mat-tab-group>
+</section>
