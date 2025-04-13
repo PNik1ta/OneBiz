@@ -62,4 +62,36 @@
       </div>
     </div>
   </div>
+
+  <div class="analytics">
+    <div class="details">
+      <h2>Прибыль по времени</h2>
+      <div class="chart-container">
+        <ngx-charts-line-chart [scheme]="colorScheme" [results]="revenueChart" [xAxis]="true" [yAxis]="true"
+          [legend]="false" [showXAxisLabel]="true" [xAxisLabel]="'Дата'" [showYAxisLabel]="true"
+          [yAxisLabel]="'Прибыль'" [autoScale]="true" [view]="[700, 300]">
+        </ngx-charts-line-chart>
+      </div>
+
+    </div>
+
+    <div class="details">
+      <h2>Заявки по дням</h2>
+      <div class="chart-container">
+        <ngx-charts-bar-vertical-2d [scheme]="colorScheme" [results]="bookingChart" [xAxis]="true" [yAxis]="true"
+          [legend]="false" [showXAxisLabel]="true" [xAxisLabel]="'Дата'" [showYAxisLabel]="true"
+          [yAxisLabel]="'Количество'" [view]="[700, 300]" *ngIf="bookingChart.length">
+        </ngx-charts-bar-vertical-2d>
+      </div>
+    </div>
+
+    <div class="details">
+      <h2>Лайки по постам</h2>
+      <div class="chart-container">
+        <ngx-charts-bar-horizontal [scheme]="colorScheme" [results]="likesChart" [xAxis]="true" [yAxis]="true"
+          [legend]="false" [view]="[700, 300]">
+        </ngx-charts-bar-horizontal>
+      </div>
+    </div>
+  </div>
 </div>

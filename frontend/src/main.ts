@@ -7,6 +7,8 @@ import { AuthInterceptor } from './app/core/interceptors/auth.interceptor';
 import { register } from 'swiper/element/bundle';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
+import { provideAnimations } from '@angular/platform-browser/animations';
+
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -26,5 +28,6 @@ bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
     provideHttpClient(withInterceptors([AuthInterceptor])),
+    provideAnimations(),
   ]
 }).catch(err => console.error(err));
