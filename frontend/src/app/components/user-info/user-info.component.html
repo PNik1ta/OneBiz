@@ -20,6 +20,23 @@
       </div>
     </div>
 
+    <div class="username">
+      <h2 *ngIf="!isEditingPhone">
+        {{ user.phone || 'Телефон' }}
+        <button mat-icon-button (click)="startEditingPhone()" title="Редактировать телефон">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </h2>
+
+      <div *ngIf="isEditingPhone" class="edit-username">
+        <mat-form-field appearance="fill" class="username-field">
+          <mat-label>Телефон</mat-label>
+          <input matInput [(ngModel)]="updatedPhone" />
+        </mat-form-field>
+        <button mat-button color="primary" (click)="savePhone()">Сохранить</button>
+      </div>
+    </div>
+
     <p><strong>Email:</strong> {{ user.email }}</p>
     <p><strong>Username:</strong> {{ user.username || '—' }}</p>
     <p><strong>Роль:</strong> {{ user.role }}</p>

@@ -22,6 +22,7 @@ export class DashboardComponent {
     { title: 'Комментарии', icon: 'comment', link: '/admin/comments' },
     { title: 'Лайки', icon: 'thumb_up', link: '/admin/likes' },
     { title: 'Теги', icon: 'label', link: '/admin/tags' },
+    { title: 'Города', icon: 'location_city', link: '/admin/cities' },
   ];
 
   navigate(link: string) {

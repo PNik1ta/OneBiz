@@ -14,7 +14,7 @@ import { UserDialogComponent } from './users-dialog/users-dialog.component';
   imports: [MATERIAL_IMPORTS]
 })
 export class UsersComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'username', 'email', 'role', 'created_at', 'actions'];
+  displayedColumns: string[] = ['id', 'username', 'email', 'phone', 'role', 'created_at', 'actions'];
   dataSource = new MatTableDataSource<IUser>([]);
 
   constructor(private userService: UsersService, private dialog: MatDialog) {}

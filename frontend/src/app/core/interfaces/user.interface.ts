@@ -9,4 +9,5 @@ export interface IUser {
   avatar_url?: string;
   created_at: Date;
   rt?: string;
+  phone?: string;
 }

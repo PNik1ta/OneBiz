@@ -11,6 +11,18 @@
       <mat-label>Описание компании</mat-label>
       <input matInput formControlName="company_description" />
     </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Город</mat-label>
+      <mat-select formControlName="city_id" multiple>
+        <mat-option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Адрес</mat-label>
+      <input matInput formControlName="place" />
+    </mat-form-field>
   </form>
 
   <div class="file-upload">

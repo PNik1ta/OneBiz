@@ -14,7 +14,7 @@ import { BusinessDialogComponent } from './business-dialog/business-dialog.compo
   imports: [MATERIAL_IMPORTS]
 })
 export class BusinessesComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'company_name', 'company_description', 'user_id', 'actions'];
+  displayedColumns: string[] = ['id', 'company_name', 'company_description', 'user_id', 'city_id', 'place', 'actions'];
   dataSource = new MatTableDataSource<IBusiness>([]);
 
   constructor(private businessService: BusinessService, private dialog: MatDialog) {}

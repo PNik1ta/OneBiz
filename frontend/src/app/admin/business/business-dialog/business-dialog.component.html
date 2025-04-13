@@ -11,6 +11,16 @@
       <input matInput formControlName="company_description">
     </mat-form-field>
 
+    <mat-form-field>
+      <mat-label>Айди города</mat-label>
+      <input type="number" matInput formControlName="city_id">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Адрес</mat-label>
+      <input matInput formControlName="place">
+    </mat-form-field>
+
     <div *ngIf="preview_images_url && preview_images_url.length > 0" class="preview-images">
       <div class="preview-image" *ngFor="let item of preview_images_url">
         <img [src]="item" alt="Preview image">

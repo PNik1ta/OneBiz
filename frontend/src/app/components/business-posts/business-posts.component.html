@@ -11,14 +11,6 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Бизнес</mat-label>
-    <mat-select [(ngModel)]="selectedBusinessId" (selectionChange)="filterPosts()">
-      <mat-option [value]="null">Все бизнесы</mat-option>
-      <mat-option *ngFor="let business of allBusinesses" [value]="business.id">{{ business.company_name }}</mat-option>
-    </mat-select>
-  </mat-form-field>
-
   <mat-form-field appearance="fill" class="search-input">
     <mat-label>Поиск по названию</mat-label>
     <input matInput placeholder="Введите заголовок" [(ngModel)]="searchTerm" (keydown.enter)="filterPosts()" />

@@ -11,6 +11,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateBookingReviewDialogComponent } from '../create-booking-review-dialog/create-booking-review-dialog.component';
+import { ReviewService } from '../../core/services/review.service';
+import { IReview } from '../../core/interfaces/review.interface';
 
 @Component({
   selector: 'app-user-bookings',
@@ -29,16 +33,45 @@ import { MatButtonModule } from '@angular/material/button';
 export class UserBookingsComponent implements OnInit {
   @Input() user: IUser | null = null;
   bookings: IBooking[] = [];
+  reviews: IReview[] = [];
   filteredBookings: IBooking[] = [];
 
   statusFilter: string = 'ALL';
   dateFrom: string = '';
   dateTo: string = '';
 
-  constructor(private readonly bookingService: BookingService) { }
+  constructor(
+    private readonly bookingService: BookingService,
+    private readonly reviewService: ReviewService,
+    private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
     this.getBookings();
+    this.getUserReviews();
+  }
+
+  getUserReviews(): void {
+    this.reviewService.getByUserId().subscribe(res => {
+      this.reviews = res.data ?? [];
+    });
+  }
+
+  hasReview(bookingId: number): boolean {
+    return this.reviews.some(review => review.booking_business_id === bookingId);
+  }
+
+  openReviewDialog(bookingId: number) {
+    const dialogRef = this.dialog.open(CreateBookingReviewDialogComponent, {
+      width: '500px',
+      data: bookingId
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.getUserReviews();
+      }
+    });
   }
 
   getBookings() {

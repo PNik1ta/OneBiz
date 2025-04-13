@@ -23,6 +23,9 @@ export class UserInfoComponent {
   isEditingUsername = false;
   updatedUsername: string = '';
 
+  isEditingPhone = false;
+  updatedPhone: string = '';
+
   constructor(
     private userService: UsersService,
     private fileService: FileService
@@ -60,6 +63,11 @@ export class UserInfoComponent {
     this.isEditingUsername = true;
   }
 
+  startEditingPhone(): void {
+    this.updatedPhone = this.user?.phone || '';
+    this.isEditingPhone = true;
+  }
+
   saveUsername(): void {
     const dto: IUpdateUserDto = {
       username: this.updatedUsername,
@@ -70,6 +78,19 @@ export class UserInfoComponent {
         this.user.username = this.updatedUsername;
       }
       this.isEditingUsername = false;
+    });
+  }
+
+  savePhone(): void {
+    const dto: IUpdateUserDto = {
+      phone: this.updatedPhone,
+    };
+
+    this.userService.updateUser(dto).subscribe(() => {
+      if (this.user) {
+        this.user.phone = this.updatedPhone;
+      }
+      this.isEditingPhone = false;
     });
   }
 }

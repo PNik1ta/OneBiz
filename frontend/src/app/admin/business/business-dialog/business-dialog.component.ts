@@ -31,6 +31,8 @@ export class BusinessDialogComponent {
     this.businessForm = this.fb.group({
       company_name: [data.business?.company_name || '', Validators.required],
       company_description: [data.business?.company_description || '', [Validators.required]],
+      city_id: [data.business?.city_id || 0, [Validators.required]],
+      place: [data.business?.place || '', [Validators.required]],
       preview_images_url: [data.business?.preview_images_url || []],
     });
 
@@ -103,6 +105,8 @@ export class BusinessDialogComponent {
         company_name: businessData.company_name,
         company_description: businessData.company_description,
         preview_images_url: businessData.preview_images_url,
+        city_id: businessData.city_id,
+        place: businessData.place,
       }
       this.businessService.updateBusiness(this.data.business.id, dto).subscribe(() => this.dialogRef.close(true));
     } else {
@@ -110,6 +114,8 @@ export class BusinessDialogComponent {
         company_name: businessData.company_name,
         company_description: businessData.company_description,
         preview_images_url: businessData.preview_images_url,
+        city_id: businessData.city_id,
+        place: businessData.place,
       }
       this.businessService.createBusiness(dto).subscribe(() => this.dialogRef.close(true));
     }

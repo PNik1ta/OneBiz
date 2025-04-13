@@ -22,6 +22,10 @@ export class ReviewService {
     return this.http.get<BaseResponse<IReview>>(`${this.apiUrl}/${id}`)
   }
 
+  getByUserId(): Observable<BaseResponse<IReview[]>> {
+    return this.http.get<BaseResponse<IReview[]>>(`${this.apiUrl}/find-by-user`)
+  }
+
   getByBookingBusinessId(bookingBusinessId: number): Observable<BaseResponse<IReview[]>> {
     return this.http.get<BaseResponse<IReview[]>>(`${this.apiUrl}/find-by-booking-business/${bookingBusinessId}`)
   }

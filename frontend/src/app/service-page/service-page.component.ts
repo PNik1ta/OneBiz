@@ -12,6 +12,8 @@ import { ServicePageHeroComponent } from './components/service-page-hero/service
 import { IService } from '../core/interfaces/service.interface';
 import { IBusiness } from '../core/interfaces/business.interface';
 import { ServiceCardComponent } from '../components/service-card/service-card.component';
+import { CityService } from '../core/services/city.service';
+import { ICity } from '../core/interfaces/city.interface';
 
 @Component({
   selector: 'app-service-page',
@@ -33,12 +35,15 @@ export class ServicePageComponent implements OnInit {
   allServices: IService[] = [];
   filteredServices: IService[] = [];
   allBusinesses: IBusiness[] = [];
+  allCities: ICity[] = [];
   selectedBusinessId: number | null = null;
+  selectedCityId: number | null = null;
   searchQuery: string = '';
 
   constructor(
     private serviceService: ServiceService,
     private businessService: BusinessService,
+    private cityService: CityService,
     public router: Router
   ) {}
 
@@ -48,6 +53,10 @@ export class ServicePageComponent implements OnInit {
       this.filteredServices = [...this.allServices];
     });
 
+    this.cityService.getCities().subscribe(res => {
+      this.allCities = res.data ?? [];
+    })
+
     this.businessService.getBusinesses().subscribe(res => {
       this.allBusinesses = res.data ?? [];
     });
@@ -56,10 +65,17 @@ export class ServicePageComponent implements OnInit {
   filterServices(): void {
     this.filteredServices = this.allServices.filter(service => {
       const matchesSearch = service.title.toLowerCase().includes(this.searchQuery.toLowerCase());
+
       const matchesBusiness = this.selectedBusinessId
         ? service.business_id === this.selectedBusinessId
         : true;
-      return matchesSearch && matchesBusiness;
+
+      const business = this.allBusinesses.find(b => b.id === service.business_id);
+      const matchesCity = this.selectedCityId
+        ? business?.city_id === this.selectedCityId
+        : true;
+
+      return matchesSearch && matchesBusiness && matchesCity;
     });
   }
 

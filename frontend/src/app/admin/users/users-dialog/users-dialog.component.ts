@@ -31,6 +31,7 @@ export class UserDialogComponent {
     this.userForm = this.fb.group({
       username: [data.user?.username || '', Validators.required],
       email: [data.user?.email || '', [Validators.required, Validators.email]],
+      phone: [data.user?.phone || ''],
       password: [data.user?.password_hash || '', Validators.required],
       role: [data.user?.role || 'USER', Validators.required],
       avatar_url: [data.user?.avatar_url || '']
@@ -86,6 +87,7 @@ export class UserDialogComponent {
       const dto: IUpdateUserDto = {
         username: userData.username,
         avatar_url: userData.avatar_url,
+        phone: userData.phone,
       }
       this.userService.updateUser(dto).subscribe(() => this.dialogRef.close(true));
     } else {
@@ -95,6 +97,7 @@ export class UserDialogComponent {
         password: userData.password,
         avatar_url: userData.avatar_url,
         role: userData.role,
+        phone: userData.phone,
       }
       this.userService.createUser(dto).subscribe(() => this.dialogRef.close(true));
     }

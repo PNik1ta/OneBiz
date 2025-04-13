@@ -17,6 +17,11 @@
       <mat-cell *matCellDef="let user"> {{ user.email }} </mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="phone">
+      <mat-header-cell *matHeaderCellDef> Телефон </mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{ user.phone }} </mat-cell>
+    </ng-container>
+
     <ng-container matColumnDef="role">
       <mat-header-cell *matHeaderCellDef> Роль </mat-header-cell>
       <mat-cell *matCellDef="let user"> {{ user.role }} </mat-cell>

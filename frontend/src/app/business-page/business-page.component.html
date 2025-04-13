@@ -24,6 +24,16 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+
+    <mat-form-field appearance="fill" class="service-filter">
+      <mat-label>Фильтр по городу</mat-label>
+      <mat-select [(ngModel)]="selectedCityId" (selectionChange)="filterBusinesses()">
+        <mat-option [value]="null">Все города</mat-option>
+        <mat-option *ngFor="let city of allCities" [value]="city.id">
+          {{ city.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
 
 

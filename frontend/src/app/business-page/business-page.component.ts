@@ -12,6 +12,8 @@ import { BusinessPageHeroComponent } from './components/business-page-hero/busin
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { ICity } from '../core/interfaces/city.interface';
+import { CityService } from '../core/services/city.service';
 
 @Component({
   selector: 'app-business-page',
@@ -34,12 +36,14 @@ export class BusinessPageComponent implements OnInit {
   filteredBusinesses: IBusiness[] = [];
   allServices: IService[] = [];
   selectedServiceId: number | null = null;
+  selectedCityId: number | null = null;
   searchTerm: string = '';
-
+  allCities: ICity[] = [];
 
   constructor(
     private businessService: BusinessService,
     private serviceService: ServiceService,
+    private cityService: CityService,
     private router: Router
   ) { }
 
@@ -48,6 +52,10 @@ export class BusinessPageComponent implements OnInit {
       this.allBusinesses = res.data ?? [];
       this.filteredBusinesses = res.data ?? [];
     });
+
+    this.cityService.getCities().subscribe(res => {
+      this.allCities = res.data ?? [];
+    })
 
     this.serviceService.getServices().subscribe(res => {
       this.allServices = res.data ?? [];
@@ -75,17 +83,17 @@ export class BusinessPageComponent implements OnInit {
 
 
   filterBusinesses(): void {
-    if (!this.selectedServiceId) {
-      this.filteredBusinesses = this.allBusinesses;
-      return;
-    }
-
-    this.filteredBusinesses = this.allBusinesses.filter(business =>
-      this.allServices.some(
+    this.filteredBusinesses = this.allBusinesses.filter(business => {
+      const matchesService = !this.selectedServiceId || this.allServices.some(
         service => service.business_id === business.id && service.id === this.selectedServiceId
-      )
-    );
+      );
+
+      const matchesCity = !this.selectedCityId || business.city_id === this.selectedCityId;
+
+      return matchesService && matchesCity;
+    });
   }
+
 
   goToBusiness(id: number): void {
     this.router.navigate(['/business', id]);

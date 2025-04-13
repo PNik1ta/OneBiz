@@ -10,6 +10,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BusinessService } from '../../core/services/business.service';
 import { FileService } from '../../core/services/file.service';
 import { IFileResponse } from '../../core/interfaces/file-response';
+import { CityService } from '../../core/services/city.service';
+import { ICity } from '../../core/interfaces/city.interface';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-create-business',
@@ -22,6 +25,7 @@ import { IFileResponse } from '../../core/interfaces/file-response';
     MatDialogModule,
     MatButtonModule,
     MatSnackBarModule,
+    MatSelectModule,
     MatProgressSpinnerModule,
   ],
   templateUrl: './create-business.component.html',
@@ -31,18 +35,26 @@ export class CreateBusinessComponent {
   form: FormGroup;
   isLoading = false;
   selectedFiles: File[] = [];
+  cities: ICity[] = [];
 
   constructor(
     private fb: FormBuilder,
     private businessService: BusinessService,
     private fileService: FileService,
+    private cityService: CityService,
     private snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<CreateBusinessComponent>
   ) {
     this.form = this.fb.group({
       company_name: ['', Validators.required],
       company_description: ['', Validators.required],
+      city_id: [0, Validators.required],
+      place: ['', Validators.required]
     });
+
+    this.cityService.getCities().subscribe((res) => {
+      this.cities = res.data ?? [];
+    })
   }
 
   onFileChange(event: Event): void {
@@ -57,7 +69,7 @@ export class CreateBusinessComponent {
 
     this.isLoading = true;
 
-    const { company_name, company_description } = this.form.value;
+    const { company_name, company_description, city_id, place } = this.form.value;
 
     const upload$ = this.selectedFiles.length
       ? this.fileService.uploadMultiple(this.selectedFiles)
@@ -69,6 +81,8 @@ export class CreateBusinessComponent {
         const dto = {
           company_name,
           company_description,
+          city_id,
+          place,
           preview_images_url: imageUrls
         };
 

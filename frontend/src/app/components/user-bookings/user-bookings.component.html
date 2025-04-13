@@ -37,7 +37,9 @@
     <h5>{{booking.service}}</h5>
     <p>{{booking.description}}</p>
     <small>{{booking.amount}} руб</small>
-    <button (click)="cancelBooking(booking)">Отменить</button>
+    <button *ngIf="booking.status !== 'canceled' && booking.status !== 'finished'" (click)="cancelBooking(booking)">Отменить</button>
+    <button *ngIf="booking.status === 'finished' && !hasReview(booking.id!)" (click)="openReviewDialog(booking.id!)">Оставить отзыв</button>
+    <div *ngIf="booking.status === 'canceled' || (booking.status === 'finished' && hasReview(booking.id!))"></div>
     <div class="status" [ngClass]="booking.status">
       {{booking.status}}
     </div>

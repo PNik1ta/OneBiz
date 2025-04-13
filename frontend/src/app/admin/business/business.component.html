@@ -22,6 +22,16 @@
       <mat-cell *matCellDef="let business"> {{ business.user_id }} </mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="city_id">
+      <mat-header-cell *matHeaderCellDef> Айди города </mat-header-cell>
+      <mat-cell *matCellDef="let business"> {{ business.city_id }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="place">
+      <mat-header-cell *matHeaderCellDef> Адрес </mat-header-cell>
+      <mat-cell *matCellDef="let business"> {{ business.place }} </mat-cell>
+    </ng-container>
+
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef> Действия </mat-header-cell>
       <mat-cell *matCellDef="let business">

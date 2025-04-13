@@ -19,6 +19,8 @@ import { ServiceService } from '../../core/services/service.service';
 import { IService } from '../../core/interfaces/service.interface';
 import { ServiceCardComponent } from '../service-card/service-card.component';
 import { CreateServiceComponent } from '../create-service/create-service.component';
+import { CityService } from '../../core/services/city.service';
+import { ICity } from '../../core/interfaces/city.interface';
 
 @Component({
   selector: 'app-business-info',
@@ -40,21 +42,28 @@ export class BusinessInfoComponent implements OnInit {
   @Input() user: IUser | null = null
   business: IBusiness | null = null
   services: IService[] = []
+  cities: ICity[] = []
 
   API_IMG_URL = API_IMG_URL;
 
   isEditingUsername = false;
   updatedUsername: string = '';
 
+  isEditingPhone = false;
+  updatedPhone: string = '';
+  cityName: string = '';
+
   constructor(
     private userService: UsersService,
     private fileService: FileService,
     private businessService: BusinessService,
     private serviceService: ServiceService,
+    private cityService: CityService,
     private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
+
     this.businessService.getUserBusiness().subscribe((res) => {
       this.business = res.data ?? null;
 
@@ -63,6 +72,10 @@ export class BusinessInfoComponent implements OnInit {
           this.services = res.data ?? []
         })
 
+        this.cityService.getCities().subscribe((res) => {
+          this.cities = res.data ?? [];
+          this.cityName = this.cities.find((el) => el.id === this.business?.city_id)?.name ?? '';
+        })
       }
     })
   }
@@ -99,6 +112,11 @@ export class BusinessInfoComponent implements OnInit {
     this.isEditingUsername = true;
   }
 
+  startEditingPhone(): void {
+    this.updatedPhone = this.user?.phone || '';
+    this.isEditingPhone = true;
+  }
+
   saveUsername(): void {
     const dto: IUpdateUserDto = {
       username: this.updatedUsername,
@@ -109,6 +127,19 @@ export class BusinessInfoComponent implements OnInit {
         this.user.username = this.updatedUsername;
       }
       this.isEditingUsername = false;
+    });
+  }
+
+  savePhone(): void {
+    const dto: IUpdateUserDto = {
+      phone: this.updatedPhone,
+    };
+
+    this.userService.updateUser(dto).subscribe(() => {
+      if (this.user) {
+        this.user.phone = this.updatedPhone;
+      }
+      this.isEditingPhone = false;
     });
   }
 
