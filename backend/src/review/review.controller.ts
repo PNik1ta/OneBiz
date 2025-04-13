@@ -21,6 +21,7 @@ import { ReviewService } from './review.service';
 import { Review } from './models/review.model';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { UpdateReviewDto } from './dto/update-review.dto';
+import { Public } from '../shared/decorators/public.decorator';
 
 @Controller('review')
 @ApiBearerAuth('JWT-auth')
@@ -58,10 +59,31 @@ export class ReviewController {
   @Get()
   @ApiBearerAuth('JWT-auth')
   @HttpCode(200)
-  @Roles(ERoles.ADMIN)
+  @Public()
   async findAll(): Promise<BaseResponse<Review[]>> {
     try {
       return await this.reviewService.findAll();
+    } catch (err) {
+      if (err instanceof HttpException) {
+        throw err;
+      }
+      throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  @Get('find-by-user')
+  @ApiOkResponse({
+    description: 'User reviews',
+    type: BaseResponse<Review[]>,
+  })
+  @ApiBearerAuth('JWT-auth')
+  @HttpCode(200)
+  @Roles(ERoles.ADMIN, ERoles.BUSINESS, ERoles.USER)
+  async findByUserId(
+    @GetCurrentUserId() userId: number,
+  ): Promise<BaseResponse<Review[]>> {
+    try {
+      return await this.reviewService.findByUserId(userId);
     } catch (err) {
       if (err instanceof HttpException) {
         throw err;
@@ -77,7 +99,7 @@ export class ReviewController {
   })
   @ApiBearerAuth('JWT-auth')
   @HttpCode(200)
-  @Roles(ERoles.ADMIN, ERoles.BUSINESS, ERoles.USER)
+  @Public()
   async findById(@Param('id') id: number): Promise<BaseResponse<Review>> {
     try {
       return await this.reviewService.findById(id);

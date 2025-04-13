@@ -34,7 +34,7 @@ export class ReviewService {
       title: dto.title,
       rating: dto.rating,
       user_id: userId,
-      description: dto.desciption,
+      description: dto.description,
       created_at: new Date(),
     });
 
@@ -80,6 +80,16 @@ export class ReviewService {
     return new BaseResponse<Review>(REVIEW_FIND, review);
   }
 
+  async findByUserId(userId: number): Promise<BaseResponse<Review[]>> {
+    const review = await this.reviewRepository.findByUserId(userId);
+
+    if (!review) {
+      throw new Error(REVIEW_FIND_ERROR);
+    }
+
+    return new BaseResponse<Review[]>(REVIEW_FIND, review);
+  }
+
   async delete(id: number, userId: number): Promise<BaseResponse<void>> {
     const review = await this.reviewRepository.findById(id);
     if (!review) {
@@ -112,7 +122,7 @@ export class ReviewService {
       booking_business_id: review.booking_business_id,
       type: review.type,
       title: dto.title,
-      description: dto.desciption,
+      description: dto.description,
       user_id: review.user_id,
       rating: dto.rating,
       created_at: review.created_at,

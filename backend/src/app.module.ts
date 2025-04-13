@@ -26,6 +26,8 @@ import { CommentModule } from './comment/comment.module';
 import { ElasticsearchLoggerService } from './logger.service';
 import { VerificationModule } from './mail/verification.module';
 import { MailerModule } from '@nestjs-modules/mailer';
+import { City } from './city/models/city.model';
+import { CityModule } from './city/city.module';
 
 @Module({
   imports: [
@@ -50,6 +52,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
         Post,
         Like,
         Comment,
+        City,
       ],
     }),
     MailerModule.forRoot({
@@ -78,6 +81,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
     LikeModule,
     CommentModule,
     VerificationModule,
+    CityModule,
   ],
   providers: [
     { provide: APP_GUARD, useClass: AtGuard },

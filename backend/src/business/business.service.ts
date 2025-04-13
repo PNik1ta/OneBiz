@@ -39,6 +39,8 @@ export class BusinessService {
       company_description: dto.company_description,
       preview_images_url: dto.preview_images_url ?? [],
       user_id: userId,
+      city_id: dto.city_id,
+      place: dto.place,
     });
 
     const createdBusiness = await this.businessRepository.create(business);
@@ -119,10 +121,13 @@ export class BusinessService {
 
     const businessEntity = new BusinessEntity({
       id: business.id,
-      company_name: dto.company_name,
-      company_description: dto.company_description,
+      company_name: dto.company_name ?? business.company_name,
+      company_description:
+        dto.company_description ?? business.company_description,
       preview_images_url: dto.preview_images_url,
       user_id: business.user_id,
+      city_id: dto.city_id ?? business.city_id,
+      place: dto.place ?? business.place,
     });
 
     const updatedBusiness = await this.businessRepository.update(

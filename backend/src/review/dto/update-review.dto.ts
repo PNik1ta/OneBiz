@@ -24,5 +24,5 @@ export class UpdateReviewDto {
     description: 'Review description',
     example: 'test',
   })
-  desciption: string;
+  description: string;
 }

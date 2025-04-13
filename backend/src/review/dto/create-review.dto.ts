@@ -41,5 +41,5 @@ export class CreateReviewDto {
     description: 'Review description',
     example: 'test',
   })
-  desciption: string;
+  description: string;
 }

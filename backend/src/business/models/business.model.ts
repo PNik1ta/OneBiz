@@ -17,4 +17,10 @@ export class Business implements IBusiness {
 
   @Column()
   user_id: number;
+
+  @Column({ nullable: true })
+  city_id: number;
+
+  @Column({ nullable: true })
+  place: string;
 }

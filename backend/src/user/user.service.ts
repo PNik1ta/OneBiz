@@ -33,6 +33,7 @@ export class UserService {
       password_hash: '',
       avatar_url: dto.avatar_url ?? null,
       created_at: new Date(),
+      phone: dto.phone ?? null,
     }).setPassword(dto.password);
 
     const createdUser = await this.userRepository.create(user);
@@ -126,6 +127,7 @@ export class UserService {
       password_hash: updatedUser.password_hash,
       avatar_url: dto.avatar_url ?? updatedUser.avatar_url,
       created_at: updatedUser.created_at,
+      phone: dto.phone ?? updatedUser.phone,
     });
 
     const res = await this.userRepository.update(user_id, entity);

@@ -11,6 +11,7 @@ export class UserEntity implements IUser {
   avatar_url?: string;
   created_at: Date;
   rt?: string;
+  phone?: string;
 
   constructor(user: IUser) {
     this.id = user.id;
@@ -21,6 +22,7 @@ export class UserEntity implements IUser {
     this.avatar_url = user.avatar_url;
     this.created_at = user.created_at;
     this.rt = user.rt;
+    this.phone = user.phone;
   }
 
   public async setPassword(password: string): Promise<UserEntity> {

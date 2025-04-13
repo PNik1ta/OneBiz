@@ -30,7 +30,6 @@ export class CreateUserDto {
   })
   password: string;
 
-  @IsNotEmpty()
   @IsString()
   @ApiProperty({
     description: 'User avatar url',
@@ -46,4 +45,12 @@ export class CreateUserDto {
     enum: ERoles,
   })
   role?: ERoles;
+
+  @IsString()
+  @ApiProperty({
+    description: 'User phone',
+    example: '+79311111111',
+    type: String,
+  })
+  phone?: string;
 }

@@ -31,4 +31,7 @@ export class User implements IUser {
 
   @Column({ nullable: true })
   rt?: string;
+
+  @Column({ nullable: true })
+  phone?: string;
 }

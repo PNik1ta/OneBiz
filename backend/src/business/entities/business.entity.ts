@@ -6,6 +6,8 @@ export class BusinessEntity implements IBusiness {
   company_description: string;
   preview_images_url: string[];
   user_id: number;
+  city_id: number;
+  place: string;
 
   constructor(business: IBusiness) {
     this.id = business.id;
@@ -13,5 +15,7 @@ export class BusinessEntity implements IBusiness {
     this.company_description = business.company_description;
     this.preview_images_url = business.preview_images_url;
     this.user_id = business.user_id;
+    this.city_id = business.city_id;
+    this.place = business.place;
   }
 }
