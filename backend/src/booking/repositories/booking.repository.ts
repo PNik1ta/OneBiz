@@ -6,6 +6,7 @@ import { User } from '../../user/models/user.model';
 import { Business } from '../../business/models/business.model';
 import { Service } from '../../service/models/service.model';
 import { Injectable } from '@nestjs/common';
+import { City } from '../../city/models/city.model';
 
 @Injectable()
 export class BookingRepository {
@@ -39,6 +40,12 @@ export class BookingRepository {
         'service',
         'service.id = booking.service_id',
       )
+      .leftJoinAndMapOne(
+        'business.city',
+        City,
+        'city',
+        'city.id = business.city_id',
+      )
       .select([
         'booking.id AS id',
         'booking.datetime AS datetime',
@@ -49,7 +56,11 @@ export class BookingRepository {
       .addSelect('user.username AS username')
       .addSelect('user.avatar_url AS user_avatar_url')
       .addSelect('user.id AS user_id')
+      .addSelect('user.phone AS user_phone')
+      .addSelect('user.email AS user_email')
       .addSelect('business.company_name AS company_name')
+      .addSelect('business.place AS business_place')
+      .addSelect('city.name AS business_city')
       .addSelect('business.id AS business_id')
       .addSelect('service.title AS service')
       .addSelect('service.amount AS service_amount')
@@ -79,6 +90,12 @@ export class BookingRepository {
         'service',
         'service.id = booking.service_id',
       )
+      .leftJoinAndMapOne(
+        'business.city',
+        City,
+        'city',
+        'city.id = business.city_id',
+      )
       .select([
         'booking.id AS id',
         'booking.datetime AS datetime',
@@ -89,7 +106,11 @@ export class BookingRepository {
       .addSelect('user.username AS username')
       .addSelect('user.avatar_url AS user_avatar_url')
       .addSelect('user.id AS user_id')
+      .addSelect('user.phone AS user_phone')
+      .addSelect('user.email AS user_email')
       .addSelect('business.company_name AS company_name')
+      .addSelect('business.place AS business_place')
+      .addSelect('city.name AS business_city')
       .addSelect('business.id AS business_id')
       .addSelect('service.title AS service')
       .addSelect('service.amount AS service_amount')
@@ -120,6 +141,12 @@ export class BookingRepository {
         'service',
         'service.id = booking.service_id',
       )
+      .leftJoinAndMapOne(
+        'business.city',
+        City,
+        'city',
+        'city.id = business.city_id',
+      )
       .select([
         'booking.id AS id',
         'booking.datetime AS datetime',
@@ -130,7 +157,11 @@ export class BookingRepository {
       .addSelect('user.username AS username')
       .addSelect('user.avatar_url AS user_avatar_url')
       .addSelect('user.id AS user_id')
+      .addSelect('user.phone AS user_phone')
+      .addSelect('user.email AS user_email')
       .addSelect('business.company_name AS company_name')
+      .addSelect('business.place AS business_place')
+      .addSelect('city.name AS business_city')
       .addSelect('business.id AS business_id')
       .addSelect('service.title AS service')
       .addSelect('service.amount AS service_amount')
@@ -161,6 +192,12 @@ export class BookingRepository {
         'service',
         'service.id = booking.service_id',
       )
+      .leftJoinAndMapOne(
+        'business.city',
+        City,
+        'city',
+        'city.id = business.city_id',
+      )
       .select([
         'booking.id AS id',
         'booking.datetime AS datetime',
@@ -171,7 +208,11 @@ export class BookingRepository {
       .addSelect('user.username AS username')
       .addSelect('user.avatar_url AS user_avatar_url')
       .addSelect('user.id AS user_id')
+      .addSelect('user.phone AS user_phone')
+      .addSelect('user.email AS user_email')
       .addSelect('business.company_name AS company_name')
+      .addSelect('business.place AS business_place')
+      .addSelect('city.name AS business_city')
       .addSelect('business.id AS business_id')
       .addSelect('service.title AS service')
       .addSelect('service.amount AS service_amount')
