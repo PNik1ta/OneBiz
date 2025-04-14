@@ -1,0 +1,21 @@
+<h2 mat-dialog-title>Детали записи</h2>
+<div mat-dialog-content class="booking-details">
+  <p><strong>Дата:</strong> {{ data.datetime | date: 'dd.MM.yyyy HH:mm' }}</p>
+  <p><strong>Компания:</strong> {{ data.company_name }}</p>
+  <p><strong>Услуга:</strong> {{ data.service }}</p>
+  <p><strong>Описание:</strong> {{ data.description }}</p>
+  <p><strong>Сумма:</strong> {{ data.amount }} руб</p>
+  <p><strong>Название бизнеса:</strong> {{ data.company_name }}</p>
+  <p><strong>Город:</strong> {{ data.business_city }}</p>
+  <p><strong>Адрес: </strong> {{ data.business_place }}</p>
+  <p><strong>Имя пользователя клиента:</strong> {{ data.username }}</p>
+  <p><strong>Email клиента:</strong> {{ data.user_email }}</p>
+  <p *ngIf="data.user_phone"><strong>Телефон клиента:</strong> {{ data.user_phone }}</p>
+
+
+  <p *ngIf="data.service_discount"><strong>Скидка:</strong> {{ data.service_discount }}%</p>
+  <p><strong>Статус:</strong> {{ data.status }}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button color="primary" (click)="close()">Закрыть</button>
+</div>

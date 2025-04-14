@@ -15,6 +15,7 @@ import { IBusiness } from '../../core/interfaces/business.interface';
 import { BusinessService } from '../../core/services/business.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { UpdateBookingStatusComponent } from '../update-booking-status/update-booking-status.component';
+import { BookingDetailsComponent } from '../booking-details/booking-details.component';
 
 
 @Component({
@@ -50,6 +51,13 @@ export class BusinessBookingsComponent {
 
   ngOnInit(): void {
     this.getBusinessAndBookings();
+  }
+
+  openDetailsDialog(booking: IBooking): void {
+    this.dialog.open(BookingDetailsComponent, {
+      width: '400px',
+      data: booking
+    });
   }
 
   getBusinessAndBookings() {

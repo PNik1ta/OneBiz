@@ -15,4 +15,8 @@ export interface IBooking {
   service_discount?: string;
   username?: string;
   user_avatar_url?: string;
+  user_phone?: string;
+  user_email: string;
+  business_place: string;
+  business_city: string;
 }

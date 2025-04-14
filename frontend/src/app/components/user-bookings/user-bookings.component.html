@@ -31,7 +31,7 @@
 
 
 <div class="bookings">
-  <div class="booking" *ngFor="let booking of filteredBookings">
+  <div class="booking" (click)="openDetailsDialog(booking)" *ngFor="let booking of filteredBookings">
     <h2>{{booking.datetime | date: 'dd.MM.yyyy HH:mm'}}</h2>
     <h5>{{booking.company_name}}</h5>
     <h5>{{booking.service}}</h5>

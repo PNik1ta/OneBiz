@@ -15,6 +15,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateBookingReviewDialogComponent } from '../create-booking-review-dialog/create-booking-review-dialog.component';
 import { ReviewService } from '../../core/services/review.service';
 import { IReview } from '../../core/interfaces/review.interface';
+import { BookingDetailsComponent } from '../booking-details/booking-details.component';
 
 @Component({
   selector: 'app-user-bookings',
@@ -49,6 +50,13 @@ export class UserBookingsComponent implements OnInit {
   ngOnInit(): void {
     this.getBookings();
     this.getUserReviews();
+  }
+
+  openDetailsDialog(booking: IBooking): void {
+    this.dialog.open(BookingDetailsComponent, {
+      width: '400px',
+      data: booking
+    });
   }
 
   getUserReviews(): void {
