@@ -186,6 +186,9 @@ export class BusinessInfoComponent implements OnInit {
           if (this.user) {
             this.user.avatar_url = url;
           }
+
+          this.userService.emitUserUpdated();
+
         });
       });
     };

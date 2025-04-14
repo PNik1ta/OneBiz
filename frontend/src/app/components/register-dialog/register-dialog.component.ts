@@ -89,7 +89,7 @@ export class RegisterDialogComponent {
       next: () => {
         this.isLoading = false;
         this.showMessage('Успешная регистрация!');
-        this.dialogRef.close();
+        this.dialogRef.close('success');
         this.router.navigate(['/profile']);
       },
       error: err => {

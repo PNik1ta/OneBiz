@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { RegisterDialogComponent } from '../components/register-dialog/register-dialog.component';
 import { LoginDialogComponent } from '../components/login-dialog/login-dialog.component';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../core/services/auth.service';
 import { API_IMG_URL } from '../core/constants/api-url';
 import { IUser } from '../core/interfaces/user.interface';
@@ -24,23 +24,35 @@ export class HeaderComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private authService: AuthService,
-    private userService: UsersService
-  ) {}
+    private userService: UsersService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-      this.isLoggedIn = this.authService.isAuthenticated();
+    this.loadUser();
 
-      if (this.isLoggedIn) {
-        this.userService.getProfile().subscribe((res) => {
-          this.user = res.data ?? null;
-        })
-      }
+    this.userService.userUpdatedObservable.subscribe(() => {
+      this.loadUser();
+    });
+  }
+
+  loadUser() {
+    this.isLoggedIn = this.authService.isAuthenticated();
+
+    if (this.isLoggedIn) {
+      this.userService.getProfile().subscribe((res) => {
+        this.user = res.data ?? null;
+      })
+    }
   }
 
   logout() {
     this.authService.logout().subscribe(() => {
       this.user = null;
+      this.isLoggedIn = false;
     })
+    this.loadUser();
+    this.router.navigate(['/']);
   }
 
   toggleMenu() {
@@ -54,7 +66,11 @@ export class HeaderComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result === 'login') this.openLogin(); // откроем логин по клику из регистрации
+      if (result === 'login') {
+        this.openLogin();
+      } else if (result === 'success') {
+        this.loadUser();
+      }
     });
   }
 
@@ -64,7 +80,11 @@ export class HeaderComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result === 'register') this.openRegister();
+      if (result === 'register') {
+        this.openRegister();
+      } else if (result === 'success') {
+        this.loadUser();
+      }
     });
   }
 }

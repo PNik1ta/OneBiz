@@ -64,7 +64,7 @@ export class LoginDialogComponent {
       next: () => {
         this.isLoading = false;
         this.showMessage('Успешный вход!');
-        this.dialogRef.close();
+        this.dialogRef.close('success');
         this.router.navigate(['/profile']);
       },
       error: err => {

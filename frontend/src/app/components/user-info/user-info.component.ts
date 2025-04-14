@@ -48,9 +48,12 @@ export class UserInfoComponent {
         };
 
         this.userService.updateUser(dto).subscribe(() => {
+
           if (this.user) {
             this.user.avatar_url = url;
           }
+
+          this.userService.emitUserUpdated();
         });
       });
     };
