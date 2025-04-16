@@ -23,6 +23,10 @@ import { ICity } from '../../core/interfaces/city.interface';
 import { NgxChartsModule, ScaleType } from '@swimlane/ngx-charts';
 import { BookingService } from '../../core/services/booking.service';
 import { PostService } from '../../core/services/post.service';
+import { IReview } from '../../core/interfaces/review.interface';
+import { ReviewService } from '../../core/services/review.service';
+import { EReviewType } from '../../core/enums/review-types.enum';
+import { UserInfoDialogComponent } from '../user-info-dialog/user-info-dialog.component';
 
 
 @Component({
@@ -65,6 +69,7 @@ export class BusinessInfoComponent implements OnInit {
   isEditingPhone = false;
   updatedPhone: string = '';
   cityName: string = '';
+  reviews: IReview[] = [];
 
   constructor(
     private userService: UsersService,
@@ -75,6 +80,7 @@ export class BusinessInfoComponent implements OnInit {
     private dialog: MatDialog,
     private bookingService: BookingService,
     private postService: PostService,
+    private reviewService: ReviewService,
   ) { }
 
   ngOnInit(): void {
@@ -139,31 +145,29 @@ export class BusinessInfoComponent implements OnInit {
               })),
             },
           ];
-
-
-          console.log('REVENUE: ', this.revenueChart);
-          console.log('BOOKING: ', this.bookingChart);
         });
 
         this.postService.getPostByBusinessId(this.business.id!).subscribe((res) => {
           const posts = res.data ?? [];
-          console.log(posts);
-
 
           this.likesChart = posts.map((post: any) => ({
             name: post.title || 'Без названия',
-            value: post.likes || 0, // или post.likesCount если поле другое
+            value: post.likes || 0,
           }));
-
-          console.log('LIKES CHART:', this.likesChart);
         });
 
+        this.reviewService.getByBookingBusinessId(this.business.id!, EReviewType.BUSINESS).subscribe((res) => {
+          this.reviews = res.data ?? [];
+        })
       }
-
-
     });
+  }
 
-
+  openUserInfoDialog(review: IReview) {
+    this.dialog.open(UserInfoDialogComponent, {
+      width: '400px',
+      data: review.user_id,
+    });
   }
 
   onAvatarClick(): void {

@@ -6,6 +6,7 @@ import { BaseResponse } from "../classes/base-response";
 import { IReview } from "../interfaces/review.interface";
 import { ICreateReviewDto } from "../dto/review/create-review.dto";
 import { IUpdateReviewDto } from "../dto/review/update-review.dto";
+import { EReviewType } from "../enums/review-types.enum";
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +27,14 @@ export class ReviewService {
     return this.http.get<BaseResponse<IReview[]>>(`${this.apiUrl}/find-by-user`)
   }
 
-  getByBookingBusinessId(bookingBusinessId: number): Observable<BaseResponse<IReview[]>> {
-    return this.http.get<BaseResponse<IReview[]>>(`${this.apiUrl}/find-by-booking-business/${bookingBusinessId}`)
+  getByBookingBusinessId(bookingBusinessId: number, type: EReviewType): Observable<BaseResponse<IReview[]>> {
+    return this.http.get<BaseResponse<IReview[]>>(`${this.apiUrl}/find-by-booking-business/${bookingBusinessId}`,
+      {
+        params: {
+          type: type,
+        }
+      }
+    )
   }
 
   createReview(dto: ICreateReviewDto): Observable<BaseResponse<IReview>> {

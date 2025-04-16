@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>Оставить отзыв</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Заголовок</mat-label>
+      <input matInput formControlName="title" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Описание</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+
+    <div class="rating">
+      <mat-icon *ngFor="let star of [1,2,3,4,5]" (mouseenter)="hoverRating = star" (mouseleave)="hoverRating = 0"
+        (click)="setRating(star)">
+        {{ (hoverRating || rating) >= star ? 'star' : 'star_border' }}
+      </mat-icon>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="dialogRef.close()">Отмена</button>
+  <button mat-flat-button color="primary" (click)="submit()">Отправить</button>
+</mat-dialog-actions>

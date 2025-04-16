@@ -1,0 +1,7 @@
+<div class="dialog-wrapper" *ngIf="user">
+  <img class="avatar" [src]="API_IMG_URL + '/' + user.avatar_url" alt="Аватар" />
+  <h2>{{ user.username }}</h2>
+  <p><strong>Email:</strong> {{ user.email }}</p>
+  <p><strong>Телефон:</strong> {{ user.phone || '—' }}</p>
+  <button mat-button color="primary" (click)="dialogRef.close()">Закрыть</button>
+</div>

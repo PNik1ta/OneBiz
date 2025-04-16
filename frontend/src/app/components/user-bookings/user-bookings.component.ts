@@ -16,6 +16,7 @@ import { CreateBookingReviewDialogComponent } from '../create-booking-review-dia
 import { ReviewService } from '../../core/services/review.service';
 import { IReview } from '../../core/interfaces/review.interface';
 import { BookingDetailsComponent } from '../booking-details/booking-details.component';
+import { EReviewType } from '../../core/enums/review-types.enum';
 
 @Component({
   selector: 'app-user-bookings',
@@ -66,7 +67,7 @@ export class UserBookingsComponent implements OnInit {
   }
 
   hasReview(bookingId: number): boolean {
-    return this.reviews.some(review => review.booking_business_id === bookingId);
+    return this.reviews.some(review => review.booking_business_id === bookingId && review.type === EReviewType.BOOKING);
   }
 
   openReviewDialog(bookingId: number) {

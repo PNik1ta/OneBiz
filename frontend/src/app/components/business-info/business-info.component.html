@@ -49,20 +49,6 @@
     </div>
   </div>
 
-  <div class="services-block">
-    <div class="services-block__header">
-      <h2>Услуги</h2>
-      <app-button (clicked)="onCreateService()">Добавить услугу</app-button>
-    </div>
-    <div class="details">
-      <app-button *ngIf="!business" (clicked)="onCreateBusiness()">Cоздать бизнес</app-button>
-
-      <div class="services">
-        <app-service-card *ngFor="let item of services" [service]="item"></app-service-card>
-      </div>
-    </div>
-  </div>
-
   <div class="analytics">
     <div class="details">
       <h2>Прибыль по времени</h2>
@@ -91,6 +77,43 @@
         <ngx-charts-bar-horizontal [scheme]="colorScheme" [results]="likesChart" [xAxis]="true" [yAxis]="true"
           [legend]="false" [view]="[700, 300]">
         </ngx-charts-bar-horizontal>
+      </div>
+    </div>
+  </div>
+
+  <div class="services-block">
+    <div class="services-block__header">
+      <h2>Услуги</h2>
+      <app-button (clicked)="onCreateService()">Добавить услугу</app-button>
+    </div>
+    <div class="details">
+      <app-button *ngIf="!business" (clicked)="onCreateBusiness()">Cоздать бизнес</app-button>
+
+      <div class="services">
+        <app-service-card *ngFor="let item of services" [service]="item"></app-service-card>
+      </div>
+    </div>
+  </div>
+
+  <div class="reviews">
+    <h2>Отзывы о бизнесе</h2>
+    <div class="details">
+      <div class="review-card" *ngFor="let review of reviews">
+        <div class="header">
+          <img (click)="openUserInfoDialog(review)" [src]="API_IMG_URL + '/' + review.user_avatar_url" alt="avatar" class="avatar" />
+          <div class="info">
+            <h3 (click)="openUserInfoDialog(review)">{{ review.username }}</h3>
+            <div class="stars">
+              <ng-container *ngFor="let star of [1,2,3,4,5]">
+                <mat-icon [class.filled]="star <= review.rating">star</mat-icon>
+              </ng-container>
+            </div>
+            <small>{{ review.created_at | date: 'dd.MM.yyyy HH:mm' }}</small>
+          </div>
+        </div>
+
+        <h4 class="title">{{ review.title }}</h4>
+        <p class="description">{{ review.description }}</p>
       </div>
     </div>
   </div>

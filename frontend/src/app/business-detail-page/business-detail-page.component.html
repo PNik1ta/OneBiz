@@ -1,5 +1,8 @@
 <div class="business-detail" *ngIf="business">
-  <h1>{{ business.company_name }}</h1>
+  <div class="header">
+    <h1>{{ business.company_name }}</h1>
+    <app-button *ngIf="!hasReview(business.id!)" (click)="openReviewDialog(business.id!)">Оставить отзыв</app-button>
+  </div>
   <p>{{ business.company_description }}</p>
 
   <div class="gallery" *ngIf="business.preview_images_url?.length">

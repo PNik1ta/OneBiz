@@ -9,4 +9,6 @@ export interface IReview {
   rating: number;
   description: string;
   created_at: Date;
+  username: string;
+  user_avatar_url: string;
 }
