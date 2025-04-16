@@ -46,6 +46,20 @@ export class BookingRepository {
         'city',
         'city.id = business.city_id',
       )
+      .addSelect((subQuery) => {
+        return subQuery
+          .select('AVG(review.rating)', 'avg')
+          .from('review', 'review')
+          .where('review.booking_business_id = booking.id')
+          .andWhere(`review.type = 'booking'`);
+      }, 'avg_rating')
+      .addSelect((subQuery) => {
+        return subQuery
+          .select('COUNT(*)', 'count')
+          .from('review', 'review')
+          .where('review.booking_business_id = booking.id')
+          .andWhere(`review.type = 'booking'`);
+      }, 'review_count')
       .select([
         'booking.id AS id',
         'booking.datetime AS datetime',
@@ -96,6 +110,20 @@ export class BookingRepository {
         'city',
         'city.id = business.city_id',
       )
+      .addSelect((subQuery) => {
+        return subQuery
+          .select('AVG(review.rating)', 'avg')
+          .from('review', 'review')
+          .where('review.booking_business_id = booking.id')
+          .andWhere(`review.type = 'booking'`);
+      }, 'avg_rating')
+      .addSelect((subQuery) => {
+        return subQuery
+          .select('COUNT(*)', 'count')
+          .from('review', 'review')
+          .where('review.booking_business_id = booking.id')
+          .andWhere(`review.type = 'booking'`);
+      }, 'review_count')
       .select([
         'booking.id AS id',
         'booking.datetime AS datetime',
@@ -147,6 +175,20 @@ export class BookingRepository {
         'city',
         'city.id = business.city_id',
       )
+      .addSelect((subQuery) => {
+        return subQuery
+          .select('AVG(review.rating)', 'avg')
+          .from('review', 'review')
+          .where('review.booking_business_id = booking.id')
+          .andWhere(`review.type = 'booking'`);
+      }, 'avg_rating')
+      .addSelect((subQuery) => {
+        return subQuery
+          .select('COUNT(*)', 'count')
+          .from('review', 'review')
+          .where('review.booking_business_id = booking.id')
+          .andWhere(`review.type = 'booking'`);
+      }, 'review_count')
       .select([
         'booking.id AS id',
         'booking.datetime AS datetime',
@@ -198,6 +240,20 @@ export class BookingRepository {
         'city',
         'city.id = business.city_id',
       )
+      .addSelect((subQuery) => {
+        return subQuery
+          .select('AVG(review.rating)', 'avg')
+          .from('review', 'review')
+          .where('review.booking_business_id = booking.id')
+          .andWhere(`review.type = 'BOOKING'`);
+      }, 'avg_rating')
+      .addSelect((subQuery) => {
+        return subQuery
+          .select('COUNT(*)', 'count')
+          .from('review', 'review')
+          .where('review.booking_business_id = booking.id')
+          .andWhere(`review.type = 'BOOKING'`);
+      }, 'review_count')
       .select([
         'booking.id AS id',
         'booking.datetime AS datetime',

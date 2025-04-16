@@ -146,7 +146,7 @@ export class BookingController {
   ): Promise<BaseResponse<void>> {
     try {
       console.log('User id: ', userId);
-      
+
       return await this.bookingService.update(id, dto, userId);
     } catch (err) {
       throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);

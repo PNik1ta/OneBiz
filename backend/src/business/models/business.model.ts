@@ -23,4 +23,7 @@ export class Business implements IBusiness {
 
   @Column({ nullable: true })
   place: string;
+
+  avg_rating?: number;
+  review_count?: number;
 }
