@@ -35,6 +35,17 @@
     justify-content: center;
   }
 
+  .loader-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+  }
+
+  mat-paginator {
+    margin-top: 50px;
+  }
+
   .business-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));

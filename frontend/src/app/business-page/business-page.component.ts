@@ -14,6 +14,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ICity } from '../core/interfaces/city.interface';
 import { CityService } from '../core/services/city.service';
+import * as AOS from 'aos';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
+import { getRussianPaginatorIntl } from '../core/utils/custom-paginator-intl';
 
 @Component({
   selector: 'app-business-page',
@@ -26,10 +30,13 @@ import { CityService } from '../core/services/city.service';
     BusinessPageHeroComponent,
     MatIconModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatProgressSpinnerModule,
+    MatPaginatorModule,
   ],
   templateUrl: './business-page.component.html',
   styleUrl: './business-page.component.scss',
+  providers: [{ provide: MatPaginatorIntl, useValue: getRussianPaginatorIntl() }]
 })
 export class BusinessPageComponent implements OnInit {
   allBusinesses: IBusiness[] = [];
@@ -39,6 +46,10 @@ export class BusinessPageComponent implements OnInit {
   selectedCityId: number | null = null;
   searchTerm: string = '';
   allCities: ICity[] = [];
+  isLoading: boolean = true;
+  pageSize = 20;
+  currentPage = 0;
+  paginatedBusinesses: IBusiness[] = [];
 
   constructor(
     private businessService: BusinessService,
@@ -48,21 +59,24 @@ export class BusinessPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.businessService.getBusinesses().subscribe(res => {
-      this.allBusinesses = res.data ?? [];
-      this.filteredBusinesses = res.data ?? [];
+    Promise.all([
+      this.businessService.getBusinesses().toPromise(),
+      this.serviceService.getServices().toPromise(),
+      this.cityService.getCities().toPromise()
+    ]).then(([businessRes, serviceRes, cityRes]) => {
+      this.allBusinesses = businessRes?.data ?? [];
+      this.filteredBusinesses = businessRes?.data ?? [];
+      this.allServices = serviceRes?.data ?? [];
+      this.allCities = cityRes?.data ?? [];
+      this.paginateBusinesses();
+    }).finally(() => {
+      this.isLoading = false;
     });
 
-    this.cityService.getCities().subscribe(res => {
-      this.allCities = res.data ?? [];
-    })
-
-    this.serviceService.getServices().subscribe(res => {
-      this.allServices = res.data ?? [];
+    AOS.init({
+      duration: 800,
+      once: false,
     });
-  }
-
-  clearFilter(): void {
 
   }
 
@@ -83,17 +97,29 @@ export class BusinessPageComponent implements OnInit {
 
 
   filterBusinesses(): void {
-    this.filteredBusinesses = this.allBusinesses.filter(business => {
+    const filtered = this.allBusinesses.filter(business => {
       const matchesService = !this.selectedServiceId || this.allServices.some(
         service => service.business_id === business.id && service.id === this.selectedServiceId
       );
-
       const matchesCity = !this.selectedCityId || business.city_id === this.selectedCityId;
-
       return matchesService && matchesCity;
     });
+
+    this.filteredBusinesses = filtered;
+    this.paginateBusinesses();
   }
 
+  paginateBusinesses(): void {
+    const startIndex = this.currentPage * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.paginatedBusinesses = this.filteredBusinesses.slice(startIndex, endIndex);
+  }
+
+  onPageChange(event: any): void {
+    this.currentPage = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.paginateBusinesses();
+  }
 
   goToBusiness(id: number): void {
     this.router.navigate(['/business', id]);

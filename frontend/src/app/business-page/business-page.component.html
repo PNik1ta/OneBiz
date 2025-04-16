@@ -1,45 +1,57 @@
 <app-business-hero></app-business-hero>
 
 <section class="business-page">
-  <div class="filters-wrapper">
-    <!-- Поиск -->
-    <div class="search-wrapper">
-      <mat-form-field appearance="fill" class="search-field">
-        <mat-label>Поиск по названию</mat-label>
-        <input matInput [(ngModel)]="searchTerm" (keyup.enter)="searchBusinesses()"
-          placeholder="Введите название компании" />
-        <button mat-icon-button matSuffix (click)="searchBusinesses()">
-          <mat-icon>search</mat-icon>
-        </button>
+  <!-- Лоадер -->
+  <div *ngIf="isLoading" class="loader-wrapper">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
+
+  <!-- Основной контент -->
+  <ng-container *ngIf="!isLoading">
+
+    <div class="filters-wrapper" data-aos="fade-down">
+      <!-- Поиск -->
+      <div class="search-wrapper">
+        <mat-form-field appearance="fill" class="search-field">
+          <mat-label>Поиск по названию</mat-label>
+          <input matInput [(ngModel)]="searchTerm" (keyup.enter)="searchBusinesses()"
+            placeholder="Введите название компании" />
+          <button mat-icon-button matSuffix (click)="searchBusinesses()">
+            <mat-icon>search</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+
+      <!-- Фильтр -->
+      <mat-form-field appearance="fill" class="service-filter">
+        <mat-label>Фильтр по услуге</mat-label>
+        <mat-select [(ngModel)]="selectedServiceId" (selectionChange)="filterBusinesses()">
+          <mat-option [value]="null">Все услуги</mat-option>
+          <mat-option *ngFor="let service of allServices" [value]="service.id">
+            {{ service.title }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="service-filter">
+        <mat-label>Фильтр по городу</mat-label>
+        <mat-select [(ngModel)]="selectedCityId" (selectionChange)="filterBusinesses()">
+          <mat-option [value]="null">Все города</mat-option>
+          <mat-option *ngFor="let city of allCities" [value]="city.id">
+            {{ city.name }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </div>
 
-    <!-- Фильтр -->
-    <mat-form-field appearance="fill" class="service-filter">
-      <mat-label>Фильтр по услуге</mat-label>
-      <mat-select [(ngModel)]="selectedServiceId" (selectionChange)="filterBusinesses()">
-        <mat-option [value]="null">Все услуги</mat-option>
-        <mat-option *ngFor="let service of allServices" [value]="service.id">
-          {{ service.title }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <div class="business-list" data-aos="fade-up">
+      <app-business-card *ngFor="let business of filteredBusinesses" [business]="business"
+        (click)="goToBusiness(business.id!)">
+      </app-business-card>
+    </div>
 
-    <mat-form-field appearance="fill" class="service-filter">
-      <mat-label>Фильтр по городу</mat-label>
-      <mat-select [(ngModel)]="selectedCityId" (selectionChange)="filterBusinesses()">
-        <mat-option [value]="null">Все города</mat-option>
-        <mat-option *ngFor="let city of allCities" [value]="city.id">
-          {{ city.name }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-
-
-  <!-- Список бизнесов -->
-  <div class="business-list">
-    <app-business-card *ngFor="let business of filteredBusinesses" [business]="business"
-      (click)="goToBusiness(business.id!)"></app-business-card>
-  </div>
+    <mat-paginator [length]="filteredBusinesses.length" [pageSize]="pageSize" [pageSizeOptions]="[3, 6, 12]"
+      (page)="onPageChange($event)">
+    </mat-paginator>
+  </ng-container>
 </section>

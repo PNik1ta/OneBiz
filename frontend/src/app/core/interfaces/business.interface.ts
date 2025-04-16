@@ -6,4 +6,7 @@ export interface IBusiness {
   user_id: number;
   city_id: number;
   place: string;
+  review_count: number;
+  avg_rating: number;
+  city_name: string;
 }

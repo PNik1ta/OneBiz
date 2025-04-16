@@ -19,4 +19,6 @@ export interface IBooking {
   user_email: string;
   business_place: string;
   business_city: string;
+  review_count: number;
+  avg_rating: number;
 }

@@ -1,9 +1,22 @@
 <div class="card" (click)="goToBusiness()">
-  <img
-    *ngIf="business.preview_images_url?.length"
-    [src]="API_IMG_URL + '/' + business.preview_images_url[0]"
-    alt="preview"
-  />
-  <h3>{{ business.company_name }}</h3>
-  <p>{{ business.company_description }}</p>
+  <div class="image-wrapper" *ngIf="business.preview_images_url?.length">
+    <img
+      [src]="API_IMG_URL + '/' + business.preview_images_url[0]"
+      alt="preview"
+    />
+  </div>
+
+  <div class="content">
+    <div class="header">
+      <h3 class="company-name">{{ business.company_name }}</h3>
+      <div class="rating" *ngIf="business.avg_rating">
+        <ng-container *ngFor="let star of getStarsArray(business.avg_rating)">
+          <span class="star">★</span>
+        </ng-container>
+        <span class="rating-value">{{ (+business.avg_rating).toFixed(1) }}</span>
+        <span class="review-count">({{ business.review_count }})</span>
+      </div>
+    </div>
+    <p class="description">{{ business.company_description }}</p>
+  </div>
 </div>

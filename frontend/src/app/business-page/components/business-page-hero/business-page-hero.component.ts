@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import * as AOS from 'aos';
 
 @Component({
   selector: 'app-business-hero',
@@ -7,7 +8,13 @@ import { Component } from '@angular/core';
   templateUrl: './business-page-hero.component.html',
   styleUrl: './business-page-hero.component.scss'
 })
-export class BusinessPageHeroComponent {
+export class BusinessPageHeroComponent implements OnInit {
   isDesktop = window.innerWidth >= 768;
 
+  ngOnInit(): void {
+    AOS.init({
+      duration: 800,
+      once: false,
+    });
+  }
 }
