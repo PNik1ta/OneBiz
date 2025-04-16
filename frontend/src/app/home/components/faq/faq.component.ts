@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { QuestionComponent } from './question/question.component';
 import { IQuestion } from '../../../core/interfaces/question.interface';
+import * as AOS from 'aos';
 
 @Component({
   selector: 'app-faq',
@@ -41,6 +42,11 @@ export class FaqComponent implements OnInit {
     if (typeof window !== 'undefined') {
       this.initialized = true;
     }
+
+    AOS.init({
+      duration: 800,
+      once: false,
+    });
   }
 
   handleOpen(index: number): void {

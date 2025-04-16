@@ -5,10 +5,10 @@
       <br />
       <span class="animate animate_1"></span>
     </h1>
-    <p class="descriptionSubtitle">
+    <p data-aos="fade-up" class="descriptionSubtitle">
       <span *ngIf="isDesktop">Персональный подход к росту вашего дела.<br /></span>
       Управляйте бронированиями, следите за прибылью и привлекайте новых клиентов легко и эффективно.    </p>
-    <app-button className="btn" color="accent">Начать бесплатно</app-button>
+    <app-button (clicked)="clicked.emit($event)" className="btn" color="accent">Начать бесплатно</app-button>
   </main>
   <footer class="footer">
     <div class="footerContent">

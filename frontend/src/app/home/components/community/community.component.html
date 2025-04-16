@@ -1,11 +1,11 @@
 <section class="community">
   <div class="content">
     <div class="header">
-      <h2>
+      <h2 data-aos="fade-right">
         <span>Малый бизнес</span> <br />
         Доверяет OneBiz
       </h2>
-      <p>
+      <p data-aos="fade-left">
         С 2025 года мы помогаем предпринимателям развивать своё дело: автоматизировать записи, привлекать клиентов и следить за результатами.
       </p>
     </div>
@@ -13,21 +13,21 @@
 
     <div *ngIf="isDesktop" class="desktopView">
       <div class="row1">
-        <app-community-item [item]="data[0]"></app-community-item>
-        <app-community-item [item]="data[1]"></app-community-item>
+        <app-community-item data-aos="fade-right" [item]="data[0]"></app-community-item>
+        <app-community-item data-aos="fade-down" [item]="data[1]"></app-community-item>
 
-        <img class="quote" src="/community/quote-big.svg" alt="quote icon" />
+        <img data-aos="fade-left" class="quote" src="/community/quote-big.svg" alt="quote icon" />
       </div>
 
       <div class="row2">
-        <app-community-item [item]="data[2]"></app-community-item>
-        <app-community-item [item]="data[3]"></app-community-item>
-        <app-community-item [item]="data[4]"></app-community-item>
+        <app-community-item data-aos="fade-right" [item]="data[2]"></app-community-item>
+        <app-community-item data-aos="fade-up" [item]="data[3]"></app-community-item>
+        <app-community-item data-aos="fade-left" [item]="data[4]"></app-community-item>
       </div>
 
       <div class="row3">
-        <img class="quote" src="/community/quote-big.svg" alt="quote icon" />
-        <app-community-item [item]="data[5]"></app-community-item>
+        <img data-aos="fade-right" class="quote" src="/community/quote-big.svg" alt="quote icon" />
+        <app-community-item data-aos="fade-left" [item]="data[5]"></app-community-item>
       </div>
     </div>
 

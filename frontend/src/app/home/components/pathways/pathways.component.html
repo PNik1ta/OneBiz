@@ -1,12 +1,12 @@
-<section class="pathways">
+<section class="pathways" data-aos="fade-up">
   <img class="bg" [src]="isDesktop ? '/pathways/bg.png' : '/pathways/bg_mobile.png'" alt="background image" />
-  <h2 class="title">
+  <h2 class="title" data-aos="fade-up">
     Начни путь <br *ngIf="isDesktop"/> <span>к росту бизнеса</span>
   </h2>
 
-  <p class="text">
+  <p class="text" data-aos="fade-up">
     Создай страницу, принимай клиентов,
     анализируй прибыль и развивай своё дело.</p>
 
-  <app-button color="accent">Присоединиться сейчас</app-button>
+  <app-button (clicked)="clicked.emit($event)" color="accent">Присоединиться сейчас</app-button>
 </section>

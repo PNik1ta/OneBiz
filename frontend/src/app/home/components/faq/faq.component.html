@@ -1,12 +1,12 @@
 <section class="faq">
   <ng-container *ngIf="initialized">
-    <h2>
+    <h2 data-aos="fade-right">
       Frequently <br />
       Asked <br />
       Questions
     </h2>
 
-    <div class="questions">
+    <div class="questions" data-aos="fade-left">
       <app-question *ngFor="let question of defaultQuestions; let i = index" class="question-wrapper"
         [question]="question" [currentId]="currentId" [questionId]="i" (handleOpen)="handleOpen(i)"></app-question>
     </div>

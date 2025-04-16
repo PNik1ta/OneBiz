@@ -1,20 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommunityItemComponent } from './community-item/community-item.component';
 import { ICommunityItem } from '../../../core/interfaces/community-item.interface';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-
+import * as AOS from 'aos';
 
 @Component({
   selector: 'app-community',
   imports: [CommonModule, CommunityItemComponent],
   templateUrl: './community.component.html',
   styleUrl: './community.component.scss',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA] // 👈 вот это
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class CommunityComponent {
+export class CommunityComponent implements OnInit {
   isDesktop = window.innerWidth >= 768;
-
 
   data: ICommunityItem[] = [
     {
@@ -61,5 +60,10 @@ export class CommunityComponent {
     },
   ];
 
-
+  ngOnInit(): void {
+    AOS.init({
+      duration: 800,
+      once: false,
+    });
+  }
 }

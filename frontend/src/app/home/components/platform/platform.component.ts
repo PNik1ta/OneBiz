@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import * as AOS from 'aos';
 
 @Component({
   selector: 'app-platform',
@@ -7,6 +8,13 @@ import { Component } from '@angular/core';
   templateUrl: './platform.component.html',
   styleUrl: './platform.component.scss'
 })
-export class PlatformComponent {
+export class PlatformComponent implements OnInit {
   isDesktop = window.innerWidth >= 768;
+
+  ngOnInit(): void {
+    AOS.init({
+      duration: 800,
+      once: false,
+    });
+  }
 }
