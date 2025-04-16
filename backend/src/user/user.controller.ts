@@ -115,7 +115,7 @@ export class UserController {
   })
   @ApiBearerAuth('JWT-auth')
   @HttpCode(200)
-  @Roles(ERoles.ADMIN)
+  @Public()
   async findById(@Param('id') id: number): Promise<BaseResponse<User>> {
     try {
       return await this.userService.findUserById(id);

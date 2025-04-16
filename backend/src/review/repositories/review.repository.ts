@@ -4,6 +4,7 @@ import { Review } from '../models/review.model';
 import { Repository, UpdateResult } from 'typeorm';
 import { ReviewEntity } from '../entities/review.entity';
 import { User } from '../../user/models/user.model';
+import { EReviewType } from '../../shared/enums/review-types.enum';
 
 @Injectable()
 export class ReviewRepository {
@@ -40,7 +41,10 @@ export class ReviewRepository {
       .getRawMany();
   }
 
-  async findByBookingBusinessId(bookingBusinessId: number): Promise<Review[]> {
+  async findByBookingBusinessId(
+    bookingBusinessId: number,
+    type: EReviewType,
+  ): Promise<Review[]> {
     return this.reviewRepository
       .createQueryBuilder('review')
       .leftJoinAndMapOne(
@@ -61,9 +65,13 @@ export class ReviewRepository {
       .addSelect('user.username AS username')
       .addSelect('user.avatar_url AS user_avatar_url')
       .addSelect('user.id AS user_id')
-      .where('review.booking_business_id = :booking_business_id', {
-        booking_business_id: bookingBusinessId,
-      })
+      .where(
+        'review.booking_business_id = :booking_business_id AND review.type = :type',
+        {
+          booking_business_id: bookingBusinessId,
+          type,
+        },
+      )
       .getRawMany();
   }
 

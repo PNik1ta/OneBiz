@@ -9,6 +9,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
@@ -22,6 +23,7 @@ import { Review } from './models/review.model';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { UpdateReviewDto } from './dto/update-review.dto';
 import { Public } from '../shared/decorators/public.decorator';
+import { EReviewType } from '../shared/enums/review-types.enum';
 
 @Controller('review')
 @ApiBearerAuth('JWT-auth')
@@ -121,9 +123,10 @@ export class ReviewController {
   @Roles(ERoles.ADMIN, ERoles.BUSINESS, ERoles.USER)
   async findByBookingBusinessId(
     @Param('id') id: number,
+    @Query('type') type: EReviewType,
   ): Promise<BaseResponse<Review[]>> {
     try {
-      return await this.reviewService.findByBookingBusinessId(id);
+      return await this.reviewService.findByBookingBusinessId(id, type);
     } catch (err) {
       if (err instanceof HttpException) {
         throw err;

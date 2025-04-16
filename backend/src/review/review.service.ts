@@ -19,6 +19,7 @@ import {
   REVIEW_UPDATED,
 } from '../shared/messages/review.messages';
 import { UpdateReviewDto } from './dto/update-review.dto';
+import { EReviewType } from '../shared/enums/review-types.enum';
 
 @Injectable()
 export class ReviewService {
@@ -59,9 +60,12 @@ export class ReviewService {
 
   async findByBookingBusinessId(
     bookingBusinessId: number,
+    type: EReviewType,
   ): Promise<BaseResponse<Review[]>> {
-    const reviews =
-      await this.reviewRepository.findByBookingBusinessId(bookingBusinessId);
+    const reviews = await this.reviewRepository.findByBookingBusinessId(
+      bookingBusinessId,
+      type,
+    );
 
     if (!reviews) {
       throw new Error(REVIEW_FIND_ERROR);
