@@ -28,11 +28,25 @@ import { VerificationModule } from './mail/verification.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { City } from './city/models/city.model';
 import { CityModule } from './city/city.module';
+import { PrometheusModule } from '@willsoto/nestjs-prometheus';
+import { LoggerModule } from 'nestjs-pino';
+import { stdTimeFunctions } from 'pino';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+    }),
+    PrometheusModule.register({
+      defaultMetrics: {
+        enabled: true,
+      },
+    }),
+    LoggerModule.forRoot({
+      pinoHttp: {
+        timestamp: stdTimeFunctions.isoTime,
+        level: process.env.NODE_ENV !== 'production' ? 'trace' : 'info',
+      },
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
