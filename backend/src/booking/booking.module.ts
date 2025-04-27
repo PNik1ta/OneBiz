@@ -5,6 +5,8 @@ import { BookingRepository } from './repositories/booking.repository';
 import { BookingService } from './booking.service';
 import { Booking } from './models/booking.model';
 import { BusinessModule } from '../business/business.module';
+import { VerificationModule } from '../mail/verification.module';
+import { ServiceModule } from '../service/service.module';
 
 @Module({
   controllers: [BookingController],
@@ -13,6 +15,8 @@ import { BusinessModule } from '../business/business.module';
   imports: [
     TypeOrmModule.forFeature([Booking]),
     forwardRef(() => BusinessModule),
+    VerificationModule,
+    ServiceModule,
   ],
 })
 export class BookingModule {}

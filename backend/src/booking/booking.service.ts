@@ -22,12 +22,17 @@ import { Booking } from './models/booking.model';
 import { BusinessRepository } from '../business/repositories/business.repository';
 import { UpdateBookingDto } from './dto/update-booking.dto';
 import { BUSINESS_FIND_ERROR } from '../shared/errors/business.errors';
+import { VerificationService } from '../mail/verification.service';
+import { ServiceRepository } from '../service/repositories/service.repository';
+import { SERVICE_FIND_ERROR } from '../shared/errors/service.errors';
 
 @Injectable()
 export class BookingService {
   constructor(
     private readonly bookingRepository: BookingRepository,
     private readonly businessRepository: BusinessRepository,
+    private readonly verificationService: VerificationService,
+    private readonly serviceRepository: ServiceRepository,
   ) {}
 
   async createBooking(
@@ -48,6 +53,27 @@ export class BookingService {
 
     if (!createdBooking) {
       throw new Error(BOOKING_CREATE_ERROR);
+    }
+
+    try {
+      const business = await this.businessRepository.findById(dto.business_id);
+
+      if (!business) {
+        throw new Error(BUSINESS_FIND_ERROR);
+      }
+
+      const service = await this.serviceRepository.findById(dto.service_id);
+
+      if (!service) {
+        throw new Error(SERVICE_FIND_ERROR);
+      }
+
+      await this.verificationService.sendBookingMessage(
+        business.user_email,
+        `сервис: ${service.title}, дата: ${new Date(dto.datetime).toISOString()}`,
+      );
+    } catch (err) {
+      console.error(err);
     }
 
     return new BaseResponse<Booking>(BOOKING_CREATE, createdBooking);

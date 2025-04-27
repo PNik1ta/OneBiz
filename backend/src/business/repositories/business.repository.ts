@@ -4,6 +4,7 @@ import { Business } from '../models/business.model';
 import { BusinessEntity } from '../entities/business.entity';
 import { Repository, UpdateResult } from 'typeorm';
 import { City } from '../../city/models/city.model';
+import { User } from '../../user/models/user.model';
 
 @Injectable()
 export class BusinessRepository {
@@ -76,6 +77,12 @@ export class BusinessRepository {
         'city',
         'city.id = business.city_id',
       )
+      .leftJoinAndMapOne(
+        'business.user',
+        User,
+        'user',
+        'user.id = business.user_id',
+      )
       .select([
         'business.id AS id',
         'business.company_name AS company_name',
@@ -85,6 +92,7 @@ export class BusinessRepository {
         'business.city_id AS city_id',
         'business.place AS place',
       ])
+      .addSelect('user.email AS user_email')
       .addSelect('city.name AS city_name')
       .addSelect((subQuery) => {
         return subQuery

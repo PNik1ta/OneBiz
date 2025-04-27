@@ -26,4 +26,5 @@ export class Business implements IBusiness {
 
   avg_rating?: number;
   review_count?: number;
+  user_email?: string;
 }

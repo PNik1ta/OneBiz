@@ -30,6 +30,14 @@ export class VerificationService {
     });
   }
 
+  async sendBookingMessage(userEmail: string, message: string) {
+    await this.mailerService.sendMail({
+      to: userEmail,
+      subject: 'Новая запись',
+      text: `У вас есть новая запись: ${message}`,
+    });
+  }
+
   async sendNewPostMessage(
     userEmail: string,
     company: string,
