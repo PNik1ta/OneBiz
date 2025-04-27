@@ -13,11 +13,21 @@ import { MatDialog } from '@angular/material/dialog';
 import { ReviewService } from '../core/services/review.service';
 import { IReview } from '../core/interfaces/review.interface';
 import { EReviewType } from '../core/enums/review-types.enum';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import * as AOS from 'aos';
+import { MatIconModule } from '@angular/material/icon';
+import { UserInfoDialogComponent } from '../components/user-info-dialog/user-info-dialog.component';
 
 @Component({
   selector: 'app-business-detail-page',
   standalone: true,
-  imports: [CommonModule, ServiceCardComponent, ButtonComponent],
+  imports: [
+    CommonModule,
+    ServiceCardComponent,
+    ButtonComponent,
+    MatProgressSpinnerModule,
+    MatIconModule,
+  ],
   templateUrl: './business-detail-page.component.html',
   styleUrl: './business-detail-page.component.scss'
 })
@@ -26,7 +36,8 @@ export class BusinessDetailPageComponent implements OnInit {
   business: IBusiness | null = null;
   services: IService[] = [];
   reviews: IReview[] = [];
-  API_IMG_URL = API_IMG_URL
+  API_IMG_URL = API_IMG_URL;
+  isLoading: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -39,16 +50,29 @@ export class BusinessDetailPageComponent implements OnInit {
   ngOnInit(): void {
     this.businessId = +this.route.snapshot.paramMap.get('id')!;
 
-    this.businessService.getBusinessById(this.businessId).subscribe(res => {
-      this.business = res.data ?? null;
-    });
+    Promise.all([
+      this.businessService.getBusinessById(this.businessId).toPromise(),
+      this.serviceService.getServiceByBusinessId(this.businessId).toPromise(),
+      this.getUserReviews()
+    ]).then(([businessRes, serviceRes]) => {
+      this.business = businessRes?.data ?? null
+      this.services = serviceRes?.data ?? []
+    }).finally(() => {
+      this.isLoading = false;
+    })
 
-    this.serviceService.getServiceByBusinessId(this.businessId).subscribe(res => {
-      this.services = res.data ?? [];
+    AOS.init({
+      duration: 800,
+      once: false,
     });
-
-    this.getUserReviews();
   }
+
+  openUserInfoDialog(review: IReview) {
+      this.dialog.open(UserInfoDialogComponent, {
+        width: '400px',
+        data: review.user_id,
+      });
+    }
 
   openReviewDialog(businessId: number) {
     const dialogRef = this.dialog.open(CreateBusinessReviewDialogComponent, {

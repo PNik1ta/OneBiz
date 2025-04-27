@@ -193,3 +193,9 @@
   width: 300px;
   margin-bottom: 32px;
 }
+
+@include for-mobile {
+  mat-form-field, mat-select {
+    width: 100%;
+  }
+}

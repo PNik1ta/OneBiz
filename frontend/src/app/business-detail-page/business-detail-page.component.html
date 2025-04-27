@@ -1,16 +1,46 @@
 <div class="business-detail" *ngIf="business">
-  <div class="header">
-    <h1>{{ business.company_name }}</h1>
-    <app-button *ngIf="!hasReview(business.id!)" (click)="openReviewDialog(business.id!)">Оставить отзыв</app-button>
-  </div>
-  <p>{{ business.company_description }}</p>
-
-  <div class="gallery" *ngIf="business.preview_images_url?.length">
-    <img *ngFor="let img of business.preview_images_url" [src]="API_IMG_URL + '/' + img" alt="preview" />
+  <div *ngIf="isLoading" class="loader-wrapper">
+    <mat-spinner diameter="50"></mat-spinner>
   </div>
 
-  <h2>Услуги</h2>
-  <div class="services">
-    <app-service-card *ngFor="let service of services" [service]="service"></app-service-card>
-  </div>
+  <ng-container *ngIf="!isLoading">
+    <div class="header" data-aos="fade-down">
+      <h1>{{ business.company_name }}</h1>
+      <app-button *ngIf="!hasReview(business.id!)" (click)="openReviewDialog(business.id!)">Оставить отзыв</app-button>
+    </div>
+    <p data-aos="fade-up">{{ business.company_description }}</p>
+
+    <div class="gallery" *ngIf="business.preview_images_url?.length" data-aos="fade-down">
+      <img *ngFor="let img of business.preview_images_url" [src]="API_IMG_URL + '/' + img" alt="preview" />
+    </div>
+
+    <h2 data-aos="fade-down">Услуги</h2>
+    <div data-aos="fade-up" class="services">
+      <app-service-card *ngFor="let service of services" [service]="service"></app-service-card>
+    </div>
+
+    <div class="reviews" data-aos="fade-down">
+      <h2>Отзывы о бизнесе</h2>
+      <div class="details">
+        <div class="review-card" *ngFor="let review of reviews">
+          <div class="header">
+            <img (click)="openUserInfoDialog(review)" [src]="API_IMG_URL + '/' + review.user_avatar_url" alt="avatar"
+              class="avatar" />
+            <div class="info">
+              <h3 (click)="openUserInfoDialog(review)">{{ review.username }}</h3>
+              <div class="stars">
+                <ng-container *ngFor="let star of [1,2,3,4,5]">
+                  <mat-icon [class.filled]="star <= review.rating">star</mat-icon>
+                </ng-container>
+              </div>
+              <small>{{ review.created_at | date: 'dd.MM.yyyy HH:mm' }}</small>
+            </div>
+          </div>
+
+          <h4 class="title">{{ review.title }}</h4>
+          <p class="description">{{ review.description }}</p>
+        </div>
+      </div>
+    </div>
+  </ng-container>
 </div>
