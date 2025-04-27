@@ -3,6 +3,10 @@
 
 .container {
   padding: 80px;
+
+  @include for-mobile {
+    padding: 40px 16px;
+  }
 }
 
 .filters {
@@ -11,7 +15,6 @@
 
   @include for-mobile {
     flex-direction: column;
-
   }
 }
 
@@ -41,4 +44,5 @@ mat-form-field {
   flex-wrap: wrap;
   gap: 24px;
   justify-content: flex-start;
+  margin-bottom: 32px;
 }

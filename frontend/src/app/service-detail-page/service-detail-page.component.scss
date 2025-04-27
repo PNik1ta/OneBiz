@@ -12,6 +12,11 @@
     align-items: center;
     margin-bottom: 24px;
 
+    @include for-mobile {
+      flex-direction: column-reverse;
+      gap: 24px;
+    }
+
     h1 {
       font-size: 32px;
       font-weight: 600;

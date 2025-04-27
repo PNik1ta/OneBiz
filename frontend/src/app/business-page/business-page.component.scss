@@ -158,6 +158,10 @@
 .service-filter {
   width: 300px;
   margin-bottom: 32px;
+
+  @include for-mobile {
+    width: 100%;
+  }
 }
 
 .search-wrapper {
@@ -187,11 +191,6 @@
 
 .search-field {
   width: 100%;
-}
-
-.service-filter {
-  width: 300px;
-  margin-bottom: 32px;
 }
 
 @include for-mobile {

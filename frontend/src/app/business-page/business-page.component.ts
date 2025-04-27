@@ -93,6 +93,7 @@ export class BusinessPageComponent implements OnInit {
 
       return matchesService && matchesSearch;
     });
+    this.paginateBusinesses()
   }
 
 

@@ -1,16 +1,20 @@
 <div class="service-detail" *ngIf="service">
-  <div class="header">
-    <h1>{{ service.title }}</h1>
-    <app-button (click)="openBookingDialog()">Записаться</app-button>
+
+  <div *ngIf="isLoading" class="loader-wrapper">
+    <mat-spinner diameter="50"></mat-spinner>
   </div>
 
-  <img
-    *ngIf="service.background_url"
-    [src]="API_IMG_URL + '/' + service.background_url"
-    alt="Service image"
-  />
+  <ng-container *ngIf="!isLoading">
+    <div class="header">
+      <h1 data-aos="fade-right">{{ service.title }}</h1>
+      <app-button data-aos="fade-right" (click)="openBookingDialog()">Записаться</app-button>
+    </div>
 
-  <p><strong>Описание:</strong> {{ service.description }}</p>
-  <p><strong>Цена:</strong> {{ service.amount }}₽</p>
-  <p *ngIf="service.discount"><strong>Скидка:</strong> {{ service.discount }}%</p>
+    <img *ngIf="service.background_url" [src]="API_IMG_URL + '/' + service.background_url" alt="Service image"
+      data-aos="fade-up" />
+
+    <p data-aos="fade-up"><strong>Описание:</strong> {{ service.description }}</p>
+    <p data-aos="fade-up"><strong>Цена:</strong> {{ service.amount }}₽</p>
+    <p data-aos="fade-up" *ngIf="service.discount"><strong>Скидка:</strong> {{ service.discount }}%</p>
+  </ng-container>
 </div>

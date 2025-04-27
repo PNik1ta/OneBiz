@@ -14,6 +14,9 @@ import { IBusiness } from '../core/interfaces/business.interface';
 import { ServiceCardComponent } from '../components/service-card/service-card.component';
 import { CityService } from '../core/services/city.service';
 import { ICity } from '../core/interfaces/city.interface';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import * as AOS from 'aos';
 
 @Component({
   selector: 'app-service-page',
@@ -26,7 +29,9 @@ import { ICity } from '../core/interfaces/city.interface';
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    ServiceCardComponent
+    ServiceCardComponent,
+    MatProgressSpinnerModule,
+    MatPaginatorModule
   ],
   templateUrl: './service-page.component.html',
   styleUrl: './service-page.component.scss',
@@ -39,26 +44,38 @@ export class ServicePageComponent implements OnInit {
   selectedBusinessId: number | null = null;
   selectedCityId: number | null = null;
   searchQuery: string = '';
+  isLoading: boolean = true;
+  pageSize = 20;
+  currentPage = 0;
+  paginatedServices: IService[] = [];
+
 
   constructor(
     private serviceService: ServiceService,
     private businessService: BusinessService,
     private cityService: CityService,
     public router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.serviceService.getServices().subscribe(res => {
-      this.allServices = res.data ?? [];
+    Promise.all([
+      this.serviceService.getServices().toPromise(),
+      this.cityService.getCities().toPromise(),
+      this.businessService.getBusinesses().toPromise()
+    ]).then(([servicesRes, citiesRes, businessesRes]) => {
+      this.allServices = servicesRes?.data ?? [];
       this.filteredServices = [...this.allServices];
+
+      this.allCities = citiesRes?.data ?? [];
+      this.allBusinesses = businessesRes?.data ?? [];
+      this.paginateServices()
+    }).finally(() => {
+      this.isLoading = false;
     });
 
-    this.cityService.getCities().subscribe(res => {
-      this.allCities = res.data ?? [];
-    })
-
-    this.businessService.getBusinesses().subscribe(res => {
-      this.allBusinesses = res.data ?? [];
+    AOS.init({
+      duration: 800,
+      once: false,
     });
   }
 
@@ -77,12 +94,25 @@ export class ServicePageComponent implements OnInit {
 
       return matchesSearch && matchesBusiness && matchesCity;
     });
+    this.paginateServices()
   }
 
   clearFilters(): void {
     this.searchQuery = '';
     this.selectedBusinessId = null;
     this.filteredServices = [...this.allServices];
+  }
+
+  paginateServices(): void {
+    const startIndex = this.currentPage * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.paginatedServices = this.filteredServices.slice(startIndex, endIndex);
+  }
+
+  onPageChange(event: any): void {
+    this.currentPage = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.paginateServices();
   }
 
   goToService(id: number): void {
