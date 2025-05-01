@@ -1,6 +1,13 @@
 @import 'variables';
 @import 'mixins';
 
+.loader-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}
+
 .business-detail {
   max-width: 1280px;
   margin: 0 auto;

@@ -1,6 +1,13 @@
 @import 'variables';
 @import 'mixins';
 
+.loader-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}
+
 .news-filters {
   display: flex;
   flex-wrap: wrap;
@@ -8,6 +15,10 @@
   margin: 40px auto 20px;
   max-width: 1280px;
   padding: 0 20px;
+
+  mat-paginator{
+    margin-bottom: 20px;
+  }
 
   mat-form-field {
     width: 250px;

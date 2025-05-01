@@ -1,49 +1,55 @@
-<div class="post-detail" *ngIf="post">
-  <img class="banner" [src]="API_IMG_URL + '/' + post.background_url" alt="Post banner" />
-
-  <div class="info">
-    <h1>{{ post.title }}</h1>
-    <p class="date">{{ post.created_at | date: 'dd.MM.yyyy' }}</p>
-
-    <button *ngIf="user" mat-button (click)="toggleLike()" [class.liked]="isLiked">
-      <mat-icon>{{ isLiked ? 'favorite' : 'favorite_border' }}</mat-icon>
-      {{ post.likes }}
-    </button>
-  </div>
-
-  <div class="text">{{ post.text }}</div>
+<div *ngIf="isLoading" class="loader-wrapper">
+  <mat-spinner diameter="50"></mat-spinner>
 </div>
 
-<!-- Добавление комментария -->
-<div class="comment-input-section" *ngIf="user">
-  <img [src]="API_IMG_URL + '/' + user.avatar_url" alt="avatar" class="avatar" />
-  <div class="input-fields">
-    <input [(ngModel)]="newCommentTitle" placeholder="Заголовок комментария..." />
-    <textarea [(ngModel)]="newComment" placeholder="Напиши комментарий..."></textarea>
-  </div>
-  <button class="send" (click)="sendComment()">Отправить</button>
-</div>
+<ng-container *ngIf="!isLoading">
+  <div class="post-detail" *ngIf="post">
+    <img class="banner" [src]="API_IMG_URL + '/' + post.background_url" alt="Post banner" data-aos="fade-up" />
 
+    <div class="info">
+      <h1 data-aos="fade-right">{{ post.title }}</h1>
+      <p class="date" data-aos="fade-down">{{ post.created_at | date: 'dd.MM.yyyy' }}</p>
 
-<!-- Разделитель -->
-<hr />
-
-<!-- Комментарии -->
-<div class="comments-list">
-  <h3 *ngIf="comments.length === 0">Комментариев пока нет</h3>
-  <div class="comment" *ngFor="let comment of comments">
-    <div class="header">
-      <img [src]="API_IMG_URL + '/' + comment.user_avatar_url" alt="avatar" class="avatar" />
-      <div class="meta">
-        <p class="username">Пользователь #{{ comment.username }}</p>
-        <span class="date">{{ comment.created_at | date:'dd.MM.yyyy HH:mm' }}</span>
-        <span *ngIf="comment.is_edited" class="edited">(изменён)</span>
-      </div>
-      <button *ngIf="comment.user_id === user?.id" (click)="startEdit(comment)" mat-icon-button>
-        <mat-icon>edit</mat-icon>
+      <button data-aos="fade-right" *ngIf="user" mat-button (click)="toggleLike()" [class.liked]="isLiked">
+        <mat-icon>{{ isLiked ? 'favorite' : 'favorite_border' }}</mat-icon>
+        {{ post.likes }}
       </button>
     </div>
-    <h4 class="comment-title">{{ comment.title }}</h4>
-    <p class="text">{{ comment.text }}</p>
+
+    <div class="text" data-aos="fade-up">{{ post.text }}</div>
   </div>
-</div>
+
+  <!-- Добавление комментария -->
+  <div class="comment-input-section" data-aos="fade-up" *ngIf="user">
+    <img [src]="API_IMG_URL + '/' + user.avatar_url" alt="avatar" class="avatar" />
+    <div class="input-fields">
+      <input [(ngModel)]="newCommentTitle" placeholder="Заголовок комментария..." />
+      <textarea [(ngModel)]="newComment" placeholder="Напиши комментарий..."></textarea>
+    </div>
+    <button class="send" (click)="sendComment()">Отправить</button>
+  </div>
+
+
+  <!-- Разделитель -->
+  <hr />
+
+  <!-- Комментарии -->
+  <div class="comments-list" data-aos="fade-up">
+    <h3 *ngIf="comments.length === 0">Комментариев пока нет</h3>
+    <div class="comment" *ngFor="let comment of comments">
+      <div class="header">
+        <img [src]="API_IMG_URL + '/' + comment.user_avatar_url" alt="avatar" class="avatar" />
+        <div class="meta">
+          <p class="username">Пользователь #{{ comment.username }}</p>
+          <span class="date">{{ comment.created_at | date:'dd.MM.yyyy HH:mm' }}</span>
+          <span *ngIf="comment.is_edited" class="edited">(изменён)</span>
+        </div>
+        <button *ngIf="comment.user_id === user?.id" (click)="startEdit(comment)" mat-icon-button>
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+      <h4 class="comment-title">{{ comment.title }}</h4>
+      <p class="text">{{ comment.text }}</p>
+    </div>
+  </div>
+</ng-container>

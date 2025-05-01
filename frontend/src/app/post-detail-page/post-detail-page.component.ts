@@ -12,11 +12,13 @@ import { CommentService } from '../core/services/comment.service';
 import { UsersService } from '../core/services/users.service';
 import { IUser } from '../core/interfaces/user.interface';
 import { FormsModule } from '@angular/forms';
+import * as AOS from 'aos';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-post-detail-page',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule, FormsModule],
+  imports: [CommonModule, MatIconModule, MatButtonModule, FormsModule, MatProgressSpinnerModule],
   templateUrl: './post-detail-page.component.html',
   styleUrls: ['./post-detail-page.component.scss']
 })
@@ -30,39 +32,54 @@ export class PostDetailPageComponent implements OnInit {
   user: IUser | null = null;
   API_IMG_URL = API_IMG_URL;
   editCommentId: number | null = null;
+  isLoading: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
     private postService: PostService,
     private likeService: LikeService,
     private commentService: CommentService,
-    private userService: UsersService
-  ) {}
+    private userService: UsersService,
+  ) { }
 
   ngOnInit(): void {
     const postId = Number(this.route.snapshot.paramMap.get('id'));
     if (postId) {
-      this.postService.getPostById(postId).subscribe(res => {
-        this.post = res.data!;
-      });
+      Promise.all([
+        this.postService.getPostById(postId).toPromise(),
+        this.likeService.getLikeByUserId().toPromise(),
+        this.userService.getProfile().toPromise(),
+        this.commentService.getCommentByPostId(postId).toPromise()
+      ]).then(([postsRes, likesRes, usersRes, commentsRes]) => {
+        this.postService.getPostById(postId).subscribe(res => {
+          this.post = postsRes?.data!;
+        });
 
-      this.likeService.getLikeByUserId().subscribe(res => {
-        const userLikes = res.data ?? [];
-        const like = userLikes.find(l => l.post_id === postId);
-        if (like) {
-          this.isLiked = true;
-          this.likeId = like.id!;
-        }
-      });
+        this.likeService.getLikeByUserId().subscribe(res => {
+          const userLikes = likesRes?.data ?? [];
+          const like = userLikes.find(l => l.post_id === postId);
+          if (like) {
+            this.isLiked = true;
+            this.likeId = like.id!;
+          }
+        });
 
-      this.userService.getProfile().subscribe((res) => {
-        this.user = res?.data ?? null;
-      });
+        this.userService.getProfile().subscribe((res) => {
+          this.user = usersRes?.data ?? null;
+        });
 
-      this.commentService.getCommentByPostId(postId).subscribe(res => {
-        this.comments = res.data ?? [];
-      });
+        this.commentService.getCommentByPostId(postId).subscribe(res => {
+          this.comments = commentsRes?.data ?? [];
+        });
+      }).finally(() => {
+        this.isLoading = false;
+      })
     }
+
+    AOS.init({
+      duration: 800,
+      once: false,
+    });
   }
 
   toggleLike(): void {

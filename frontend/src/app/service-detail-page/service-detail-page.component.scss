@@ -1,6 +1,13 @@
 @import 'variables';
 @import 'mixins';
 
+.loader-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}
+
 .service-detail {
   max-width: 900px;
   margin: 0 auto;

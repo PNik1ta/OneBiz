@@ -13,6 +13,9 @@ import { BusinessService } from '../core/services/business.service';
 import { IPost } from '../core/interfaces/post.interface';
 import { ITag } from '../core/interfaces/tag.interface';
 import { IBusiness } from '../core/interfaces/business.interface';
+import * as AOS from 'aos';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-news-page',
@@ -26,6 +29,8 @@ import { IBusiness } from '../core/interfaces/business.interface';
     MatFormFieldModule,
     MatInputModule,
     PostCardComponent,
+    MatProgressSpinnerModule,
+    MatPaginatorModule,
   ],
   templateUrl: './news-page.component.html',
   styleUrl: './news-page.component.scss',
@@ -40,25 +45,51 @@ export class NewsPageComponent implements OnInit {
   selectedBusinessId: number | null = null;
   searchTerm: string = '';
 
+  isLoading: boolean = true;
+  pageSize = 20;
+  currentPage = 0;
+  paginatedPosts: IPost[] = [];
+
   constructor(
     private postService: PostService,
     private tagService: TagService,
     private businessService: BusinessService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.postService.getPosts().subscribe(res => {
-      this.allPosts = res.data ?? [];
+    Promise.all([
+      this.postService.getPosts().toPromise(),
+      this.tagService.getTags().toPromise(),
+      this.businessService.getBusinesses().toPromise()
+    ]).then(([postsRes, tagsRes, businessesRes]) => {
+      this.allPosts = postsRes?.data ?? [];
       this.filteredPosts = [...this.allPosts];
-    });
 
-    this.tagService.getTags().subscribe(res => {
-      this.allTags = res.data ?? [];
-    });
+      this.allTags = tagsRes?.data ?? [];
 
-    this.businessService.getBusinesses().subscribe(res => {
-      this.allBusinesses = res.data ?? [];
+      this.allBusinesses = businessesRes?.data ?? [];
+
+      this.paginatePosts();
+    }).finally(() => {
+      this.isLoading = false;
+    })
+
+    AOS.init({
+      duration: 800,
+      once: false,
     });
+  }
+
+  paginatePosts(): void {
+    const startIndex = this.currentPage * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.paginatedPosts = this.filteredPosts.slice(startIndex, endIndex);
+  }
+
+  onPageChange(event: any): void {
+    this.currentPage = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.paginatePosts();
   }
 
   filterPosts(): void {
@@ -71,5 +102,6 @@ export class NewsPageComponent implements OnInit {
 
       return matchesTag && matchesBusiness && matchesSearch;
     });
+    this.paginatePosts();
   }
 }
