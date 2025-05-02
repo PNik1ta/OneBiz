@@ -1,4 +1,4 @@
-<section class="news-filters">
+<section class="news-filters" data-aos="fade-up">
   <mat-form-field appearance="fill">
     <mat-label>Тег</mat-label>
     <mat-select [(ngModel)]="selectedTagId" (selectionChange)="filterPosts()">
@@ -28,7 +28,7 @@
   </mat-form-field>
 </section>
 
-<section class="news-list">
+<section class="news-list" data-aos="fade-up">
   <app-post-card
     *ngFor="let post of filteredPosts"
     [post]="post"

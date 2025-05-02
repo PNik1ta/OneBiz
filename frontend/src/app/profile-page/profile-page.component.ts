@@ -10,6 +10,7 @@ import { UsersService } from '../core/services/users.service';
 import { BusinessInfoComponent } from '../components/business-info/business-info.component';
 import { BusinessBookingsComponent } from '../components/business-bookings/business-bookings.component';
 import { BusinessPostsComponent } from '../components/business-posts/business-posts.component';
+import * as AOS from 'aos';
 
 @Component({
   selector: 'app-profile-page',
@@ -31,15 +32,20 @@ export class ProfilePageComponent implements OnInit {
   user: IUser | null = null;
   isLoggedIn: boolean = false;
 
-  constructor(private auth: AuthService, private userService: UsersService) {}
+  constructor(private auth: AuthService, private userService: UsersService) { }
 
   ngOnInit(): void {
-      this.isLoggedIn = this.auth.isAuthenticated();
+    this.isLoggedIn = this.auth.isAuthenticated();
 
-      if (this.isLoggedIn) {
-        this.userService.getProfile().subscribe((res) => {
-          this.user = res.data ?? null;
-        })
-      }
+    if (this.isLoggedIn) {
+      this.userService.getProfile().subscribe((res) => {
+        this.user = res.data ?? null;
+      })
+    }
+
+    AOS.init({
+      duration: 800,
+      once: false,
+    });
   }
 }

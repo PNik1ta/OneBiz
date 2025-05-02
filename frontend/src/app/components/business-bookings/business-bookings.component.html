@@ -1,4 +1,4 @@
-<div class="filters">
+<div class="filters" data-aos="fade-up">
   <!-- Статус -->
   <mat-form-field appearance="fill">
     <mat-label>Статус</mat-label>
@@ -30,7 +30,7 @@
 </div>
 
 
-<div class="bookings">
+<div class="bookings" data-aos="fade-up">
   <div class="booking" (click)="openDetailsDialog(booking)" *ngFor="let booking of filteredBookings">
     <h2>{{booking.datetime | date: 'dd.MM.yyyy HH:mm'}}</h2>
     <h5>{{booking.company_name}}</h5>

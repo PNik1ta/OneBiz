@@ -1,10 +1,10 @@
 <div class="main">
   <div class="user-info" *ngIf="user">
-    <img class="avatar" [src]="API_IMG_URL + '/' + user.avatar_url" alt="Аватар пользователя" (click)="onAvatarClick()"
+    <img data-aos="fade-right" class="avatar" [src]="API_IMG_URL + '/' + user.avatar_url" alt="Аватар пользователя" (click)="onAvatarClick()"
       title="Нажми, чтобы обновить аватар" />
 
 
-    <div class="details">
+    <div class="details" data-aos="fade-left">
       <app-button *ngIf="!business" (clicked)="onCreateBusiness()">Cоздать бизнес</app-button>
       <div class="username">
         <h2 *ngIf="!isEditingUsername">
@@ -50,7 +50,7 @@
   </div>
 
   <div class="analytics">
-    <div class="details">
+    <div class="details" data-aos="fade-up">
       <h2>Прибыль по времени</h2>
       <div class="chart-container">
         <ngx-charts-line-chart [scheme]="colorScheme" [results]="revenueChart" [xAxis]="true" [yAxis]="true"
@@ -61,7 +61,7 @@
 
     </div>
 
-    <div class="details">
+    <div class="details" data-aos="fade-up">
       <h2>Заявки по дням</h2>
       <div class="chart-container">
         <ngx-charts-bar-vertical-2d [scheme]="colorScheme" [results]="bookingChart" [xAxis]="true" [yAxis]="true"
@@ -71,7 +71,7 @@
       </div>
     </div>
 
-    <div class="details">
+    <div class="details" data-aos="fade-up">
       <h2>Лайки по постам</h2>
       <div class="chart-container">
         <ngx-charts-bar-horizontal [scheme]="colorScheme" [results]="likesChart" [xAxis]="true" [yAxis]="true"
@@ -81,7 +81,7 @@
     </div>
   </div>
 
-  <div class="services-block">
+  <div class="services-block" data-aos="fade-up">
     <div class="services-block__header">
       <h2>Услуги</h2>
       <app-button (clicked)="onCreateService()">Добавить услугу</app-button>
@@ -95,7 +95,7 @@
     </div>
   </div>
 
-  <div class="reviews">
+  <div class="reviews" data-aos="fade-up">
     <h2>Отзывы о бизнесе</h2>
     <div class="details">
       <div class="review-card" *ngFor="let review of reviews">

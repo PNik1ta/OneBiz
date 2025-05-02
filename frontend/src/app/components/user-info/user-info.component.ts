@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { IUser } from '../../core/interfaces/user.interface';
 import { CommonModule } from '@angular/common';
 import { API_IMG_URL } from '../../core/constants/api-url';
@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import * as AOS from 'aos';
 
 @Component({
   selector: 'app-user-info',
@@ -16,7 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './user-info.component.html',
   styleUrl: './user-info.component.scss'
 })
-export class UserInfoComponent {
+export class UserInfoComponent implements OnInit {
   @Input() user: IUser | null = null;
   API_IMG_URL = API_IMG_URL;
 
@@ -30,6 +31,13 @@ export class UserInfoComponent {
     private userService: UsersService,
     private fileService: FileService
   ) {}
+
+  ngOnInit(): void {
+    AOS.init({
+          duration: 800,
+          once: false,
+        });
+  }
 
   onAvatarClick(): void {
     const input = document.createElement('input');
