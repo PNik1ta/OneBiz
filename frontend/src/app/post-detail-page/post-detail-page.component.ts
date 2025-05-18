@@ -14,6 +14,7 @@ import { IUser } from '../core/interfaces/user.interface';
 import { FormsModule } from '@angular/forms';
 import * as AOS from 'aos';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AuthService } from '../core/services/auth.service';
 
 @Component({
   selector: 'app-post-detail-page',
@@ -33,6 +34,7 @@ export class PostDetailPageComponent implements OnInit {
   API_IMG_URL = API_IMG_URL;
   editCommentId: number | null = null;
   isLoading: boolean = true;
+  isAuthenticated: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -40,7 +42,10 @@ export class PostDetailPageComponent implements OnInit {
     private likeService: LikeService,
     private commentService: CommentService,
     private userService: UsersService,
-  ) { }
+    private authService: AuthService,
+  ) {
+    this.isAuthenticated = authService.isAuthenticated();
+  }
 
   ngOnInit(): void {
     const postId = Number(this.route.snapshot.paramMap.get('id'));
@@ -55,18 +60,21 @@ export class PostDetailPageComponent implements OnInit {
           this.post = postsRes?.data!;
         });
 
-        this.likeService.getLikeByUserId().subscribe(res => {
-          const userLikes = likesRes?.data ?? [];
-          const like = userLikes.find(l => l.post_id === postId);
-          if (like) {
-            this.isLiked = true;
-            this.likeId = like.id!;
-          }
-        });
+        if (this.isAuthenticated) {
+          this.likeService.getLikeByUserId().subscribe(res => {
+            const userLikes = likesRes?.data ?? [];
+            const like = userLikes.find(l => l.post_id === postId);
+            if (like) {
+              this.isLiked = true;
+              this.likeId = like.id!;
+            }
+          });
 
-        this.userService.getProfile().subscribe((res) => {
-          this.user = usersRes?.data ?? null;
-        });
+          this.userService.getProfile().subscribe((res) => {
+            this.user = usersRes?.data ?? null;
+          });
+        }
+
 
         this.commentService.getCommentByPostId(postId).subscribe(res => {
           this.comments = commentsRes?.data ?? [];

@@ -2,17 +2,18 @@ import { Injectable } from '@angular/core';
 import { API_URL } from '../constants/api-url';
 import { HttpClient } from '@angular/common/http';
 import { IUser } from '../interfaces/user.interface';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { ICreateUserDto } from '../dto/user/create-user.dto';
 import { IUpdateUserDto } from '../dto/user/update-user.dto';
 import { BaseResponse } from '../classes/base-response';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
   private apiUrl = `${API_URL}/user`;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
   private userUpdated$ = new BehaviorSubject<void>(undefined);
 
   emitUserUpdated() {
@@ -32,7 +33,14 @@ export class UsersService {
   }
 
   getProfile(): Observable<BaseResponse<IUser>> {
-    return this.http.get<BaseResponse<IUser>>(`${this.apiUrl}/get-profile`)
+    if (this.authService.isAuthenticated()) {
+      return this.http.get<BaseResponse<IUser>>(`${this.apiUrl}/get-profile`)
+    }
+    return of({
+      date: new Date(),
+      data: {},
+      message: 'User not authenticated'
+    } as BaseResponse<IUser>);
   }
 
   getByEmail(email: string): Observable<BaseResponse<IUser>> {

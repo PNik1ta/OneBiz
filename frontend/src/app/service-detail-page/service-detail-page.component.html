@@ -7,7 +7,7 @@
   <ng-container *ngIf="!isLoading">
     <div class="header">
       <h1 data-aos="fade-right">{{ service.title }}</h1>
-      <app-button data-aos="fade-right" (click)="openBookingDialog()">Записаться</app-button>
+      <app-button *ngIf="isAuthenticated" data-aos="fade-right" (click)="openBookingDialog()">Записаться</app-button>
     </div>
 
     <img *ngIf="service.background_url" [src]="API_IMG_URL + '/' + service.background_url" alt="Service image"

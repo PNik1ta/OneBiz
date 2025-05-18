@@ -17,6 +17,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import * as AOS from 'aos';
 import { MatIconModule } from '@angular/material/icon';
 import { UserInfoDialogComponent } from '../components/user-info-dialog/user-info-dialog.component';
+import { AuthService } from '../core/services/auth.service';
 
 @Component({
   selector: 'app-business-detail-page',
@@ -38,6 +39,7 @@ export class BusinessDetailPageComponent implements OnInit {
   reviews: IReview[] = [];
   API_IMG_URL = API_IMG_URL;
   isLoading: boolean = true;
+  isAuthenticated: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -45,7 +47,10 @@ export class BusinessDetailPageComponent implements OnInit {
     private serviceService: ServiceService,
     private dialog: MatDialog,
     private reviewService: ReviewService,
-  ) { }
+    private authService: AuthService
+  ) {
+    this.isAuthenticated = authService.isAuthenticated();
+  }
 
   ngOnInit(): void {
     this.businessId = +this.route.snapshot.paramMap.get('id')!;
@@ -89,7 +94,7 @@ export class BusinessDetailPageComponent implements OnInit {
   }
 
   getUserReviews(): void {
-    this.reviewService.getByUserId().subscribe(res => {
+    this.reviewService.getByBookingBusinessId(this.businessId, EReviewType.BUSINESS).subscribe(res => {
       this.reviews = res.data ?? [];
     });
   }

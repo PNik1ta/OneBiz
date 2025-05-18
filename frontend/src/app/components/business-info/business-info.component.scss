@@ -44,6 +44,11 @@
     margin-bottom: 20px;
     margin-top: 120px;
 
+    @include for-mobile {
+      flex-direction: column;
+      row-gap: 12px;
+    }
+
     h2 {
       font-size: 32px;
     }
@@ -52,6 +57,10 @@
   .services {
     display: flex;
     gap: 24px;
+
+    @include for-mobile {
+      flex-direction: column;
+    }
   }
 }
 

@@ -6,7 +6,7 @@
   <ng-container *ngIf="!isLoading">
     <div class="header" data-aos="fade-down">
       <h1>{{ business.company_name }}</h1>
-      <app-button *ngIf="!hasReview(business.id!)" (click)="openReviewDialog(business.id!)">Оставить отзыв</app-button>
+      <app-button *ngIf="!hasReview(business.id!) && isAuthenticated" (click)="openReviewDialog(business.id!)">Оставить отзыв</app-button>
     </div>
     <p data-aos="fade-up">{{ business.company_description }}</p>
 

@@ -8,6 +8,7 @@ import { AuthService } from '../core/services/auth.service';
 import { API_IMG_URL } from '../core/constants/api-url';
 import { IUser } from '../core/interfaces/user.interface';
 import { UsersService } from '../core/services/users.service';
+import { RegisterService } from '../core/services/register.service';
 
 @Component({
   selector: 'app-header',
@@ -25,7 +26,8 @@ export class HeaderComponent implements OnInit {
     private dialog: MatDialog,
     private authService: AuthService,
     private userService: UsersService,
-    private router: Router
+    private router: Router,
+    private registerService: RegisterService
   ) { }
 
   ngOnInit(): void {
@@ -34,6 +36,7 @@ export class HeaderComponent implements OnInit {
     this.userService.userUpdatedObservable.subscribe(() => {
       this.loadUser();
     });
+    this.registerService.openRegisterFn = this.openRegister.bind(this);
   }
 
   loadUser() {

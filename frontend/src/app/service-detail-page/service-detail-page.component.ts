@@ -10,6 +10,7 @@ import { BookingDialogComponent } from '../components/booking-dialog/booking-dia
 import { ButtonComponent } from "../components/button/button.component";
 import * as AOS from 'aos';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AuthService } from '../core/services/auth.service';
 
 @Component({
   selector: 'app-service-detail-page',
@@ -22,12 +23,16 @@ export class ServiceDetailPageComponent implements OnInit {
   service: IService | null = null;
   API_IMG_URL = API_IMG_URL;
   isLoading: boolean = true;
+  isAuthenticated: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private serviceService: ServiceService,
-    private dialog: MatDialog
-  ) { }
+    private dialog: MatDialog,
+    private authService: AuthService
+  ) {
+    this.isAuthenticated = authService.isAuthenticated();
+  }
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));

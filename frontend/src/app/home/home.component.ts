@@ -7,6 +7,7 @@ import { PathwaysComponent } from './components/pathways/pathways.component';
 import { AuthService } from '../core/services/auth.service';
 import { Router } from '@angular/router';
 import { HeaderComponent } from '../header/header.component';
+import { RegisterService } from '../core/services/register.service';
 
 @Component({
   selector: 'app-home',
@@ -27,6 +28,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
+    private registerService: RegisterService
   ) { }
 
   ngOnInit(): void {
@@ -37,7 +39,7 @@ export class HomeComponent implements OnInit {
     if (this.isLoggedIn) {
       this.router.navigate(['/profile'])
     } else {
-      this.onStartFree();
+      this.registerService.openRegister();
     }
   }
 
