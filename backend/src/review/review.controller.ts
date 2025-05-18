@@ -120,7 +120,7 @@ export class ReviewController {
   })
   @ApiBearerAuth('JWT-auth')
   @HttpCode(200)
-  @Roles(ERoles.ADMIN, ERoles.BUSINESS, ERoles.USER)
+  @Public()
   async findByBookingBusinessId(
     @Param('id') id: number,
     @Query('type') type: EReviewType,
