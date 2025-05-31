@@ -68,16 +68,16 @@ pipeline {
             }
         }
 
-        stage('Kill container on port 9090 (точно!)') {
+        stage('Kill container on port 9090 (реальный убийца)') {
             steps {
                 sh '''
-                CONTAINER_ID=$(docker ps --filter "publish=9090" -q) || true
-                if [ ! -z "$CONTAINER_ID" ]; then
-                    echo "🔪 Killing container on port 9090: $CONTAINER_ID"
-                    docker kill $CONTAINER_ID || echo "⚠️ Failed to kill container"
-                else
-                    echo "✅ Нет контейнера на 9090"
-                fi
+                echo "🔍 Ищем контейнер, занявший порт 9090..."
+                for id in $(docker ps -q); do
+                  if docker inspect --format '{{range $p, $conf := .NetworkSettings.Ports}}{{$p}} -> {{(index $conf 0).HostPort}}{{"\\n"}}{{end}}' $id | grep -q ":9090"; then
+                    echo "🔪 Контейнер $id держит 9090 — убиваем"
+                    docker kill $id || echo "⚠️ Не удалось убить $id"
+                  fi
+                done
                 '''
             }
         }
