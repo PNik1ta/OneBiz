@@ -55,12 +55,14 @@ pipeline {
         stage('Kill process on port 9090') {
             steps {
                 sh '''
-                    PID=$(sudo lsof -ti :9090) || true
-                    if [ ! -z "$PID" ]; then
-                      echo "🎯 Killing PID on 9090: $PID"
-                      sudo kill -9 $PID
-                    else
-                      echo "✅ Port 9090 is free"
+                    PIDS=$(sudo lsof -ti :9090)
+                     [ ! -z "$PIDS" ]; then
+                    echo "🎯 Killing processes on port 9090: $PIDS"
+                    for pid in $PIDS; do
+                      sudo kill -9 $pid || echo "⚠️ Failed to kill $pid (maybe already dead)"
+                    done
+                    se
+                    echo "✅ No process on port 9090"
                     fi
                 '''
             }
