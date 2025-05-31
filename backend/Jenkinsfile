@@ -32,6 +32,15 @@ pipeline {
             }
         }
 
+        stage('Fix volume permissions') {
+            steps {
+                sh '''
+                sudo chown -R jenkins:jenkins "$WORKSPACE/backend/postgres-data" || true
+                sudo chmod -R u+rw "$WORKSPACE/backend/postgres-data" || true
+                '''
+            }
+        }   
+
         stage('Restart Containers') {
             steps {
                 script {
