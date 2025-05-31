@@ -68,6 +68,20 @@ pipeline {
             }
         }
 
+        stage('Kill container on port 9090 (точно!)') {
+            steps {
+                sh '''
+                CONTAINER_ID=$(docker ps --filter "publish=9090" -q) || true
+                if [ ! -z "$CONTAINER_ID" ]; then
+                    echo "🔪 Killing container on port 9090: $CONTAINER_ID"
+                    docker kill $CONTAINER_ID || echo "⚠️ Failed to kill container"
+                else
+                    echo "✅ Нет контейнера на 9090"
+                fi
+                '''
+            }
+        }
+
 
         stage('Restart Containers') {
             steps {
