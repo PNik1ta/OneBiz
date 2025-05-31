@@ -26,19 +26,19 @@ pipeline {
 
         stage('Write .env') {
             steps {
-                script {
-                    writeFile file: 'backend/.env', text: "${DOTENV}"
-                }
-            }
-        }
-
-        stage('СHECK .env') {
-            steps {
+              script {
+                echo "📦 DOTENV содержимое:\n${DOTENV}"
+                writeFile file: 'backend/.env', text: "${DOTENV}"
+            
                 sh '''
-                    echo "📦 DOTENV содержимое:"
-                    echo "${DOTENV}"
-                    sh 'cat backend/.env'
+                  echo "📁 Список файлов:"
+                  ls -la
+                  echo "📁 backend:"
+                  ls -la backend
+                  echo "📄 backend/.env:"
+                  cat backend/.env || echo "⛔️ .env НЕ НАЙДЕН"
                 '''
+              }
             }
         }
 
