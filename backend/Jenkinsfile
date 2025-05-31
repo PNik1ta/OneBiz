@@ -90,6 +90,8 @@ pipeline {
 
         stage('DEBUG .env') {
             steps {
+                sh 'echo "🔍 Вот данные"'
+
                 sh 'cat backend/.env && echo "---" && grep POSTGRES_PASSWORD backend/.env'
             }
         }
