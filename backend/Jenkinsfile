@@ -88,6 +88,12 @@ pipeline {
             }
         }
 
+        stage('DEBUG .env') {
+            steps {
+                sh 'cat backend/.env && echo "---" && grep POSTGRES_PASSWORD backend/.env'
+            }
+        }
+
 
 
         stage('Restart Containers') {
