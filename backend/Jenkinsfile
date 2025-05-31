@@ -82,9 +82,9 @@ pipeline {
             }
         }
 
-        stage('Print .env') {
+        stage('Debug ls') {
             steps {
-              sh 'cat backend/.env'
+                sh 'ls -la backend/'
             }
         }
 
