@@ -92,9 +92,9 @@ pipeline {
 
         stage('Restart Containers') {
             steps {
-                script {
-                    sh "docker compose -f \"$WORKSPACE/backend/docker-compose.yml\" down -v"
-                    sh "docker compose -f \"$WORKSPACE/backend/docker-compose.yml\" up -d --build"
+                dir('backend') {
+                    sh 'docker compose down -v'
+                    sh 'docker compose up -d --build'
                 }
             }
         }
