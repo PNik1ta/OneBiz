@@ -41,6 +41,19 @@ pipeline {
             }
         }   
 
+        stage('Kill process on 9090') {
+            steps {
+                sh '''
+                PID=$(lsof -ti tcp:9090) || true
+                if [ ! -z "$PID" ]; then
+                  echo "Killing process on port 9090: $PID"
+                  kill -9 $PID
+                fi
+                '''
+            }
+        }
+
+
         stage('Restart Containers') {
             steps {
                 script {
