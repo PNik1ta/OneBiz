@@ -7,6 +7,7 @@ pipeline {
 
     environment {
         DEPLOY_DIR = "/app"
+        DOTENV = credentials('onebiz-dotenv')
     }
 
     stages {
@@ -32,22 +33,21 @@ pipeline {
             }
         }
 
-		  stage('Copy .env') {
-    			steps {
-    			    script {
-    			        sh 'cp /root/onebiz/backend/.env "$WORKSPACE/.env"'
-    			    }
-    			}
-			}
+        stage('Write .env') {
+            steps {
+                writeFile file: '.env', text: "${DOTENV}"
+            }
+        }
+
         stage('Restart Containers') {
-    			steps {
-        			script {
-            		echo "♻️ Перезапускаем контейнеры"
-            		sh "docker-compose -f $WORKSPACE/docker-compose.yml down"
-            		sh "docker-compose -f $WORKSPACE/docker-compose.yml up -d --build"
-        			}
-    			}
-			}
+            steps {
+                script {
+                    echo "♻️ Перезапускаем контейнеры"
+                    sh "docker-compose -f $WORKSPACE/docker-compose.yml down"
+                    sh "docker-compose -f $WORKSPACE/docker-compose.yml up -d --build"
+                }
+            }
+        }
     }
 
     post {
