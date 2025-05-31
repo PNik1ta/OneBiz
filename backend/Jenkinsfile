@@ -35,7 +35,7 @@ pipeline {
 		  stage('Copy .env') {
     			steps {
     			    script {
-    			        sh 'cp /root/onebiz/backend/.env $WORKSPACE/.env'
+    			        sh 'cp /root/onebiz/backend/.env "$WORKSPACE/.env"'
     			    }
     			}
 			}
