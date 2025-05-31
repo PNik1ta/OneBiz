@@ -1,2 +1,2 @@
-export const API_URL = 'http://localhost:5000/api'
-export const API_IMG_URL = 'http://localhost:5000/static'
+export const API_URL = 'http://one-biz.ru/api'
+export const API_IMG_URL = 'http://one-biz.ru/static'
