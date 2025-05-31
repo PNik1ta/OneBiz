@@ -82,11 +82,18 @@ pipeline {
             }
         }
 
+        stage('Print .env') {
+            steps {
+              sh 'cat backend/.env'
+            }
+        }
+
+
 
         stage('Restart Containers') {
             steps {
                 script {
-                    sh "docker compose -f \"$WORKSPACE/backend/docker-compose.yml\" down"
+                    sh "docker compose -f \"$WORKSPACE/backend/docker-compose.yml\" down -v"
                     sh "docker compose -f \"$WORKSPACE/backend/docker-compose.yml\" up -d --build"
                 }
             }
