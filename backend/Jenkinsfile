@@ -2,26 +2,17 @@ pipeline {
     agent any
 
     parameters {
-        string(name: 'GIT_BRANCH', defaultValue: 'main', description: 'Введите ветку для деплоя')
+        string(name: 'GIT_BRANCH', defaultValue: 'main', description: 'Ветка для деплоя')
     }
 
     environment {
-        DEPLOY_DIR = "/app"
         DOTENV = credentials('onebiz-dotenv')
     }
 
     stages {
-        stage('Fix workspace permissions') {
-            steps {
-                sh 'sudo chown -R jenkins:jenkins /var/lib/jenkins/workspace/Back-prod-deployment || true'
-                sh 'sudo chmod -R u+w /var/lib/jenkins/workspace/Back-prod-deployment || true'
-            }
-        }
-
         stage('Checkout Code') {
             steps {
                 script {
-                    echo "📥 Клонируем код из ветки: ${params.GIT_BRANCH}"
                     checkout([$class: 'GitSCM',
                         branches: [[name: "*/${params.GIT_BRANCH}"]],
                         userRemoteConfigs: [[
@@ -35,14 +26,15 @@ pipeline {
 
         stage('Write .env') {
             steps {
-                writeFile file: '.env', text: "${DOTENV}"
+                script {
+                    writeFile file: 'backend/.env', text: "${DOTENV}"
+                }
             }
         }
 
         stage('Restart Containers') {
             steps {
                 script {
-                    echo "♻️ Перезапускаем контейнеры"
                     sh "docker compose -f \"$WORKSPACE/backend/docker-compose.yml\" down"
                     sh "docker compose -f \"$WORKSPACE/backend/docker-compose.yml\" up -d --build"
                 }
@@ -51,11 +43,7 @@ pipeline {
     }
 
     post {
-        success {
-            echo "✅ Деплой завершён успешно!"
-        }
-        failure {
-            echo "❌ Ошибка при деплое!"
-        }
+        success { echo "✅ Деплой прошёл успешно" }
+        failure { echo "❌ Ошибка при деплое" }
     }
 }
