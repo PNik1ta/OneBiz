@@ -43,8 +43,8 @@ pipeline {
             steps {
                 script {
                     echo "♻️ Перезапускаем контейнеры"
-                    sh "docker compose -f \"$WORKSPACE/docker-compose.yml\" down"
-                    sh "docker compose -f \"$WORKSPACE/docker-compose.yml\" up -d --build"
+                    sh "docker compose -f \"$WORKSPACE/backend/docker-compose.yml\" down"
+                    sh "docker compose -f \"$WORKSPACE/backend/docker-compose.yml\" up -d --build"
                 }
             }
         }
