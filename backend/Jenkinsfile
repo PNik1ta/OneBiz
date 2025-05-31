@@ -55,18 +55,19 @@ pipeline {
         stage('Kill process on port 9090') {
             steps {
                 sh '''
-                    PIDS=$(sudo lsof -ti :9090)
-                     [ ! -z "$PIDS" ]; then
+                PIDS=$(sudo lsof -ti :9090) || true
+                if [ ! -z "$PIDS" ]; then
                     echo "🎯 Killing processes on port 9090: $PIDS"
                     for pid in $PIDS; do
-                      sudo kill -9 $pid || echo "⚠️ Failed to kill $pid (maybe already dead)"
+                        sudo kill -9 $pid || echo "⚠️ Failed to kill $pid (maybe already dead)"
                     done
-                    se
+                else
                     echo "✅ No process on port 9090"
-                    fi
+                fi
                 '''
             }
         }
+
 
         stage('Restart Containers') {
             steps {
