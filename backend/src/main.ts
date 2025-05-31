@@ -12,7 +12,12 @@ async function bootstrap() {
   const loggerService = app.get(ElasticsearchLoggerService);
 
   app.enableCors({
-    origin: ['http://localhost:4200', 'http://www.localhost:4200'],
+    origin: [
+      'http://localhost:4200',
+      'http://www.localhost:4200',
+      'https://one-biz.ru/',
+      'https://www.one-biz.ru/',
+    ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   });
