@@ -32,6 +32,16 @@ pipeline {
             }
         }
 
+        stage('СHECK .env') {
+            steps {
+                sh '''
+                    echo "📦 DOTENV содержимое:"
+                    echo "${DOTENV}"
+                    sh 'cat backend/.env'
+                '''
+            }
+        }
+
         stage('Fix volume permissions') {
             steps {
                 sh '''
