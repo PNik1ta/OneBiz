@@ -40,18 +40,17 @@ pipeline {
             }
         }
 
-        stage('Kill process on 9090') {
+        stage('Kill containers on 9090') {
             steps {
                 sh '''
-                PID=$(lsof -ti tcp:9090) || true
-                if [ ! -z "$PID" ]; then
-                  echo "Killing process on port 9090: $PID"
-                  kill -9 $PID
+                CONTAINER=$(docker ps -q --filter "publish=9090") || true
+                if [ ! -z "$CONTAINER" ]; then
+                    echo "⚠️ Killing container on port 9090: $CONTAINER"
+                    docker kill $CONTAINER || true
                 fi
                 '''
             }
         }
-
 
         stage('Restart Containers') {
             steps {
