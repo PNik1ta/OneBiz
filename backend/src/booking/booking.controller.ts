@@ -101,7 +101,7 @@ export class BookingController {
   })
   @Get('find-by-business/:business_id')
   @HttpCode(200)
-  @Roles(ERoles.BUSINESS, ERoles.ADMIN)
+  @Roles(ERoles.BUSINESS, ERoles.ADMIN, ERoles.USER)
   async findByBusinessId(
     @Param('business_id') businessId: number,
   ): Promise<BaseResponse<Booking[]>> {
