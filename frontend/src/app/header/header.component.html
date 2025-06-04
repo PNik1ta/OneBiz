@@ -39,8 +39,12 @@
     <a class="link" routerLink="/blog" (click)="toggleMenu()">Блог</a>
 
     <div class="btns" *ngIf="!isLoggedIn">
-      <a routerLink="/login" class="btn" (сlick)="toggleMenu()">Войти</a>
-      <a routerLink="/register" class="btn outlined" (сlick)="toggleMenu()">Регистрация</a>
+      <a class="btn" (click)="openLoginMobile()">Войти</a>
+      <a class="btn outlined" (click)="openRegisterMobile()">Регистрация</a>
+    </div>
+
+    <div class="btns" *ngIf="isLoggedIn">
+      <a class="btn" (click)="logoutMobile()">Выйти</a>
     </div>
   </div>
 </header>

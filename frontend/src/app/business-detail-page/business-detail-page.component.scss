@@ -17,6 +17,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @include for-mobile {
+      flex-direction: column-reverse;
+      gap: 16px;
+    }
   }
 
   h1 {

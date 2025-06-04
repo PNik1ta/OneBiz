@@ -63,6 +63,21 @@ export class HeaderComponent implements OnInit {
     document.body.style.overflow = this.isMenuOpen ? 'hidden' : 'auto';
   }
 
+  openLoginMobile(): void {
+    this.openLogin()
+    this.toggleMenu()
+  }
+
+  openRegisterMobile(): void {
+    this.openRegister()
+    this.toggleMenu()
+  }
+
+  logoutMobile(): void {
+    this.logout()
+    this.toggleMenu()
+  }
+
   openRegister(): void {
     const dialogRef = this.dialog.open(RegisterDialogComponent, {
       width: '400px'
