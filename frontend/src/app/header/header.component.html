@@ -37,6 +37,7 @@
     <a class="link" routerLink="/businesses" (click)="toggleMenu()">Бизнесы</a>
     <a class="link" routerLink="/services" (click)="toggleMenu()">Услуги</a>
     <a class="link" routerLink="/blog" (click)="toggleMenu()">Блог</a>
+    <a *ngIf="isLoggedIn" class="link" routerLink="/profile" (click)="toggleMenu()">Профиль</a>
 
     <div class="btns" *ngIf="!isLoggedIn">
       <a class="btn" (click)="openLoginMobile()">Войти</a>
