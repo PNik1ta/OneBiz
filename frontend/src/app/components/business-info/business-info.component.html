@@ -1,6 +1,6 @@
 <div class="main">
   <div class="user-info" *ngIf="user">
-    <img data-aos="fade-right" class="avatar" [src]="API_IMG_URL + '/' + user.avatar_url" alt="Аватар пользователя" (click)="onAvatarClick()"
+    <img data-aos="fade-right" class="avatar" [src]="user.avatar_url ? API_IMG_URL + '/' + user.avatar_url : 'default_avatar.png'" alt="Аватар пользователя" (click)="onAvatarClick()"
       title="Нажми, чтобы обновить аватар" />
 
 
@@ -49,7 +49,7 @@
     </div>
   </div>
 
-  <div class="analytics">
+  <div class="analytics" *ngIf="business">
     <div class="details" data-aos="fade-up">
       <h2>Прибыль по времени</h2>
       <div class="chart-container">
@@ -81,7 +81,7 @@
     </div>
   </div>
 
-  <div class="services-block" data-aos="fade-up">
+  <div class="services-block" data-aos="fade-up" *ngIf="business">
     <div class="services-block__header">
       <h2>Услуги</h2>
       <app-button (clicked)="onCreateService()">Добавить услугу</app-button>
@@ -95,12 +95,12 @@
     </div>
   </div>
 
-  <div class="reviews" data-aos="fade-up">
+  <div class="reviews" data-aos="fade-up" *ngIf="reviews.length > 0">
     <h2>Отзывы о бизнесе</h2>
     <div class="details">
       <div class="review-card" *ngFor="let review of reviews">
         <div class="header">
-          <img (click)="openUserInfoDialog(review)" [src]="API_IMG_URL + '/' + review.user_avatar_url" alt="avatar" class="avatar" />
+          <img (click)="openUserInfoDialog(review)" [src]="review.user_avatar_url ? API_IMG_URL + '/' + review.user_avatar_url : 'default_avatar.png'" alt="avatar" class="avatar" />
           <div class="info">
             <h3 (click)="openUserInfoDialog(review)">{{ review.username }}</h3>
             <div class="stars">

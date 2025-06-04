@@ -89,6 +89,8 @@ export class BookingDialogComponent implements OnInit {
       this.form.get('date')?.valueChanges.subscribe(date => {
         const dateStr = new Date(date).toDateString();
         const times = groupedByDate[dateStr] ?? [];
+        console.log('times: ', times);
+
 
         this.filteredTimeSlots = this.availableTimeSlots.filter(slot => !times.includes(slot));
         this.form.get('time')?.setValue(null); // сбрасываем время при смене даты

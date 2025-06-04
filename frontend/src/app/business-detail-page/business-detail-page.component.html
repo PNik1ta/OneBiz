@@ -24,7 +24,7 @@
       <div class="details">
         <div class="review-card" *ngFor="let review of reviews">
           <div class="header">
-            <img (click)="openUserInfoDialog(review)" [src]="API_IMG_URL + '/' + review.user_avatar_url" alt="avatar"
+            <img (click)="openUserInfoDialog(review)" [src]="review.user_avatar_url ? API_IMG_URL + '/' + review.user_avatar_url : 'default_avatar.png'" alt="avatar"
               class="avatar" />
             <div class="info">
               <h3 (click)="openUserInfoDialog(review)">{{ review.username }}</h3>

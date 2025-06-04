@@ -1,5 +1,5 @@
 <div class="user-info" *ngIf="user">
-  <img data-aos="fade-right" class="avatar" [src]="API_IMG_URL + '/' + user.avatar_url" alt="Аватар пользователя" (click)="onAvatarClick()"
+  <img data-aos="fade-right" class="avatar" [src]="user.avatar_url ? API_IMG_URL + '/' + user.avatar_url : 'default_avatar.png'" alt="Аватар пользователя" (click)="onAvatarClick()"
     title="Нажми, чтобы обновить аватар" />
 
   <div class="details" data-aos="fade-left">

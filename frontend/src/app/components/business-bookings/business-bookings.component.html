@@ -31,13 +31,13 @@
 
 
 <div class="bookings" data-aos="fade-up">
-  <div class="booking" (click)="openDetailsDialog(booking)" *ngFor="let booking of filteredBookings">
+  <div class="booking" (click)="openDetailsDialog(booking, $event)" *ngFor="let booking of filteredBookings">
     <h2>{{booking.datetime | date: 'dd.MM.yyyy HH:mm'}}</h2>
     <h5>{{booking.company_name}}</h5>
     <h5>{{booking.service}}</h5>
     <p>{{booking.description}}</p>
     <small>{{booking.amount}} руб</small>
-    <button (click)="openStatusDialog(booking)">Изменить статус</button>
+    <button (click)="openStatusDialog(booking, $event); $event.stopPropagation()">Изменить статус</button>
     <div class="status" [ngClass]="booking.status">
       {{booking.status}}
     </div>

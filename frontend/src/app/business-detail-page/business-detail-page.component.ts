@@ -18,6 +18,8 @@ import * as AOS from 'aos';
 import { MatIconModule } from '@angular/material/icon';
 import { UserInfoDialogComponent } from '../components/user-info-dialog/user-info-dialog.component';
 import { AuthService } from '../core/services/auth.service';
+import { IUser } from '../core/interfaces/user.interface';
+import { UsersService } from '../core/services/users.service';
 
 @Component({
   selector: 'app-business-detail-page',
@@ -37,6 +39,7 @@ export class BusinessDetailPageComponent implements OnInit {
   business: IBusiness | null = null;
   services: IService[] = [];
   reviews: IReview[] = [];
+  user: IUser | null = null;
   API_IMG_URL = API_IMG_URL;
   isLoading: boolean = true;
   isAuthenticated: boolean = false;
@@ -47,7 +50,8 @@ export class BusinessDetailPageComponent implements OnInit {
     private serviceService: ServiceService,
     private dialog: MatDialog,
     private reviewService: ReviewService,
-    private authService: AuthService
+    private authService: AuthService,
+    private userService: UsersService,
   ) {
     this.isAuthenticated = authService.isAuthenticated();
   }
@@ -58,10 +62,17 @@ export class BusinessDetailPageComponent implements OnInit {
     Promise.all([
       this.businessService.getBusinessById(this.businessId).toPromise(),
       this.serviceService.getServiceByBusinessId(this.businessId).toPromise(),
+      this.userService.getProfile().toPromise(),
       this.getUserReviews()
-    ]).then(([businessRes, serviceRes]) => {
+    ]).then(([businessRes, serviceRes, usersRes]) => {
       this.business = businessRes?.data ?? null
       this.services = serviceRes?.data ?? []
+
+      if (this.isAuthenticated) {
+        this.userService.getProfile().subscribe((res) => {
+          this.user = usersRes?.data ?? null;
+        });
+      }
     }).finally(() => {
       this.isLoading = false;
     })
@@ -100,6 +111,6 @@ export class BusinessDetailPageComponent implements OnInit {
   }
 
   hasReview(businessId: number): boolean {
-    return this.reviews.some(review => review.booking_business_id === businessId && review.type === EReviewType.BUSINESS);
+    return this.reviews.some(review => review.booking_business_id === businessId && review.type === EReviewType.BUSINESS && review.user_id === this.user?.id);
   }
 }

@@ -93,6 +93,8 @@ export class CreateBusinessComponent {
           this.isLoading = false;
         });
       });
+    }).finally(() => {
+      this.isLoading = false;
     });
   }
 }

@@ -53,7 +53,7 @@ export class BusinessBookingsComponent {
     this.getBusinessAndBookings();
   }
 
-  openDetailsDialog(booking: IBooking): void {
+  openDetailsDialog(booking: IBooking, event: any): void {
     this.dialog.open(BookingDetailsComponent, {
       width: '400px',
       data: booking
@@ -121,7 +121,7 @@ export class BusinessBookingsComponent {
     });
   }
 
-  openStatusDialog(booking: IBooking): void {
+  openStatusDialog(booking: IBooking, event: any): void {
     const dialogRef = this.dialog.open(UpdateBookingStatusComponent, {
       width: '400px',
       data: { currentStatus: booking.status }

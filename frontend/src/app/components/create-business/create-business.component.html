@@ -14,7 +14,7 @@
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Город</mat-label>
-      <mat-select formControlName="city_id" multiple>
+      <mat-select formControlName="city_id">
         <mat-option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</mat-option>
       </mat-select>
     </mat-form-field>
