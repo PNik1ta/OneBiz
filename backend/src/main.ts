@@ -1,15 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import * as express from 'express';
 import { Request, Response } from 'express';
-import { ElasticsearchLoggerService } from './logger.service';
 import { register } from 'prom-client';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
-  const loggerService = app.get(ElasticsearchLoggerService);
 
   app.enableCors({
     origin: [
@@ -48,19 +45,19 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  app.use((req: Request, res: Response, next) => {
-    express.json()(req, res, () => {
-      if (req.url !== '/metrics') {
-        loggerService.logHTTPRequest(
-          req.method,
-          req.url,
-          JSON.stringify(req.body),
-          res.statusCode,
-        );
-      }
-      next();
-    });
-  });
+  // app.use((req: Request, res: Response, next) => {
+  //   express.json()(req, res, () => {
+  //     if (req.url !== '/metrics') {
+  //       loggerService.logHTTPRequest(
+  //         req.method,
+  //         req.url,
+  //         JSON.stringify(req.body),
+  //         res.statusCode,
+  //       );
+  //     }
+  //     next();
+  //   });
+  // });
 
   await app.listen(5000);
 }
